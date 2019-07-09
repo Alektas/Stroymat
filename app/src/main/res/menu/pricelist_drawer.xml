@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_all"
+            android:title="@string/all" />
+        <item
+            android:id="@+id/nav_kirpich"
+            android:title="Крипич" />
+        <item
+            android:id="@+id/nav_gaz_bloki"
+            android:title="Газобетонные блоки" />
+        <item
+            android:id="@+id/nav_keram_bloki"
+            android:title="Керамзитобетонные блоки" />
+        <item
+            android:id="@+id/nav_utepl"
+            android:title="Утеплитель" />
+        <item
+            android:id="@+id/nav_cement"
+            android:title="Цемент" />
+        <item
+            android:id="@+id/nav_keramzit"
+            android:title="Керамзит" />
+        <item
+            android:id="@+id/nav_plenki"
+            android:title="Пленки, мембраны, геотекстиль" />
+        <item
+            android:id="@+id/nav_teploizol"
+            android:title="Теплоизоляция" />
+        <item
+            android:id="@+id/nav_osb_fanera_gkl"
+            android:title="OSB, фанера, ГКЛ" />
+        <item
+            android:id="@+id/nav_krepej"
+            android:title="Крепежные элементы" />
+        <item
+            android:id="@+id/nav_krovel_mat"
+            android:title="Кровельные материалы" />
+        <item
+            android:id="@+id/nav_profil_kompl"
+            android:title="Профиль, комплектующие" />
+        <item
+            android:id="@+id/nav_npvh_tubes"
+            android:title="НПВХ трубы" />
+        <item
+            android:id="@+id/nav_grunt_shutakurka"
+            android:title="Грунтовки, штукатурка, шпаклевка" />
+        <item
+            android:id="@+id/nav_lenty_skotchi"
+            android:title="Ленты, скотчи, сетки" />
+        <item
+            android:id="@+id/nav_kley_pena"
+            android:title="Клей, герметик, монтажная пена" />
+        <item
+            android:id="@+id/nav_raznoe"
+            android:title="Разное" />
+        <item
+            android:id="@+id/nav_plita_trotuar"
+            android:title="Плита тротуарная" />
+        <item
+            android:id="@+id/nav_bordury"
+            android:title="Бордюры, водостоки" />
+        <item
+            android:id="@+id/nav_profnastil"
+            android:title="@string/profnastil" />
+        <item
+            android:id="@+id/nav_metallocher"
+            android:title="Металлочерепица" />
+        <item
+            android:id="@+id/nav_metalloizd"
+            android:title="Металлоизделия" />
+        <item
+            android:id="@+id/nav_plast_vodostok"
+            android:title="Пластиковый водосток" />
+        <item
+            android:id="@+id/nav_lakokras_mat"
+            android:title="Лакокрасочноые материалы" />
+        <item
+            android:id="@+id/nav_hoz_tov"
+            android:title="Хозяйственные товары" />
+        <item
+            android:id="@+id/nav_ankera"
+            android:title="Анкера" />
+        <item
+            android:id="@+id/nav_gvozdi_str"
+            android:title="Гвозди строительные" />
+        <item
+            android:id="@+id/nav_dubeli"
+            android:title="Дюбели" />
+        <item
+            android:id="@+id/nav_instr_abraz"
+            android:title="Инстр-т абразивно-зачистной" />
+        <item
+            android:id="@+id/nav_metr_krep"
+            android:title="Метрический крепеж" />
+        <item
+            android:id="@+id/nav_perfor"
+            android:title="Перфорация" />
+        <item
+            android:id="@+id/nav_other"
+            android:title="Прочие товары" />
+        <item
+            android:id="@+id/nav_samorez"
+            android:title="Саморезы" />
+        <item
+            android:id="@+id/nav_samorez_list_metal"
+            android:title="Саморезы для лист. металла" />
+        <item
+            android:id="@+id/nav_upakovka"
+            android:title="Упаковка" />
+        <item
+            android:id="@+id/nav_upakovka1"
+            android:title="Упаковка" />
+        <item
+            android:id="@+id/nav_zaglushki"
+            android:title="Заглушки" />
+        <item
+            android:id="@+id/nav_electrody"
+            android:title="Электроды" />
+        <item
+            android:id="@+id/nav_smesi_pechi"
+            android:title="Сухие смеси для печей" />
+        <item
+            android:id="@+id/nav_litye_pechi"
+            android:title="Литье для печей" />
+        <item
+            android:id="@+id/nav_utepl_jut"
+            android:title="Межвенцовый утеплитель (джут)" />
+        <item
+            android:id="@+id/nav_siding"
+            android:title="Сайдинг" />
+        <item
+            android:id="@+id/nav_ankera1"
+            android:title="Анкера" />
+        <item
+            android:id="@+id/nav_bity"
+            android:title="Биты" />
+        <item
+            android:id="@+id/nav_bolt_santeh"
+            android:title="Болты сантехнические" />
+        <item
+            android:id="@+id/nav_bury_sverla"
+            android:title="Буры, сверла" />
+        <item
+            android:id="@+id/nav_ventil"
+            android:title="Вентиляция" />
+        <item
+            android:id="@+id/nav_gvozdi_spec"
+            android:title="Гвозди специальные, скобы" />
+        <item
+            android:id="@+id/nav_zaklepki"
+            android:title="Заклепки" />
+        <item
+            android:id="@+id/nav_instr_abraz1"
+            android:title="Инстр-т абразивно-зачистной" />
+        <item
+            android:id="@+id/nav_instr_otdel"
+            android:title="Инстр-т для отделоч. работ" />
+        <item
+            android:id="@+id/nav_instr_izmer"
+            android:title="Инстр-т измерительный" />
+        <item
+            android:id="@+id/nav_instr_malyar"
+            android:title="Инстр-т малярно-штукатурный" />
+        <item
+            android:id="@+id/nav_instr_slesar"
+            android:title="Инстр-т слесарно-монтажный" />
+        <item
+            android:id="@+id/nav_instr_stolyar"
+            android:title="Инстр-т столярно-плотницкий" />
+        <item
+            android:id="@+id/nav_homut"
+            android:title="Хомуты" />
+        <item
+            android:id="@+id/nav_shurupy_beton"
+            android:title="Шурупы по бетону" />
+        <item
+            android:id="@+id/nav_elec_roz"
+            android:title="Электрика: розетки, выкл., удлин" />
+        <item
+            android:id="@+id/nav_elec_nakon"
+            android:title="Электрика: наконечники, гильзы" />
+        <item
+            android:id="@+id/nav_raznoe1"
+            android:title="Разное" />
+        <item
+            android:id="@+id/nav_profnastil1"
+            android:title="Профнастил" />
+        <item
+            android:id="@+id/nav_kabel"
+            android:title="Кабель" />
+        <item
+            android:id="@+id/nav_dobor"
+            android:title="Доборные эементы" />
+        <item
+            android:id="@+id/nav_plast_panel"
+            android:title="Пластиковые панели" />
+        <item
+            android:id="@+id/nav_dobor1"
+            android:title="Доборные элементы" />
+        <item
+            android:id="@+id/nav_decor"
+            android:title="Декоративные элементы" />
+        <item
+            android:id="@+id/nav_santeh"
+            android:title="Сантехника" />
+        <item
+            android:id="@+id/nav_cki"
+            android:title="ЦКИ" />
+        <item
+            android:id="@+id/nav_teplicy"
+            android:title="Теплицы" />
+
+    </group>
+
+</menu>

@@ -1,0 +1,144 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "650727517c6ec437a13db374f27ac133",
+    "entities": [
+      {
+        "tableName": "items",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`article` INTEGER NOT NULL, `name` TEXT NOT NULL, `price` REAL NOT NULL, `unit` TEXT NOT NULL, `img_res` TEXT, `categ` INTEGER NOT NULL, PRIMARY KEY(`article`), FOREIGN KEY(`categ`) REFERENCES `categories`(`categ`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "article",
+            "columnName": "article",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "price",
+            "columnName": "price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unit",
+            "columnName": "unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imgResName",
+            "columnName": "img_res",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "categ",
+            "columnName": "categ",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "article"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_items_article",
+            "unique": true,
+            "columnNames": [
+              "article"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_items_article` ON `${TABLE_NAME}` (`article`)"
+          },
+          {
+            "name": "index_items_name",
+            "unique": false,
+            "columnNames": [
+              "name"
+            ],
+            "createSql": "CREATE  INDEX `index_items_name` ON `${TABLE_NAME}` (`name`)"
+          },
+          {
+            "name": "index_items_categ",
+            "unique": false,
+            "columnNames": [
+              "categ"
+            ],
+            "createSql": "CREATE  INDEX `index_items_categ` ON `${TABLE_NAME}` (`categ`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "categories",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "categ"
+            ],
+            "referencedColumns": [
+              "categ"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "categories",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`categ` INTEGER NOT NULL, `categ_name` TEXT NOT NULL, PRIMARY KEY(`categ`))",
+        "fields": [
+          {
+            "fieldPath": "categ",
+            "columnName": "categ",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "categName",
+            "columnName": "categ_name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "categ"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_categories_categ",
+            "unique": true,
+            "columnNames": [
+              "categ"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_categories_categ` ON `${TABLE_NAME}` (`categ`)"
+          },
+          {
+            "name": "index_categories_categ_name",
+            "unique": false,
+            "columnNames": [
+              "categ_name"
+            ],
+            "createSql": "CREATE  INDEX `index_categories_categ_name` ON `${TABLE_NAME}` (`categ_name`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '650727517c6ec437a13db374f27ac133')"
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "alektas.stroymat"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "0.1.0"
+        project.ext.set("archivesBaseName", "PocketBasket-" + defaultConfig.versionName)
+
+        resConfigs "en", "ru"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+//            minifyEnabled true
+//            shrinkResources true
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.config
+//
+            buildConfigField 'String', 'AUTHORITY', '"alektas.stroymat.ItemsProvider"'
+            resValue 'string', 'search_authority', 'alektas.stroymat.ItemsProvider'
+        }
+        debug {
+            aaptOptions.cruncherEnabled = false
+            minifyEnabled false
+            shrinkResources false
+            ext.alwaysUpdateBuildId = false
+            ext.enableCrashlytics = false
+            splits.abi.enable = false
+            splits.density.enable = false
+
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+
+            buildConfigField 'String', 'AUTHORITY', '"alektas.stroymat.debug.ItemsProvider"'
+            resValue 'string', 'search_authority', 'alektas.stroymat.debug.ItemsProvider'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+    buildToolsVersion = '29.0.0 rc3'
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0-beta01'
+    implementation 'com.google.android.material:material:1.1.0-alpha07'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    implementation 'androidx.room:room-runtime:2.1.0'
+    annotationProcessor 'androidx.room:room-compiler:2.1.0'
+
+    implementation 'com.google.dagger:dagger:2.23.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.23.1'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.navigation:navigation-fragment:2.0.0'
+    implementation 'androidx.navigation:navigation-ui:2.0.0'
+}

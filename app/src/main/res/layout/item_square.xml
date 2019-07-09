@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
+
+    <TextView
+        android:id="@+id/square_width"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/wall_item_margin"
+        android:textAlignment="center"
+        android:textSize="@dimen/textsize_basic"
+        android:text="0.00"/>
+
+    <TextView
+        android:id="@+id/multiply_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/square_width"
+        android:layout_alignBaseline="@id/square_width"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="X"
+        android:textSize="@dimen/textsize_basic"/>
+
+    <TextView
+        android:id="@+id/square_height"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/multiply_text"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@id/multiply_text"
+        android:textAlignment="center"
+        android:textSize="@dimen/textsize_basic"
+        android:text="0.00"/>
+
+    <TextView
+        android:id="@+id/result_square"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/square_height"
+        android:layout_toStartOf="@id/result_square_units"
+        android:text="0.00"
+        android:textSize="@dimen/textsize_basic"/>
+
+    <TextView
+        android:id="@+id/result_square_units"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/result_square"
+        android:layout_toStartOf="@id/item_del_btn"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/square_units"
+        android:textSize="@dimen/textsize_basic"/>
+
+    <ImageButton
+        android:id="@+id/item_del_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:tint="@android:color/white"
+        android:src="@drawable/ic_close_black_24dp"/>
+
+</RelativeLayout>
