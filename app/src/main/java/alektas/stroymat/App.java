@@ -1,12 +1,12 @@
 package alektas.stroymat;
 
-import android.app.Application;
+import androidx.multidex.MultiDexApplication;
 
 import alektas.stroymat.di.AppComponent;
 import alektas.stroymat.di.AppModule;
 import alektas.stroymat.di.DaggerAppComponent;
 
-public class App extends Application {
+public class App extends MultiDexApplication {
     private static AppComponent sAppComponent;
 
     @Override
