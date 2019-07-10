@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/pricelistFragment">
+
+    <fragment
+        android:id="@+id/pricelistFragment"
+        android:name="alektas.stroymat.ui.pricelist.PricelistFragment"
+        android:label="Прайслист"
+        tools:layout="@layout/pricelist_fragment" >
+        <action
+            android:id="@+id/action_pricelistFragment_to_itemFragment"
+            app:destination="@id/itemFragment" />
+        <action
+            android:id="@+id/action_pricelistFragment_to_calculatorsFragment"
+            app:destination="@id/calculatorsFragment" />
+        <action
+            android:id="@+id/action_pricelistFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/calculatorsFragment"
+        android:name="alektas.stroymat.ui.calculators.CalculatorsFragment"
+        android:label="Калькуляторы"
+        tools:layout="@layout/calculators_fragment">
+        <action
+            android:id="@+id/action_calculatorsFragment_to_sidingFragment"
+            app:destination="@id/sidingFragment" />
+        <action
+            android:id="@+id/action_calculatorsFragment_to_profnastilFragment"
+            app:destination="@id/profnastilFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/galleryFragment"
+        android:name="alektas.stroymat.ui.gallery.GalleryFragment"
+        android:label="Галерея"
+        tools:layout="@layout/gallery_fragment"/>
+    <fragment
+        android:id="@+id/sidingFragment"
+        android:name="alektas.stroymat.ui.calculators.siding.SidingFragment"
+        android:label="Сайдинг"
+        tools:layout="@layout/siding_fragment" />
+    <fragment
+        android:id="@+id/profnastilFragment"
+        android:name="alektas.stroymat.ui.calculators.profnastil.ProfnastilFragment"
+        android:label="Профнастил"
+        tools:layout="@layout/profnastil_fragment" />
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="alektas.stroymat.ui.pricelist.ItemFragment"
+        android:label="Товар"
+        tools:layout="@layout/item_pricelist_details" />
+</navigation>

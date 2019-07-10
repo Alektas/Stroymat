@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_pricelist"
+        android:id="@+id/pricelistFragment"
         android:icon="@drawable/ic_pricelist_black_24dp"
         android:title="@string/title_pricelist" />
 
     <item
-        android:id="@+id/navigation_calculators"
+        android:id="@+id/calculatorsFragment"
         android:icon="@drawable/ic_calculators_black_24dp"
         android:title="@string/title_calculators" />
 
     <item
-        android:id="@+id/navigation_gallery"
+        android:id="@+id/galleryFragment"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/title_gallery" />
 

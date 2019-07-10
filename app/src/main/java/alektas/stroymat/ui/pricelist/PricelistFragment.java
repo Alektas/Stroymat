@@ -32,7 +32,6 @@ public class PricelistFragment extends Fragment
         implements NavigationView.OnNavigationItemSelectedListener {
     private PricelistViewModel mViewModel;
     private PricelistAdapter pricelistAdapter;
-    private SearchView mSearchView;
     private ActionBarDrawerToggle toggleMenu;
 
     public static PricelistFragment newInstance() {
@@ -54,8 +53,18 @@ public class PricelistFragment extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NavigationView slideMenu = getView().findViewById(R.id.slide_nav_view);
+        NavigationView slideMenu = view.findViewById(R.id.slide_nav_view);
         slideMenu.setNavigationItemSelectedListener(this);
+
+        mViewModel = ViewModelProviders.of(requireActivity()).get(PricelistViewModel.class);
+        pricelistAdapter = new PricelistAdapter(getContext(), mViewModel);
+        mViewModel.getItemsLoading().observe(getViewLifecycleOwner(), isLoaded -> {
+            view.findViewById(R.id.loading_bar)
+                    .setVisibility(isLoaded ? View.GONE : View.VISIBLE);
+        });
+        mViewModel.getItems().observe(getViewLifecycleOwner(), items -> {
+            pricelistAdapter.setItems(items);
+        });
         RecyclerView pricelistRv = view.findViewById(R.id.pricelist);
         pricelistRv.setLayoutManager(new LinearLayoutManager(getContext()));
         pricelistRv.setHasFixedSize(true);
@@ -65,15 +74,7 @@ public class PricelistFragment extends Fragment
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(getActivity()).get(PricelistViewModel.class);
-        pricelistAdapter = new PricelistAdapter(getContext(), mViewModel);
-        RecyclerView pricelistRv = getView().findViewById(R.id.pricelist);
-        pricelistRv.setAdapter(pricelistAdapter);
-        mViewModel.getItemsLoading().observe(this, isLoaded -> {
-            getView().findViewById(R.id.loading_bar)
-                    .setVisibility(isLoaded ? View.GONE : View.VISIBLE);
-        });
-        mViewModel.getItems().observe(this, items -> pricelistAdapter.setItems(items));
+
     }
 
     @Override
@@ -81,14 +82,14 @@ public class PricelistFragment extends Fragment
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.pricelist_toolbar, menu);
         SearchManager searchManager =
-                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        mSearchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getActivity().getComponentName()));
-        mSearchView.setIconifiedByDefault(true);
+                (SearchManager) requireActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(requireActivity().getComponentName()));
+        searchView.setIconifiedByDefault(true);
 
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        DrawerLayout drawer = getView().findViewById(R.id.drawer_layout);
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
+        DrawerLayout drawer = requireView().findViewById(R.id.drawer_layout);
         toggleMenu = new ActionBarDrawerToggle(
                 getActivity(), drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -249,7 +250,7 @@ public class PricelistFragment extends Fragment
             setCategory(92);
         }
 
-        DrawerLayout drawer = getView().findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = requireView().findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

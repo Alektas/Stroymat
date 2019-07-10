@@ -1,7 +1,5 @@
 package alektas.stroymat.ui.pricelist;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -34,13 +31,11 @@ public class ItemFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.item_details_toolbar, menu);
     }
 
     @Override
@@ -52,11 +47,8 @@ public class ItemFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
-        mViewModel = ViewModelProviders.of(getActivity()).get(PricelistViewModel.class);
-        mViewModel.getSelectedItem().observe(this, item -> {
-            bind(getView(), item);
-        });
+        mViewModel = ViewModelProviders.of(requireActivity()).get(PricelistViewModel.class);
+        mViewModel.getSelectedItem().observe(this, item -> bind(requireView(), item));
     }
 
     private void bind(View itemView, PricelistItem item) {
