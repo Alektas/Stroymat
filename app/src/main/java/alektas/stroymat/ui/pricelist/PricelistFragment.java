@@ -1,7 +1,5 @@
 package alektas.stroymat.ui.pricelist;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
@@ -16,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,12 +29,28 @@ import alektas.stroymat.R;
 
 public class PricelistFragment extends Fragment
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static final String TAG = "PricelistFragment";
+    private FragmentListener mFragmentListener;
     private PricelistViewModel mViewModel;
     private PricelistAdapter pricelistAdapter;
-    private ActionBarDrawerToggle toggleMenu;
+
+    public interface FragmentListener {
+        void onFragmentCreated(String tag);
+    }
 
     public static PricelistFragment newInstance() {
         return new PricelistFragment();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            mFragmentListener = (FragmentListener) context;
+        } catch (ClassCastException e) {
+            Log.e(TAG, "onAttach: activity must implement " +
+                    FragmentListener.class.getSimpleName(), e);
+        }
     }
 
     @Override
@@ -75,7 +90,7 @@ public class PricelistFragment extends Fragment
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        mFragmentListener.onFragmentCreated(TAG);
     }
 
     @Override
@@ -88,25 +103,10 @@ public class PricelistFragment extends Fragment
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(requireActivity().getComponentName()));
         searchView.setIconifiedByDefault(true);
-
-        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
-        DrawerLayout drawer = requireView().findViewById(R.id.drawer_layout);
-        toggleMenu = new ActionBarDrawerToggle(
-                getActivity(), drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggleMenu);
-        toggleMenu.syncState();
-    }
-
-    @Override
-    public void onDestroyOptionsMenu() {
-        super.onDestroyOptionsMenu();
-        toggleMenu.setDrawerIndicatorEnabled(false);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_all) {

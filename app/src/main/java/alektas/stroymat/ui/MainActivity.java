@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.util.Log;
@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.SearchView;
 
 import alektas.stroymat.R;
+import alektas.stroymat.ui.pricelist.PricelistFragment;
 import alektas.stroymat.ui.pricelist.PricelistViewModel;
 
 /**
@@ -43,11 +44,11 @@ import alektas.stroymat.ui.pricelist.PricelistViewModel;
  *
  * @author Alektas, студент-самоучка
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PricelistFragment.FragmentListener {
     private static final String TAG = "MainActivity";
-
     private PricelistViewModel mPricelistViewModel;
     private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
     private NavController navController;
 
     @Override
@@ -55,20 +56,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_main);
-
-        navController =
-                Navigation.findNavController(this, R.id.nav_host_fragment);
-        AppBarConfiguration appbarConfig = new AppBarConfiguration
-                .Builder(R.id.pricelistFragment, R.id.calculatorsFragment, R.id.galleryFragment)
-                        .build();
-        toolbar = findViewById(R.id.toolbar);
-        NavigationUI.setupWithNavController(toolbar, navController, appbarConfig);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_view);
-        NavigationUI.setupWithNavController(bottomNav, navController);
+        setupNavigation();
 
         mPricelistViewModel = ViewModelProviders.of(this).get(PricelistViewModel.class);
         mPricelistViewModel.getSelectedItem().observe(this, item -> {
@@ -76,11 +64,38 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void setupNavigation() {
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        navController =
+                Navigation.findNavController(this, R.id.nav_host_fragment);
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_view);
+        NavigationUI.setupWithNavController(bottomNav, navController);
+    }
+
+    @Override
+    public void onFragmentCreated(String tag) {
+        if (tag.equals(PricelistFragment.TAG)) {
+            Fragment fragment =
+                    getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+            if (fragment == null) return;
+            drawerLayout = fragment.requireView().findViewById(R.id.drawer_layout);
+            NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout);
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(navController, drawerLayout) || super.onSupportNavigateUp();
+    }
+
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
             return;
         }
         super.onBackPressed();
