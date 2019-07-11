@@ -18,7 +18,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 
 import alektas.stroymat.R;
 import alektas.stroymat.ui.pricelist.PricelistViewModel;
@@ -109,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             onSearchEnter(query);
+            cancelSearch();
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             String itemArticle = intent.getDataString();
             onSearchItemSelected(itemArticle);
@@ -117,6 +120,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void onSearchEnter(String query) {
         mPricelistViewModel.onSearchEnter(query);
+    }
+
+    private void cancelSearch() {
+        MenuItem menuSearch = toolbar.getMenu().findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuSearch.getActionView();
+        searchView.onActionViewCollapsed();
     }
 
     private void onSearchItemSelected(String articleString) {
