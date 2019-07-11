@@ -57,18 +57,19 @@ public class PricelistFragment extends Fragment
         slideMenu.setNavigationItemSelectedListener(this);
 
         mViewModel = ViewModelProviders.of(requireActivity()).get(PricelistViewModel.class);
-        pricelistAdapter = new PricelistAdapter(getContext(), mViewModel);
+        pricelistAdapter = new PricelistAdapter(mViewModel);
+        RecyclerView pricelistRv = view.findViewById(R.id.pricelist);
+        pricelistRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        pricelistRv.setHasFixedSize(true);
+        pricelistRv.setAdapter(pricelistAdapter);
         mViewModel.getItemsLoading().observe(getViewLifecycleOwner(), isLoaded -> {
             view.findViewById(R.id.loading_bar)
                     .setVisibility(isLoaded ? View.GONE : View.VISIBLE);
         });
         mViewModel.getItems().observe(getViewLifecycleOwner(), items -> {
             pricelistAdapter.setItems(items);
+            pricelistRv.smoothScrollToPosition(0);
         });
-        RecyclerView pricelistRv = view.findViewById(R.id.pricelist);
-        pricelistRv.setLayoutManager(new LinearLayoutManager(getContext()));
-        pricelistRv.setHasFixedSize(true);
-        pricelistRv.setAdapter(pricelistAdapter);
     }
 
     @Override

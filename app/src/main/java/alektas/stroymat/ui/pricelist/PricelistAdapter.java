@@ -20,11 +20,9 @@ import alektas.stroymat.utils.StringUtils;
 
 public class PricelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<PricelistItem> mPricelistItems;
-    private Context mContext;
     private PricelistViewModel mModel;
 
-    public PricelistAdapter(Context context, PricelistViewModel model) {
-        mContext = context;
+    public PricelistAdapter(PricelistViewModel model) {
         mModel = model;
         mPricelistItems = new ArrayList<>();
         setHasStableIds(true);
