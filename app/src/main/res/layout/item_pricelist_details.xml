@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context="alektas.stroymat.ui.pricelist.ItemFragment">
 
         <ImageView
@@ -16,7 +16,7 @@
             android:layout_height="@dimen/height_item_details_img"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@color/colorSecondary"
-            android:src="@drawable/img_placeholder"/>
+            app:srcCompat="@drawable/img_placeholder"/>
 
         <TextView
             android:id="@+id/item_name"

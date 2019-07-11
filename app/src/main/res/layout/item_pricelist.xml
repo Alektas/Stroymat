@@ -16,7 +16,7 @@
             android:id="@+id/item_img"
             android:layout_width="@dimen/width_pricelist_item_img"
             android:layout_height="match_parent"
-            android:src="@drawable/img_placeholder"/>
+            app:srcCompat="@drawable/img_placeholder"/>
 
         <TextView
             android:id="@+id/item_article"
