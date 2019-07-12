@@ -80,11 +80,14 @@ public class ProfnastilFragment extends Fragment implements TextWatcher {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(ProfnastilViewModel.class);
-        mViewModel.getRoofs().observe(this, roofs -> profnastilAdapter.setSquares(roofs));
-        mViewModel.getRoofSquare().observe(this, square -> updateSidingCalc());
         profnastilAdapter = new SquaresAdapter(mViewModel, SquaresAdapter.SQUARE_TYPE_ROOF);
         RecyclerView roofRv = getView().findViewById(R.id.roof_list);
         roofRv.setAdapter(profnastilAdapter);
+        mViewModel.getRoofs().observe(getViewLifecycleOwner(), roofs -> {
+            profnastilAdapter.setSquares(roofs);
+            requireView().requestLayout();
+        });
+        mViewModel.getRoofSquare().observe(this, square -> updateSidingCalc());
     }
 
     @Override

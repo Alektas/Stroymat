@@ -108,12 +108,6 @@ public class SidingFragment extends Fragment implements TextWatcher {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(SidingViewModel.class);
-        mViewModel.getWalls().observe(this, walls -> wallsAdapter.setSquares(walls));
-        mViewModel.getWallsSquare().observe(this, square -> updateSidingCalc());
-        mViewModel.getWindows().observe(this, windows -> windowsAdapter.setSquares(windows));
-        mViewModel.getWindowsSquare().observe(this, square -> updateSidingCalc());
-        mViewModel.getFrontons().observe(this, frontons -> frontonsAdapter.setSquares(frontons));
-        mViewModel.getFrontonSquare().observe(this, square -> updateSidingCalc());
 
         wallsAdapter = new SquaresAdapter(mViewModel, SquaresAdapter.SQUARE_TYPE_WALL);
         windowsAdapter = new SquaresAdapter(mViewModel, SquaresAdapter.SQUARE_TYPE_WINDOW);
@@ -125,6 +119,22 @@ public class SidingFragment extends Fragment implements TextWatcher {
         windowsRv.setAdapter(windowsAdapter);
         RecyclerView frontonsRv = getView().findViewById(R.id.fronton_list);
         frontonsRv.setAdapter(frontonsAdapter);
+
+        mViewModel.getWalls().observe(this, walls -> {
+            wallsAdapter.setSquares(walls);
+            requireView().requestLayout();
+        });
+        mViewModel.getWallsSquare().observe(this, square -> updateSidingCalc());
+        mViewModel.getWindows().observe(this, windows -> {
+            windowsAdapter.setSquares(windows);
+            requireView().requestLayout();
+        });
+        mViewModel.getWindowsSquare().observe(this, square -> updateSidingCalc());
+        mViewModel.getFrontons().observe(this, frontons -> {
+            frontonsAdapter.setSquares(frontons);
+            requireView().requestLayout();
+        });
+        mViewModel.getFrontonSquare().observe(this, square -> updateSidingCalc());
     }
 
     @Override
