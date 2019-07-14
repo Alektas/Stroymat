@@ -2,7 +2,7 @@ package alektas.stroymat.ui.gallery;
 
 import androidx.lifecycle.ViewModelProviders;
 
-import android.os.AsyncTask;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,14 +16,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import alektas.stroymat.R;
 
 public class GalleryFragment extends Fragment {
     private static final String TAG = "GalleryFragment";
-    private static final int GALLERY_MAX_SIZE = 20;
+    private static final String DEFAULT_NAME = "Photo";
     private GalleryViewModel mViewModel;
     private GalleryAdapter galleryAdapter;
 
@@ -49,33 +52,25 @@ public class GalleryFragment extends Fragment {
 
         galleryAdapter = new GalleryAdapter(mViewModel);
         rv.setAdapter(galleryAdapter);
-        new loadItemsAsync(galleryAdapter).execute();
-    }
-
-    private static class loadItemsAsync extends AsyncTask<Void, Void, Void> {
-        private GalleryAdapter mAdapter;
-
-        loadItemsAsync(GalleryAdapter adapter) {
-            mAdapter = adapter;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            String filePrefix = "gallery_";
-            String fileSuffix = ".jpg";
-            StorageReference imagesFolder = FirebaseStorage.getInstance().getReference("images");
-            StorageReference ref;
-
-            for (int i = 1; i < GALLERY_MAX_SIZE; i++) {
-                String imgName = filePrefix + i + fileSuffix;
-                ref = imagesFolder.child(imgName);
-                ref.getDownloadUrl().addOnSuccessListener(uri -> {
-                    Photo photo = new Photo(uri, imgName);
-                    mAdapter.addPhoto(photo);
+        View loadingBar = requireActivity().findViewById(R.id.loading_bar);
+        loadingBar.setVisibility(View.VISIBLE);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("gallery")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<Photo> photos = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Uri uri = Uri.parse((String) document.getData().get("url"));
+                            photos.add(new Photo(uri, DEFAULT_NAME));
+                        }
+                        galleryAdapter.setItems(photos);
+                        loadingBar.setVisibility(View.GONE);
+                    } else {
+                        Log.w(TAG, "Error getting documents.", task.getException());
+                        loadingBar.setVisibility(View.GONE);
+                    }
                 });
-            }
-            return null;
-        }
     }
 
 }

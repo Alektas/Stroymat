@@ -78,7 +78,7 @@ public class PricelistFragment extends Fragment
         pricelistRv.setHasFixedSize(true);
         pricelistRv.setAdapter(pricelistAdapter);
         mViewModel.getItemsLoading().observe(getViewLifecycleOwner(), isLoaded -> {
-            view.findViewById(R.id.loading_bar)
+            requireActivity().findViewById(R.id.loading_bar)
                     .setVisibility(isLoaded ? View.GONE : View.VISIBLE);
         });
         mViewModel.getItems().observe(getViewLifecycleOwner(), items -> {

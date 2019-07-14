@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -49,7 +50,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return mPhotos.get(position).getUrl().hashCode();
     }
 
     @NonNull
@@ -78,8 +79,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 .load(item.getUrl())
                 .optionalCenterCrop()
                 .optionalFitCenter()
-                .thumbnail(0.2f)
+                .thumbnail(0.1f)
                 .placeholder(R.drawable.img_placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(vh.image);
     }
 
