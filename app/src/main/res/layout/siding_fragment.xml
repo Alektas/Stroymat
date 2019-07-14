@@ -8,26 +8,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="16dp"
+        android:paddingTop="@dimen/padding_top_page"
+        android:paddingBottom="@dimen/padding_bottom_page"
         tools:context=".ui.calculators.siding.SidingFragment">
-
-        <TextView
-            android:id="@+id/siding_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Сайдинг"
-            android:textSize="@dimen/textsize_title"
-            android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/siding_walls_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/siding_title"
-            android:layout_marginStart="@dimen/subtitle_start_margin"
-            android:layout_marginTop="@dimen/subtitle_top_margin"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
             android:text="Стены"
             android:textSize="@dimen/textsize_subtitle" />
 
@@ -37,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/result_walls_square_units"
             android:layout_alignBaseline="@id/siding_walls_subtitle"
-            android:text="0.00"
+            android:text="@string/null_square"
             android:textSize="@dimen/textsize_basic"/>
 
         <TextView
@@ -46,8 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/result_walls_square"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="104dp"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_end_subtitle_result"
             android:text="@string/square_units"
             android:textSize="@dimen/textsize_basic"/>
 
@@ -56,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/siding_walls_subtitle"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/margin_top_basic"
             android:overScrollMode="never"
             android:nestedScrollingEnabled="false"
             tools:listitem="@layout/item_square"
@@ -67,18 +57,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/walls_list"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_walls_width_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:hint="Ширина, м">
+                android:hint="@string/width_and_meter">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_walls_width"
@@ -90,13 +79,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_walls_height_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:hint="Высота, м">
+                android:hint="@string/height_and_meter">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_walls_height"
@@ -108,10 +96,10 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton
-                android:id="@+id/roof_add_btn"
-                android:layout_width="@dimen/item_add_btn"
-                android:layout_height="@dimen/item_add_btn"
-                android:layout_marginStart="8dp"
+                android:id="@+id/walls_add_btn"
+                android:layout_width="@dimen/size_square_add_btn"
+                android:layout_height="@dimen/size_square_add_btn"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
                 android:layout_gravity="center"
                 android:layout_weight="0"
                 android:backgroundTint="@color/colorAccent"
@@ -125,9 +113,9 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/walls_add_container"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
             android:background="?android:attr/listDivider" />
 
         <TextView
@@ -135,8 +123,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/divider1"
-            android:layout_marginStart="@dimen/subtitle_start_margin"
-            android:layout_marginTop="@dimen/subtitle_top_margin"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
             android:text="Окна и двери"
             android:textSize="@dimen/textsize_subtitle" />
 
@@ -146,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/result_windows_square_units"
             android:layout_alignBaseline="@id/siding_windows_subtitle"
-            android:text="0.00"
+            android:text="@string/null_price"
             android:textSize="@dimen/textsize_basic"/>
 
         <TextView
@@ -155,8 +143,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/result_windows_square"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="104dp"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_end_subtitle_result"
             android:text="@string/square_units"
             android:textSize="@dimen/textsize_basic"/>
 
@@ -165,7 +153,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/siding_windows_subtitle"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/margin_top_basic"
             android:overScrollMode="never"
             android:nestedScrollingEnabled="false"
             tools:listitem="@layout/item_square"
@@ -176,18 +164,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/windows_list"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_windows_width_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:hint="Ширина, м">
+                android:hint="@string/width_and_meter">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_windows_width"
@@ -199,13 +186,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_windows_height_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:hint="Высота, м">
+                android:hint="@string/height_and_meter">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_windows_height"
@@ -218,9 +204,9 @@
 
             <ImageButton
                 android:id="@+id/window_add_btn"
-                android:layout_width="@dimen/item_add_btn"
-                android:layout_height="@dimen/item_add_btn"
-                android:layout_marginStart="8dp"
+                android:layout_width="@dimen/size_square_add_btn"
+                android:layout_height="@dimen/size_square_add_btn"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
                 android:layout_gravity="center"
                 android:layout_weight="0"
                 android:backgroundTint="@color/colorAccent"
@@ -234,9 +220,9 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/windows_add_container"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
             android:background="?android:attr/listDivider" />
 
         <TextView
@@ -244,8 +230,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/divider2"
-            android:layout_marginStart="@dimen/subtitle_start_margin"
-            android:layout_marginTop="@dimen/subtitle_top_margin"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
             android:text="Фронтоны"
             android:textSize="@dimen/textsize_subtitle" />
 
@@ -255,7 +241,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/result_fronton_square_units"
             android:layout_alignBaseline="@id/siding_fronton_subtitle"
-            android:text="0.00"
+            android:text="@string/null_square"
             android:textSize="@dimen/textsize_basic"/>
 
         <TextView
@@ -264,8 +250,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/result_fronton_square"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="104dp"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_end_subtitle_result"
             android:text="@string/square_units"
             android:textSize="@dimen/textsize_basic"/>
 
@@ -274,7 +260,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/siding_fronton_subtitle"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/margin_top_basic"
             android:overScrollMode="never"
             android:nestedScrollingEnabled="false"
             tools:listitem="@layout/item_square"
@@ -285,18 +271,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/fronton_list"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_fronton_width_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:hint="Ширина, м">
+                android:hint="@string/width_and_meter">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_fronton_width"
@@ -308,13 +293,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_fronton_height_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:hint="Высота, м">
+                android:hint="@string/height_and_meter">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_fronton_height"
@@ -327,9 +311,9 @@
 
             <ImageButton
                 android:id="@+id/fronton_add_btn"
-                android:layout_width="@dimen/item_add_btn"
-                android:layout_height="@dimen/item_add_btn"
-                android:layout_marginStart="8dp"
+                android:layout_width="@dimen/size_square_add_btn"
+                android:layout_height="@dimen/size_square_add_btn"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
                 android:layout_gravity="center"
                 android:layout_weight="0"
                 android:backgroundTint="@color/colorAccent"
@@ -343,19 +327,19 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/fronton_container"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
             android:background="?android:attr/listDivider" />
 
         <TextView
             android:id="@+id/siding_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/subtitle_top_margin"
-            android:layout_marginStart="@dimen/subtitle_start_margin"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
             android:layout_below="@id/divider3"
-            android:text="Сайдинг"
+            android:text="@string/siding"
             android:textSize="@dimen/textsize_subtitle" />
 
         <TextView
@@ -364,7 +348,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/result_siding_square_units"
             android:layout_alignBaseline="@id/siding_subtitle"
-            android:text="0.00"
+            android:text="@string/null_price"
             android:textSize="@dimen/textsize_basic"/>
 
         <TextView
@@ -373,8 +357,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/result_siding_square"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="104dp"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_end_subtitle_result"
             android:text="@string/square_units"
             android:textSize="@dimen/textsize_basic"/>
 
@@ -383,18 +367,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/siding_subtitle"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_siding_width_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:hint="Ширина, м">
+                android:hint="@string/width_and_meter">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_siding_width"
@@ -406,13 +389,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_siding_height_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:hint="Длина, м">
+                android:hint="@string/length_and_meter">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_siding_height"
@@ -424,13 +406,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_siding_price_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:hint="Цена, руб/шт">
+                android:hint="@string/price_per_meter">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_siding_price"
@@ -448,19 +429,19 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/siding_container"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
             android:background="?android:attr/listDivider" />
 
         <TextView
             android:id="@+id/siding_results_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/subtitle_top_margin"
-            android:layout_marginStart="@dimen/subtitle_start_margin"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
             android:layout_below="@id/divider4"
-            android:text="Итого"
+            android:text="@string/result_subtitle"
             android:textSize="@dimen/textsize_subtitle" />
 
         <TextView
@@ -468,9 +449,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/siding_results_subtitle"
-            android:layout_marginStart="@dimen/subtitle_start_margin"
-            android:layout_marginTop="8dp"
-            android:text="Кол-во сайдинга, шт: "
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="Кол-во сайдинга"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -478,10 +459,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/result_siding_quantity_text"
+            android:layout_toStartOf="@id/result_siding_quantity_units"
+            android:text="@string/null_quantity"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_siding_quantity_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_siding_quantity_text"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/subtitle_start_margin"
-            android:layout_marginTop="8dp"
-            android:text="0"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/quantity_units_default"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -489,9 +479,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/result_siding_quantity_text"
-            android:layout_marginStart="@dimen/subtitle_start_margin"
-            android:layout_marginTop="8dp"
-            android:text="Стоимость, руб: "
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/price"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -499,10 +489,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/result_siding_price_text"
+            android:layout_toStartOf="@id/result_siding_price_currency"
+            android:text="@string/null_price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_siding_price_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_siding_price_text"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/subtitle_start_margin"
-            android:layout_marginTop="8dp"
-            android:text="0.00"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/currency"
             android:textSize="@dimen/textsize_basic" />
 
     </RelativeLayout>

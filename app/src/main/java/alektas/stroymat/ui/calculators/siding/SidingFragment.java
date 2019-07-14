@@ -77,7 +77,7 @@ public class SidingFragment extends Fragment implements TextWatcher {
         sidingWidthInput = view.findViewById(R.id.input_siding_width);
         sidingHeightInput = view.findViewById(R.id.input_siding_height);
         sidingPriceInput = view.findViewById(R.id.input_siding_price);
-        ImageButton addWallBtn = view.findViewById(R.id.roof_add_btn);
+        ImageButton addWallBtn = view.findViewById(R.id.walls_add_btn);
         addWallBtn.setOnClickListener(v -> addWall());
         ImageButton addWindowBtn = view.findViewById(R.id.window_add_btn);
         addWindowBtn.setOnClickListener(v -> addWindow());

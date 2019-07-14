@@ -8,16 +8,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="16dp"
+        android:paddingTop="@dimen/padding_top_page"
+        android:paddingBottom="@dimen/padding_bottom_page"
         tools:context=".ui.calculators.trotuar.TrotuarFragment">
 
         <TextView
             android:id="@+id/trotuar_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_subtitle_start"
-            android:layout_marginTop="@dimen/margin_subtitle_top"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
             android:text="Тротуар"
             android:textSize="@dimen/textsize_subtitle" />
 
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/result_trotuar_square_units"
             android:layout_alignBaseline="@id/trotuar_subtitle"
-            android:text="0.00"
+            android:text="@string/null_square"
             android:textSize="@dimen/textsize_basic"/>
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_alignBaseline="@id/result_trotuar_square"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="@dimen/margin_subtitle_start"
+            android:layout_marginEnd="@dimen/margin_start_subtitle"
             android:text="@string/square_units"
             android:textSize="@dimen/textsize_basic"/>
 
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/trotuar_subtitle"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/margin_top_basic"
             android:overScrollMode="never"
             android:nestedScrollingEnabled="false"
             tools:listitem="@layout/item_square"
@@ -57,9 +57,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/trotuar_list"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -86,10 +86,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:hint="Длина, м">
+                android:hint="@string/length_and_meter">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_trotuar_height"
@@ -102,9 +102,9 @@
 
             <ImageButton
                 android:id="@+id/trotuar_add_btn"
-                android:layout_width="@dimen/item_add_btn"
-                android:layout_height="@dimen/item_add_btn"
-                android:layout_marginStart="8dp"
+                android:layout_width="@dimen/size_square_add_btn"
+                android:layout_height="@dimen/size_square_add_btn"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
                 android:layout_gravity="center"
                 android:layout_weight="0"
                 android:backgroundTint="@color/colorAccent"
@@ -118,9 +118,9 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/trotuar_add_container"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="@dimen/margin_divider_top"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
             android:background="?android:attr/listDivider" />
 
         <TextView
@@ -128,8 +128,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/divider1"
-            android:layout_marginStart="@dimen/margin_subtitle_start"
-            android:layout_marginTop="@dimen/margin_subtitle_top"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
             android:text="Плиты тротуарные"
             android:textSize="@dimen/textsize_subtitle" />
 
@@ -140,8 +140,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/trotuar_plity_subtitle"
             android:layout_toStartOf="@id/plity_clear_btn"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_small"
             android:hint="Плиты">
 
             <AutoCompleteTextView
@@ -159,8 +159,8 @@
             android:layout_alignTop="@id/trotuar_plity_spinner"
             android:layout_alignBottom="@id/trotuar_plity_spinner"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="@dimen/margin_horiz_small"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
             android:tint="@android:color/white"
             app:srcCompat="@drawable/ic_close_black_24dp"/>
 
@@ -171,8 +171,8 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:layout_below="@id/trotuar_plity_spinner"
-            android:layout_marginStart="@dimen/margin_basic_start"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
             android:text="Стоимость"
             android:textSize="@dimen/textsize_basic" />
 
@@ -192,8 +192,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/trotuar_plity_price_text"
             android:layout_toStartOf="@id/trotuar_plity_price_units"
-            android:layout_marginStart="8dp"
-            android:text="@string/currency"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:text="@string/currency_slash"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -202,8 +202,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignBaseline="@id/trotuar_plity_price_text"
-            android:layout_marginEnd="@dimen/margin_basic_start"
-            android:text="шт"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/quantity_units_default"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -213,9 +213,9 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:layout_below="@id/trotuar_plity_price_text"
-            android:layout_marginStart="@dimen/margin_basic_start"
+            android:layout_marginStart="@dimen/margin_start_basic"
             android:layout_marginTop="8dp"
-            android:text="Площадь"
+            android:text="@string/square"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -224,7 +224,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/plity_square_units"
             android:layout_alignBaseline="@id/trotuar_plity_square_text"
-            android:text="0.00"
+            android:text="@string/null_square"
             android:textSize="@dimen/textsize_basic"/>
 
         <TextView
@@ -233,8 +233,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/plity_square"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="@dimen/margin_basic_start"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
             android:text="@string/square_units"
             android:textSize="@dimen/textsize_basic"/>
 
@@ -245,9 +245,9 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:layout_below="@id/trotuar_plity_square_text"
-            android:layout_marginStart="@dimen/margin_basic_start"
-            android:layout_marginTop="8dp"
-            android:text="Запас"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/reserve"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -256,7 +256,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/plity_reserve_units"
             android:layout_alignBaseline="@id/trotuar_plity_reserve_text"
-            android:text="0"
+            android:text="@string/null_quantity"
             android:textSize="@dimen/textsize_basic"/>
 
         <TextView
@@ -265,8 +265,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/plity_reserve"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="@dimen/margin_basic_start"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_start_basic"
             android:text="%"
             android:textSize="@dimen/textsize_basic"/>
 
@@ -275,9 +275,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/plity_reserve"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="@dimen/margin_basic_start"
-            android:layout_marginEnd="@dimen/margin_basic_start"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginEnd="@dimen/margin_start_basic"
             android:max="15" />
 
         <View
@@ -285,9 +285,9 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/plity_reserve_seekbar"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="@dimen/margin_divider_top"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
             android:background="?android:attr/listDivider" />
 
         <TextView
@@ -295,8 +295,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/divider2"
-            android:layout_marginStart="@dimen/margin_subtitle_start"
-            android:layout_marginTop="@dimen/margin_subtitle_top"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
             android:text="Бордюры и водостоки"
             android:textSize="@dimen/textsize_subtitle" />
 
@@ -307,8 +307,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/trotuar_bordury_subtitle"
             android:layout_toStartOf="@id/bordury_clear_btn"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:layout_marginStart="@dimen/margin_horiz_small"
             android:hint="Бордюры, водостоки">
 
             <AutoCompleteTextView
@@ -326,8 +326,8 @@
             android:layout_alignTop="@id/trotuar_bordury_spinner"
             android:layout_alignBottom="@id/trotuar_bordury_spinner"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="@dimen/margin_horiz_small"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
             android:tint="@android:color/white"
             app:srcCompat="@drawable/ic_close_black_24dp"/>
 
@@ -338,9 +338,9 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:layout_below="@id/trotuar_bordury_spinner"
-            android:layout_marginStart="@dimen/margin_basic_start"
-            android:layout_marginTop="8dp"
-            android:text="Стоимость"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/price"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -359,8 +359,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/trotuar_bordury_price_text"
             android:layout_toStartOf="@id/trotuar_bordury_price_units"
-            android:layout_marginStart="8dp"
-            android:text="@string/currency"
+            android:layout_marginStart="@dimen/margin_horiz_small"
+            android:text="@string/currency_slash"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -369,8 +369,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignBaseline="@id/trotuar_bordury_price_text"
-            android:layout_marginEnd="@dimen/margin_basic_start"
-            android:text="шт"
+            android:layout_marginEnd="@dimen/margin_start_basic"
+            android:text="@string/quantity_units_default"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -380,8 +380,8 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:layout_below="@id/trotuar_bordury_price_text"
-            android:layout_marginStart="@dimen/margin_basic_start"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
             android:text="Площадь"
             android:textSize="@dimen/textsize_basic" />
 
@@ -391,7 +391,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/plity_square_units"
             android:layout_alignBaseline="@id/trotuar_bordury_square_text"
-            android:text="0.00"
+            android:text="@string/null_square"
             android:textSize="@dimen/textsize_basic"/>
 
         <TextView
@@ -399,8 +399,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/bordury_square"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="@dimen/margin_basic_start"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_start_basic"
             android:text="@string/square_units"
             android:textSize="@dimen/textsize_basic"/>
 
@@ -411,9 +411,9 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:layout_below="@id/trotuar_bordury_square_text"
-            android:layout_marginStart="@dimen/margin_basic_start"
-            android:layout_marginTop="8dp"
-            android:text="Запас"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/reserve"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -422,7 +422,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/bordury_reserve_units"
             android:layout_alignBaseline="@id/trotuar_bordury_reserve_text"
-            android:text="0"
+            android:text="@string/null_quantity"
             android:textSize="@dimen/textsize_basic"/>
 
         <TextView
@@ -431,8 +431,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/bordury_reserve"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="@dimen/margin_basic_start"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_start_basic"
             android:text="%"
             android:textSize="@dimen/textsize_basic"/>
 
@@ -441,9 +441,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/bordury_reserve"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="@dimen/margin_basic_start"
-            android:layout_marginEnd="@dimen/margin_basic_start"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginEnd="@dimen/margin_start_basic"
             android:max="15" />
 
         <View
@@ -451,19 +451,19 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/bordury_reserve_seekbar"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="@dimen/margin_divider_top"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
             android:background="?android:attr/listDivider" />
 
         <TextView
             android:id="@+id/trotuar_results_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_subtitle_top"
-            android:layout_marginStart="@dimen/margin_subtitle_start"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
             android:layout_below="@id/divider3"
-            android:text="Итого"
+            android:text="@string/result_subtitle"
             android:textSize="@dimen/textsize_subtitle" />
 
         <TextView
@@ -471,9 +471,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/trotuar_results_subtitle"
-            android:layout_marginStart="@dimen/margin_basic_start"
-            android:layout_marginTop="8dp"
-            android:text="Кол-во плит, шт: "
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="Кол-во плит"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -481,10 +481,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/result_plity_quantity_text"
+            android:layout_toStartOf="@id/result_plity_quantity_units"
+            android:text="@string/null_quantity"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_plity_quantity_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_plity_quantity_text"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/margin_basic_start"
-            android:layout_marginTop="8dp"
-            android:text="0"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/quantity_units_default"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -492,9 +501,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/result_plity_quantity_text"
-            android:layout_marginStart="@dimen/margin_basic_start"
-            android:layout_marginTop="8dp"
-            android:text="Кол-во бордюров, шт: "
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="Кол-во бордюров"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -502,10 +511,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/result_bordury_quantity_text"
+            android:layout_toStartOf="@id/result_bordury_quantity_units"
+            android:text="@string/null_quantity"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_bordury_quantity_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_bordury_quantity_text"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/margin_basic_start"
-            android:layout_marginTop="8dp"
-            android:text="0"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/quantity_units_default"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -513,9 +531,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/result_bordury_quantity_text"
-            android:layout_marginStart="@dimen/margin_basic_start"
-            android:layout_marginTop="8dp"
-            android:text="Стоимость, руб: "
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/price"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -523,10 +541,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/result_trotuar_price_text"
+            android:layout_toStartOf="@id/result_trotuar_price_currency"
+            android:text="@string/null_price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_trotuar_price_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_trotuar_price_text"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/margin_basic_start"
-            android:layout_marginTop="8dp"
-            android:text="0.00"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/currency"
             android:textSize="@dimen/textsize_basic" />
 
     </RelativeLayout>

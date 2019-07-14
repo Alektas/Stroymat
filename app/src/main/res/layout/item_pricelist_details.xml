@@ -96,7 +96,7 @@
             app:layout_constraintEnd_toStartOf="@id/item_price_currency"
             app:layout_constraintStart_toEndOf="@id/item_price_text"
             app:layout_constraintBaseline_toBaselineOf="@id/item_price_text"
-            android:layout_marginEnd="@dimen/margin_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_between_text"
             app:layout_constraintHorizontal_bias="1"
             android:text="999.99"
             style="@style/TextAppearance.MaterialComponents.Body1" />
