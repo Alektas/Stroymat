@@ -81,11 +81,6 @@ public class SquaresAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return mSquares;
     }
 
-    public void addSquare(Square square){
-        mSquares.add(square);
-        notifyDataSetChanged();
-    }
-
     public void setSquares(List<Square> newSquares) {
         mSquares.clear();
         mSquares.addAll(newSquares);

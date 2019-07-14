@@ -81,7 +81,7 @@ public class ProfnastilFragment extends Fragment implements TextWatcher {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(ProfnastilViewModel.class);
         profnastilAdapter = new SquaresAdapter(mViewModel, SquaresAdapter.SQUARE_TYPE_ROOF);
-        RecyclerView roofRv = getView().findViewById(R.id.roof_list);
+        RecyclerView roofRv = requireView().findViewById(R.id.roof_list);
         roofRv.setAdapter(profnastilAdapter);
         mViewModel.getRoofs().observe(getViewLifecycleOwner(), roofs -> {
             profnastilAdapter.setSquares(roofs);
@@ -114,8 +114,9 @@ public class ProfnastilFragment extends Fragment implements TextWatcher {
             roofSquare += wall.getSquare();
         }
 
-        float profnastilOneSquare = getFloat(profnastilWidthInput) * getFloat(profnastilHeightInput);
-        float profnastilPricePerMeter = getFloat(profnastilPriceInput);
+        float profnastilOneSquare = StringUtils.getFloat(profnastilWidthInput)
+                * StringUtils.getFloat(profnastilHeightInput);
+        float profnastilPricePerMeter = StringUtils.getFloat(profnastilPriceInput);
         int profnastilQuantity =
                 profnastilOneSquare == 0 ? 0 : (int) Math.ceil(roofSquare / profnastilOneSquare);
 
@@ -131,12 +132,6 @@ public class ProfnastilFragment extends Fragment implements TextWatcher {
         this.profnastilSquare.setText(profnastilSquareString);
         this.profnastilPrice.setText(profnastilPriceString);
         this.profnastilQuantity.setText(profnastilQuantityString);
-    }
-
-    private float getFloat(EditText editText) {
-        String text = editText.getText().toString();
-        if (text.equals("")) return 0f;
-        return Float.parseFloat(text);
     }
 
     @Override

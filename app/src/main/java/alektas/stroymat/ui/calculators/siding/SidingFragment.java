@@ -113,11 +113,11 @@ public class SidingFragment extends Fragment implements TextWatcher {
         windowsAdapter = new SquaresAdapter(mViewModel, SquaresAdapter.SQUARE_TYPE_WINDOW);
         frontonsAdapter = new SquaresAdapter(mViewModel, SquaresAdapter.SQUARE_TYPE_FRONTON);
 
-        RecyclerView wallsRv = getView().findViewById(R.id.walls_list);
+        RecyclerView wallsRv = requireView().findViewById(R.id.walls_list);
         wallsRv.setAdapter(wallsAdapter);
-        RecyclerView windowsRv = getView().findViewById(R.id.windows_list);
+        RecyclerView windowsRv = requireView().findViewById(R.id.windows_list);
         windowsRv.setAdapter(windowsAdapter);
-        RecyclerView frontonsRv = getView().findViewById(R.id.fronton_list);
+        RecyclerView frontonsRv = requireView().findViewById(R.id.fronton_list);
         frontonsRv.setAdapter(frontonsAdapter);
 
         mViewModel.getWalls().observe(this, walls -> {
@@ -192,8 +192,8 @@ public class SidingFragment extends Fragment implements TextWatcher {
         }
 
         float sidingSquare = wallsSquare + frontonsSquare - windowsSquare;
-        float sidingOneSquare = getFloat(sidingWidthInput) * getFloat(sidingHeightInput);
-        float sidingOnePrice = getFloat(sidingPriceInput);
+        float sidingOneSquare = StringUtils.getFloat(sidingWidthInput) * StringUtils.getFloat(sidingHeightInput);
+        float sidingOnePrice = StringUtils.getFloat(sidingPriceInput);
         int sidingQuantity =
                 sidingOneSquare == 0 ? 0 : (int) Math.ceil(sidingSquare / sidingOneSquare);
 
@@ -210,12 +210,6 @@ public class SidingFragment extends Fragment implements TextWatcher {
         this.sidingSquare.setText(sidingSquareString);
         this.sidingPrice.setText(sidingPriceString);
         this.sidingQuantity.setText(sidingQuantityString);
-    }
-
-    private float getFloat(EditText editText) {
-        String text = editText.getText().toString();
-        if (text.equals("")) return 0f;
-        return Float.parseFloat(text);
     }
 
     @Override
