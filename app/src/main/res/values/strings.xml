@@ -9,10 +9,6 @@
     <string name="profnastil">Профнастил</string>
     <string name="siding">Сайдинг</string>
     <string name="other">Другое</string>
-    <string name="result_subtitle">Итого</string>
-    <string name="price">Стоимость</string>
-    <string name="square">Площадь</string>
-    <string name="reserve">Запас</string>
     <string name="width_and_meter">Ширина, м</string>
     <string name="length_and_meter">Длина, м</string>
     <string name="height_and_meter">Высота, м</string>
@@ -25,4 +21,10 @@
     <string name="null_quantity">0</string>
     <string name="square_units">м"\u00b2"</string>
     <string name="quantity_units_default">шт</string>
+    <string name="result_subtitle">Итого</string>
+    <string name="price">Стоимость</string>
+    <string name="square">Площадь</string>
+    <string name="reserve">Запас</string>
+    <string name="trotuar">Тротуар</string>
+    <string name="bordury_vodostoky">Бордюры, водостоки</string>
 </resources>

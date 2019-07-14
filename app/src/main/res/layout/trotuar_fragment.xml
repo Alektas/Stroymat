@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_start_subtitle"
             android:layout_marginTop="@dimen/margin_top_subtitle"
-            android:text="Тротуар"
+            android:text="@string/trotuar"
             android:textSize="@dimen/textsize_subtitle" />
 
         <TextView
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:hint="Ширина, м">
+                android:hint="@string/width_and_meter">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_trotuar_width"
@@ -173,7 +173,7 @@
             android:layout_below="@id/trotuar_plity_spinner"
             android:layout_marginStart="@dimen/margin_horiz_basic"
             android:layout_marginTop="@dimen/margin_top_basic"
-            android:text="Стоимость"
+            android:text="@string/price"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView
@@ -297,7 +297,7 @@
             android:layout_below="@id/divider2"
             android:layout_marginStart="@dimen/margin_start_subtitle"
             android:layout_marginTop="@dimen/margin_top_subtitle"
-            android:text="Бордюры и водостоки"
+            android:text="@string/bordury_vodostoky"
             android:textSize="@dimen/textsize_subtitle" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -309,7 +309,7 @@
             android:layout_toStartOf="@id/bordury_clear_btn"
             android:layout_marginTop="@dimen/margin_top_subtitle"
             android:layout_marginStart="@dimen/margin_horiz_small"
-            android:hint="Бордюры, водостоки">
+            android:hint="@string/bordury_vodostoky">
 
             <AutoCompleteTextView
                 android:id="@+id/trotuar_bordury_dropdown"
@@ -382,7 +382,7 @@
             android:layout_below="@id/trotuar_bordury_price_text"
             android:layout_marginStart="@dimen/margin_start_basic"
             android:layout_marginTop="@dimen/margin_top_basic"
-            android:text="Площадь"
+            android:text="@string/square"
             android:textSize="@dimen/textsize_basic" />
 
         <TextView

@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_start_subtitle"
             android:layout_marginTop="@dimen/margin_top_subtitle"
-            android:text="Крыша"
+            android:text="Скат"
             android:textSize="@dimen/textsize_subtitle" />
 
         <TextView
@@ -84,7 +84,7 @@
                 android:layout_marginStart="@dimen/margin_horiz_between_text"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:hint="Скат, м">
+                android:hint="@string/height_and_meter">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_roof_height"
@@ -170,7 +170,7 @@
                 android:layout_marginStart="@dimen/margin_horiz_between_text"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:hint="@string/length_and_meter">
+                android:hint="@string/height_and_meter">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_profnastil_height"
