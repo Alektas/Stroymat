@@ -19,6 +19,7 @@ public class SquaresAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public static final String SQUARE_TYPE_WINDOW = "SQUARE_TYPE_WINDOW";
     public static final String SQUARE_TYPE_FRONTON = "SQUARE_TYPE_FRONTON";
     public static final String SQUARE_TYPE_ROOF = "SQUARE_TYPE_ROOF";
+    public static final String SQUARE_TYPE_TROTUAR = "SQUARE_TYPE_TROTUAR";
     private SquareViewModelBase mModel;
     private List<Square> mSquares;
     private String mSquareType;
@@ -26,8 +27,8 @@ public class SquaresAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public SquaresAdapter(SquareViewModelBase model, String squareType) {
         mModel = model;
         mSquares = new ArrayList<>();
-        setHasStableIds(true);
         mSquareType = squareType;
+        setHasStableIds(true);
     }
 
     public static class SquareHolder extends RecyclerView.ViewHolder {

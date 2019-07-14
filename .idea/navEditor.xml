@@ -29,6 +29,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_calculatorsFragment_to_trotuarFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -63,22 +68,12 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="82" />
-                            <option name="y" value="-269" />
+                            <option name="x" value="294" />
+                            <option name="y" value="-291" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_pricelistFragment_to_calculatorsFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_pricelistFragment_to_galleryFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_pricelistFragment_to_itemFragment">
                               <value>
                                 <LayoutPositions />
@@ -108,6 +103,18 @@
                           <Point>
                             <option name="x" value="517" />
                             <option name="y" value="-152" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="trotuarFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="519" />
+                            <option name="y" value="424" />
                           </Point>
                         </option>
                       </LayoutPositions>

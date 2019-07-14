@@ -16,6 +16,7 @@ import alektas.stroymat.R;
 import alektas.stroymat.data.db.AppDatabase;
 import alektas.stroymat.data.db.dao.PricelistDao;
 import alektas.stroymat.data.db.entities.PricelistItem;
+import alektas.stroymat.data.db.entities.SizedItem;
 
 public class ItemsRepository implements Repository {
     private static final String TAG = "ItemsRepository";
@@ -95,10 +96,19 @@ public class ItemsRepository implements Repository {
         mItemsData.setValue(items);
     }
 
-    private List<PricelistItem> getItems(int category) {
+    public List<PricelistItem> getItems(int category) {
         try {
             return new getItemsAsync(mItemsDao, (isLoaded) -> mItemsLoadedData.setValue(isLoaded))
                     .execute(category).get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<SizedItem> getSizedItems(int category) {
+        try {
+            return new getSizedItemsAsync(mItemsDao).execute(category).get();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -122,9 +132,6 @@ public class ItemsRepository implements Repository {
 
         @Override
         protected List<PricelistItem> doInBackground(Integer... integers) {
-//            for (int i = 0; i < Math.pow(12, 7); i++) {
-//                Math.pow(i, i);
-//            }
             return integers[0] == 0 ? mDao.getItems() : mDao.getItems(integers[0]);
         }
 
@@ -132,6 +139,19 @@ public class ItemsRepository implements Repository {
         protected void onPostExecute(List<PricelistItem> pricelistItems) {
             super.onPostExecute(pricelistItems);
             mListener.onLoad(true);
+        }
+    }
+
+    private static class getSizedItemsAsync extends AsyncTask<Integer, Void, List<SizedItem>> {
+        private PricelistDao mDao;
+
+        getSizedItemsAsync(PricelistDao dao) {
+            mDao = dao;
+        }
+
+        @Override
+        protected List<SizedItem> doInBackground(Integer... integers) {
+            return mDao.getSizedItems(integers[0]);
         }
     }
 

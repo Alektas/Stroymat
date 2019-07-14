@@ -8,8 +8,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "categories",
         indices = {
-                @Index(value = "categ", unique = true),
-                @Index(value = "categ_name")})
+                @Index(value = "categ", unique = true)})
 public class Category {
     @PrimaryKey
     @NonNull

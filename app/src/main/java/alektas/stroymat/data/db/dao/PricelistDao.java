@@ -6,6 +6,7 @@ import androidx.room.Query;
 import java.util.List;
 
 import alektas.stroymat.data.db.entities.PricelistItem;
+import alektas.stroymat.data.db.entities.SizedItem;
 
 @Dao
 public abstract class PricelistDao {
@@ -29,5 +30,10 @@ public abstract class PricelistDao {
 
     @Query("SELECT categ_name FROM categories WHERE categ = :category")
     public abstract String getCategoryName(int category);
+
+    @Query("SELECT items.name, items.price, items.unit, sizes.length, sizes.width FROM items " +
+            "INNER JOIN sizes ON items.article = sizes.item_article " +
+            "WHERE items.categ = :category")
+    public abstract List<SizedItem> getSizedItems(int category);
 
 }

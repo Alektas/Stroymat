@@ -43,6 +43,13 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_calculatorsFragment_to_trotuarFragment"
+            app:destination="@id/trotuarFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/galleryFragment"
@@ -64,4 +71,9 @@
         android:name="alektas.stroymat.ui.pricelist.ItemFragment"
         android:label="Товар"
         tools:layout="@layout/item_pricelist_details" />
+    <fragment
+        android:id="@+id/trotuarFragment"
+        android:name="alektas.stroymat.ui.calculators.trotuar.TrotuarFragment"
+        android:label="Тротуар"
+        tools:layout="@layout/trotuar_fragment" />
 </navigation>

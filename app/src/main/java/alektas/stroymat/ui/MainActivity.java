@@ -109,6 +109,9 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
             case R.id.btn_calc_siding:
                 navController.navigate(R.id.action_calculatorsFragment_to_sidingFragment);
                 break;
+            case R.id.btn_calc_trotuar:
+                navController.navigate(R.id.action_calculatorsFragment_to_trotuarFragment);
+                break;
         }
     }
 

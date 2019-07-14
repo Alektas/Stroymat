@@ -40,4 +40,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_calc_trotuar"
+        android:layout_width="@dimen/btn_width"
+        android:layout_height="@dimen/btn_height"
+        android:text="Тротуар"
+        android:onClick="onCalcBtnClick"
+        app:layout_constraintTop_toBottomOf="@id/btn_calc_siding"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,4 +32,5 @@
     <dimen name="nav_header_height">140dp</dimen>
     <dimen name="height_item_details_img">250dp</dimen>
     <dimen name="margin_between_text">8dp</dimen>
+    <dimen name="margin_divider_top">8dp</dimen>
 </resources>
