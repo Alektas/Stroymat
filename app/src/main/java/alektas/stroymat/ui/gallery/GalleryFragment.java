@@ -72,6 +72,19 @@ public class GalleryFragment extends Fragment {
                         loadingBar.setVisibility(View.GONE);
                     }
                 });
+
+        mViewModel.getUrl().observe(getViewLifecycleOwner(), url -> {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
+
+            // Create and show the dialog.
+            DialogFragment photoFragment = PhotoFragment.newInstance(url);
+            photoFragment.show(ft, "dialog");
+        });
     }
 
 }

@@ -23,8 +23,25 @@
     <style name="SearchView" parent="Widget.AppCompat.SearchView">
         <item name="queryBackground">@android:color/transparent</item>
         <item name="queryHint">@string/search_hint</item>
-        <item name="android:textColor">@android:color/holo_red_dark</item>
         <item name="android:imeActionId">6</item>
+    </style>
+
+    <style name="FullScreenDialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimaryDark">@color/colorSecondary</item>
+        <item name="colorPrimary">@color/colorSecondary</item>
+
+        <!-- Set this to true if you want Full Screen without status bar -->
+        <item name="android:windowFullscreen">true</item>
+
+        <item name="android:windowIsFloating">false</item>
+
+        <!-- This is important! Don't forget to set window background -->
+        <item name="android:windowBackground">@color/colorSecondaryBlur</item>
+
+        <!-- Additionally if you want animations when dialog opening -->
+        <item name="android:windowEnterAnimation">@anim/nav_default_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/nav_default_exit_anim</item>
     </style>
 
 </resources>
