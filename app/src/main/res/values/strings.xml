@@ -27,4 +27,6 @@
     <string name="reserve">Запас</string>
     <string name="trotuar">Тротуар</string>
     <string name="bordury_vodostoky">Бордюры, водостоки</string>
+    <string name="name">Наименование</string>
+    <string name="article">Артикул</string>
 </resources>

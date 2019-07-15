@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import alektas.stroymat.R;
 
@@ -71,8 +72,9 @@ public class PricelistFragment extends Fragment
         NavigationView slideMenu = view.findViewById(R.id.slide_nav_view);
         slideMenu.setNavigationItemSelectedListener(this);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         mViewModel = ViewModelProviders.of(requireActivity()).get(PricelistViewModel.class);
-        pricelistAdapter = new PricelistAdapter(mViewModel);
+        pricelistAdapter = new PricelistAdapter(db, mViewModel);
         RecyclerView pricelistRv = view.findViewById(R.id.pricelist);
         pricelistRv.setLayoutManager(new LinearLayoutManager(getContext()));
         pricelistRv.setHasFixedSize(true);

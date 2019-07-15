@@ -15,6 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_details_img"
             app:layout_constraintTop_toTopOf="parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             android:background="@color/colorSecondary"
             app:srcCompat="@drawable/img_placeholder"/>
 
@@ -26,7 +28,7 @@
             android:layout_marginStart="@dimen/margin_start_item_details_text"
             android:layout_marginTop="@dimen/margin_top_item_details_text"
             android:layout_marginEnd="@dimen/margin_start_item_details_text"
-            android:text="Наименование"
+            android:text="@string/name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +42,7 @@
             app:layout_constraintTop_toBottomOf="@id/item_name"
             android:layout_marginStart="@dimen/margin_start_item_details_text"
             android:layout_marginTop="@dimen/margin_top_item_details_text"
-            android:text="Артикул"
+            android:text="@string/article"
             style="@style/TextAppearance.MaterialComponents.Body1" />
 
         <TextView
@@ -86,7 +88,7 @@
             app:layout_constraintTop_toBottomOf="@id/item_category"
             android:layout_marginStart="@dimen/margin_start_item_details_text"
             android:layout_marginTop="@dimen/margin_top_item_details_text"
-            android:text="Стоимость"
+            android:text="@string/price"
             style="@style/TextAppearance.MaterialComponents.Body1" />
 
         <TextView
@@ -98,7 +100,7 @@
             app:layout_constraintBaseline_toBaselineOf="@id/item_price_text"
             android:layout_marginEnd="@dimen/margin_horiz_between_text"
             app:layout_constraintHorizontal_bias="1"
-            android:text="999.99"
+            android:text="@string/null_price"
             style="@style/TextAppearance.MaterialComponents.Body1" />
 
         <TextView
@@ -108,7 +110,7 @@
             app:layout_constraintBaseline_toBaselineOf="@id/item_price_text"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/margin_start_item_details_text"
-            android:text="руб"
+            android:text="@string/currency"
             style="@style/TextAppearance.MaterialComponents.Body1" />
 
         <TextView
@@ -129,7 +131,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBaseline_toBaselineOf="@id/item_units_text"
             android:layout_marginEnd="@dimen/margin_start_item_details_text"
-            android:text="шт"
+            android:text="@string/quantity_units_default"
             style="@style/TextAppearance.MaterialComponents.Body1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
