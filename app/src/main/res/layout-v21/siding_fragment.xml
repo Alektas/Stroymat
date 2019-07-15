@@ -73,6 +73,11 @@
                     android:id="@+id/input_walls_width"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:nextFocusForward="@id/input_walls_height"
+                    android:nextFocusRight="@id/input_walls_height"
+                    android:nextFocusDown="@id/input_walls_height"
+                    android:nextFocusLeft="@id/input_walls_height"
+                    android:nextFocusUp="@id/input_walls_height"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 
@@ -90,6 +95,7 @@
                     android:id="@+id/input_walls_height"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 
@@ -180,6 +186,11 @@
                     android:id="@+id/input_windows_width"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:nextFocusForward="@id/input_windows_height"
+                    android:nextFocusRight="@id/input_windows_height"
+                    android:nextFocusDown="@id/input_windows_height"
+                    android:nextFocusLeft="@id/input_windows_height"
+                    android:nextFocusUp="@id/input_windows_height"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 
@@ -197,6 +208,7 @@
                     android:id="@+id/input_windows_height"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 
@@ -287,6 +299,11 @@
                     android:id="@+id/input_fronton_width"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:nextFocusForward="@id/input_fronton_height"
+                    android:nextFocusRight="@id/input_fronton_height"
+                    android:nextFocusDown="@id/input_fronton_height"
+                    android:nextFocusLeft="@id/input_fronton_height"
+                    android:nextFocusUp="@id/input_fronton_height"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 
@@ -304,6 +321,7 @@
                     android:id="@+id/input_fronton_height"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 
@@ -383,6 +401,11 @@
                     android:id="@+id/input_siding_width"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:nextFocusForward="@id/input_siding_height"
+                    android:nextFocusRight="@id/input_siding_height"
+                    android:nextFocusDown="@id/input_siding_height"
+                    android:nextFocusLeft="@id/input_siding_height"
+                    android:nextFocusUp="@id/input_siding_height"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 
@@ -400,6 +423,11 @@
                     android:id="@+id/input_siding_height"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:nextFocusForward="@id/input_siding_price"
+                    android:nextFocusRight="@id/input_siding_price"
+                    android:nextFocusDown="@id/input_siding_price"
+                    android:nextFocusLeft="@id/input_siding_price"
+                    android:nextFocusUp="@id/input_siding_price"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 
@@ -417,6 +445,7 @@
                     android:id="@+id/input_siding_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 

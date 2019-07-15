@@ -73,6 +73,11 @@
                     android:id="@+id/input_roof_width"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:nextFocusForward="@id/input_roof_height"
+                    android:nextFocusRight="@id/input_roof_height"
+                    android:nextFocusDown="@id/input_roof_height"
+                    android:nextFocusLeft="@id/input_roof_height"
+                    android:nextFocusUp="@id/input_roof_height"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 
@@ -90,6 +95,7 @@
                     android:id="@+id/input_roof_height"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 
@@ -159,6 +165,11 @@
                     android:id="@+id/input_profnastil_width"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:nextFocusForward="@id/input_profnastil_height"
+                    android:nextFocusRight="@id/input_profnastil_height"
+                    android:nextFocusDown="@id/input_profnastil_height"
+                    android:nextFocusLeft="@id/input_profnastil_height"
+                    android:nextFocusUp="@id/input_profnastil_height"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 
@@ -176,6 +187,11 @@
                     android:id="@+id/input_profnastil_height"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:nextFocusForward="@id/input_profnastil_price"
+                    android:nextFocusRight="@id/input_profnastil_price"
+                    android:nextFocusDown="@id/input_profnastil_price"
+                    android:nextFocusLeft="@id/input_profnastil_price"
+                    android:nextFocusUp="@id/input_profnastil_price"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 
@@ -193,6 +209,7 @@
                     android:id="@+id/input_profnastil_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 

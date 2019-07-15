@@ -95,6 +95,7 @@
                     android:id="@+id/input_trotuar_height"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
                     android:ems="10"
                     android:inputType="numberDecimal"/>
 
