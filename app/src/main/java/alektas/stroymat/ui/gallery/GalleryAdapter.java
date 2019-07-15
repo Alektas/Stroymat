@@ -9,10 +9,6 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,13 +27,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public static class ItemHolder extends RecyclerView.ViewHolder {
         View view;
-//        TextView titleText;
         ImageView image;
 
         private ItemHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
-//            titleText = itemView.findViewById(R.id.item_title);
             image = itemView.findViewById(R.id.item_photo);
         }
     }
@@ -65,23 +59,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
         final Photo item = mPhotos.get(position);
         ItemHolder vh = (ItemHolder) viewHolder;
-
-        vh.view.setOnClickListener(view -> mModel.onItemSelected(item.getName()));
-
-        StorageReference imagesFolder = FirebaseStorage.getInstance().getReference("images");
-        StorageReference imgRef = imagesFolder.child(item.getName());
-
-        imgRef.getDownloadUrl().addOnFailureListener(e -> {
-            Log.e(TAG, "onBindViewHolder: " + imgRef.toString(), e);
-        });
-
+        vh.view.setOnClickListener(view -> mModel.onPhotoSelected(item.getUrl()));
         GlideApp.with(vh.view.getContext())
                 .load(item.getUrl())
                 .optionalCenterCrop()
                 .optionalFitCenter()
                 .thumbnail(0.1f)
                 .placeholder(R.drawable.img_placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(vh.image);
     }
 
@@ -92,11 +76,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void setItems(List<Photo> newItems) {
         mPhotos.clear();
         mPhotos.addAll(newItems);
-        notifyDataSetChanged();
-    }
-
-    public void addPhoto(Photo photo) {
-        mPhotos.add(photo);
         notifyDataSetChanged();
     }
 

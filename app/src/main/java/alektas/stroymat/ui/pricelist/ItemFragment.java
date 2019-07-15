@@ -82,7 +82,6 @@ public class ItemFragment extends Fragment {
                                 .thumbnail(0.1f)
                                 .optionalCenterCrop()
                                 .optionalFitCenter()
-                                .placeholder(R.drawable.img_placeholder)
                                 .into(imageView);
                     }
                 });

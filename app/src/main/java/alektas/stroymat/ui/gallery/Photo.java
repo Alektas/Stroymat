@@ -1,25 +1,23 @@
 package alektas.stroymat.ui.gallery;
 
-import android.net.Uri;
-
 public class Photo {
-    private Uri mUrl;
+    private String mUrl;
     private String mName;
 
     public Photo(String name) {
         mName = name;
     }
 
-    public Photo(Uri url, String name) {
+    public Photo(String url, String name) {
         mUrl = url;
         mName = name;
     }
 
-    public Uri getUrl() {
+    public String getUrl() {
         return mUrl;
     }
 
-    public void setUrl(Uri url) {
+    public void setUrl(String url) {
         mUrl = url;
     }
 

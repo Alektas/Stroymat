@@ -1,8 +1,9 @@
 package alektas.stroymat.ui.gallery;
 
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -61,7 +62,7 @@ public class GalleryFragment extends Fragment {
                     if (task.isSuccessful()) {
                         List<Photo> photos = new ArrayList<>();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            Uri uri = Uri.parse((String) document.getData().get("url"));
+                            String uri = (String) document.getData().get("url");
                             photos.add(new Photo(uri, DEFAULT_NAME));
                         }
                         galleryAdapter.setItems(photos);
