@@ -110,6 +110,8 @@ public class PricelistFragment extends Fragment
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        NavigationView nav = requireView().findViewById(R.id.slide_nav_view);
+        nav.setCheckedItem(item);
 
         if (id == R.id.nav_all) {
             setCategory(0);

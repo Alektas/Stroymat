@@ -1,5 +1,6 @@
 package alektas.stroymat;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
 
 import alektas.stroymat.di.AppComponent;
@@ -12,6 +13,7 @@ public class App extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         sAppComponent = buildComponent();
     }
 
