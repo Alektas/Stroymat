@@ -8,6 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_bottom_page"
         tools:context="alektas.stroymat.ui.pricelist.ItemFragment">
 
         <ImageView
