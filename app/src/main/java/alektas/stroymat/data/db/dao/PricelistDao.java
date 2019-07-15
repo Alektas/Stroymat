@@ -25,7 +25,7 @@ public abstract class PricelistDao {
     public abstract PricelistItem getItem(int article);
 
     @Query("SELECT article, name, price, unit, img_res, categ " +
-            "FROM items WHERE name LIKE :query")
+            "FROM items WHERE name LIKE :query OR article LIKE :query")
     public abstract List<PricelistItem> search(String query);
 
     @Query("SELECT categ_name FROM categories WHERE categ = :category")
