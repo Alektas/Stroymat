@@ -8,6 +8,7 @@
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="android:statusBarColor">@color/colorSecondary</item>
         <item name="actionBarStyle">@style/ActionBar</item>
+        <item name="actionBarPopupTheme">@style/ActionBar.Popup</item>
         <item name="searchViewStyle">@style/SearchView</item>
     </style>
 
@@ -18,6 +19,13 @@
         <item name="backgroundSplit">?attr/colorSecondary</item>
         <item name="titleTextStyle">@style/TextAppearance.MaterialComponents.Subtitle1</item>
         <item name="subtitleTextStyle">@style/TextAppearance.MaterialComponents.Body2</item>
+    </style>
+
+    <style name="ActionBar.Popup" parent="ActionBar">
+        <item name="background">@color/colorSecondaryDark</item>
+        <item name="backgroundTint">@color/colorSecondaryDark</item>
+        <item name="backgroundStacked">@color/colorSecondaryDark</item>
+        <item name="backgroundSplit">@color/colorSecondaryDark</item>
     </style>
 
     <style name="SearchView" parent="Widget.AppCompat.SearchView">

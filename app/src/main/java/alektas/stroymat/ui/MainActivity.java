@@ -2,6 +2,7 @@ package alektas.stroymat.ui;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
@@ -18,6 +20,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
@@ -101,6 +104,22 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
         super.onBackPressed();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (R.id.action_about == item.getItemId()) {
+            DialogFragment dialog = new AboutDialog();
+            dialog.show(getSupportFragmentManager(), "AboutDialog");
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void onCalcBtnClick(View view) {
         switch(view.getId()) {
             case R.id.btn_calc_profnastil:
@@ -153,6 +172,31 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
         } catch (NumberFormatException e) {
             Log.e(TAG, "onSearchItemSelected: item article " + articleString + " is not a number", e);
         }
+    }
+
+    public void onLinkClick(View view) {
+        String link = null;
+
+        switch (view.getId()) {
+            case R.id.address: {
+                link = getString(R.string.about_address_link);
+                break;
+            }
+
+            case R.id.apache_link: {
+                link = getString(R.string.apache_license_link);
+                break;
+            }
+
+            case R.id.google_link: {
+                link = getString(R.string.google_material_link);
+                break;
+            }
+        }
+
+        if (link == null) return;
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+        startActivity(browserIntent);
     }
 
 }

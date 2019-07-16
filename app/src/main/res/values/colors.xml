@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#B67500</color>
     <color name="colorAccent">#ec9f10</color>
     <color name="colorSecondary">#2B2B2B</color>
+    <color name="colorSecondaryDark">#1F1F1F</color>
     <color name="colorSecondaryBlur">#B32B2B2B</color>
 </resources>

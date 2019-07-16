@@ -14,9 +14,9 @@
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
         android:background="?attr/colorSecondary"
+        app:menu="@menu/main_toolbar"
         android:theme="@style/ActionBar"
-        app:popupTheme="@style/ActionBar">
-    </androidx.appcompat.widget.Toolbar>
+        app:popupTheme="@style/ActionBar.Popup"/>
 
     <fragment
         android:id="@+id/nav_host_fragment"
