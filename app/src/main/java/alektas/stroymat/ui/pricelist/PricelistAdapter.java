@@ -94,6 +94,7 @@ public class PricelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             vh.priceText.setVisibility(View.VISIBLE);
             vh.priceText.setText(StringUtils.format(price));
         }
+        vh.image.setImageResource(R.drawable.img_placeholder);
         mDb.collection("pricelist").document(String.valueOf(item.getArticle()))
                 .get()
                 .addOnCompleteListener(task -> {
@@ -106,7 +107,6 @@ public class PricelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                                 .thumbnail(0.1f)
                                 .optionalCenterCrop()
                                 .optionalFitCenter()
-                                .placeholder(R.drawable.img_placeholder)
                                 .into(vh.image);
                     }
                 });
