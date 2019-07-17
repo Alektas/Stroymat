@@ -39,6 +39,7 @@
             android:layout_toEndOf="@id/stove_height_label"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_small"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:hint="@string/height_and_meter">
 

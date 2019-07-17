@@ -25,7 +25,6 @@
             android:layout_width="@dimen/width_pricelist_item_img"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/margin_top_item_text"
             android:background="@color/colorSecondaryBlur"
             android:textAlignment="center"
             android:text="@string/article"
