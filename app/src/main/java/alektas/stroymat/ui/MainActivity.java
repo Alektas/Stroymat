@@ -56,8 +56,9 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme); // Убираем сплэш
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupNavigation();
 

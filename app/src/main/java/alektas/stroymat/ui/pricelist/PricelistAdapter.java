@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
+import alektas.stroymat.App;
 import alektas.stroymat.R;
 import alektas.stroymat.data.db.entities.PricelistItem;
 import alektas.stroymat.utils.StringUtils;
@@ -100,7 +101,7 @@ public class PricelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                             && task.getResult() != null
                             && task.getResult().getData() != null) {
                         Uri uri = Uri.parse((String) task.getResult().getData().get("url"));
-                        Glide.with(vh.view.getContext())
+                        Glide.with(App.getComponent().getContext())
                                 .load(uri)
                                 .thumbnail(0.1f)
                                 .optionalCenterCrop()
