@@ -10,7 +10,7 @@
         android:paddingEnd="16dp">
 
         <TextView
-            android:id="@+id/about_app_text"
+            android:id="@+id/about_shop_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_below="@id/about_app_text"
+            android:layout_below="@id/about_shop_description"
             style="@style/TextAppearance.AppCompat.Medium"
             android:clickable="true"
             android:focusable="true"

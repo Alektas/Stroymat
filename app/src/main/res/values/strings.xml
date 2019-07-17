@@ -43,9 +43,9 @@
         \n✔ При комплексной покупке строительных материалов вы получите дополнительные скидки
         \n
         \nРежим работы:
-        \nПН-ПТ\t\t9 — 18
-        \nСБ \t\t\t\t\t9 — 16
-        \nВС \t\t\t\t\t\t9 —12</string>
+        \nПН-ПТ:  9 — 18
+        \nСБ:  9 — 16
+        \nВС:  9 — 12</string>
     <string name="about_icons_by">Иконки:</string>
     <string name="about_google_material" translatable="false">Google Material</string>
     <string name="about_license">(лицензия)</string>
