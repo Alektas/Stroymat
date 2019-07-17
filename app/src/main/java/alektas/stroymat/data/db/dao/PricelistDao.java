@@ -13,11 +13,11 @@ public abstract class PricelistDao {
     private static final String TAG = "PricelistDao";
 
     @Query("SELECT article, name, price, unit, img_res, categ " +
-            "FROM items ORDER BY categ, name")
+            "FROM items ORDER BY categ, article, name")
     public abstract List<PricelistItem> getItems();
 
     @Query("SELECT article, name, price, unit, img_res, categ " +
-            "FROM items WHERE items.categ = :category ORDER BY name ASC")
+            "FROM items WHERE items.categ = :category ORDER BY article, name ASC")
     public abstract List<PricelistItem> getItems(int category);
 
     @Query("SELECT article, name, price, unit, img_res, categ " +
