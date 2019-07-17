@@ -43,6 +43,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_calculatorsFragment_to_stoveFragment"
+            app:destination="@id/stoveFragment" />
     </fragment>
     <fragment
         android:id="@+id/galleryFragment"
@@ -69,4 +72,9 @@
         android:name="alektas.stroymat.ui.calculators.trotuar.TrotuarFragment"
         android:label="Тротуар"
         tools:layout="@layout/trotuar_fragment" />
+    <fragment
+        android:id="@+id/stoveFragment"
+        android:name="alektas.stroymat.ui.calculators.stove.StoveFragment"
+        android:label="Печь"
+        tools:layout="@layout/stove_fragment" />
 </navigation>

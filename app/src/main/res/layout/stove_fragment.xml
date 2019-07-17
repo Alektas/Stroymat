@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_top_page"
+        android:paddingBottom="@dimen/padding_bottom_page"
+        tools:context=".ui.calculators.stove.StoveFragment">
+
+        <TextView
+            android:id="@+id/stove_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:text="@string/stove"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <TextView
+            android:id="@+id/stove_height_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/stove_height_input_layout"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="Высота печи"
+            android:textSize="@dimen/textsize_basic" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/stove_height_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/stove_subtitle"
+            android:layout_toEndOf="@id/stove_height_label"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:hint="@string/height_and_meter">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/stove_height_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/stove_base_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/stove_height_input_layout"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="Основание"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_stove_base_square"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/result_stove_base_square_units"
+            android:layout_alignBaseline="@id/stove_base_label"
+            android:text="@string/null_square"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/result_stove_base_square_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_stove_base_square"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="@dimen/margin_start_subtitle"
+            android:text="@string/square_units"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/stove_base_width_input_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/stove_base_label"
+            android:layout_toStartOf="@id/stove_base_dummy"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:hint="@string/width_and_meter">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/stove_base_width_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:nextFocusForward="@id/stove_base_length_input"
+                android:nextFocusRight="@id/stove_base_length_input"
+                android:nextFocusDown="@id/stove_base_length_input"
+                android:nextFocusLeft="@id/stove_base_length_input"
+                android:nextFocusUp="@id/stove_base_length_input"
+                android:ems="10"
+                android:inputType="numberDecimal"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:id="@+id/stove_base_dummy"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignBaseline="@id/stove_base_width_input_layout"
+            android:layout_centerHorizontal="true" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/stove_base_length_input_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/stove_base_dummy"
+            android:layout_alignBaseline="@id/stove_base_width_input_layout"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:hint="@string/length_and_meter">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/stove_base_length_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:ems="10"
+                android:inputType="numberDecimal"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/stove_base_width_input_layout"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/stove_tube_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider1"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:text="Труба"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <TextView
+            android:id="@+id/stove_tube_height_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/stove_tube_height_input_layout"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="Высота трубы"
+            android:textSize="@dimen/textsize_basic" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/stove_tube_height_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/stove_tube_subtitle"
+            android:layout_toEndOf="@id/stove_tube_height_label"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:hint="@string/height_and_meter">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/stove_tube_height_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/stove_tube_sizes_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/stove_tube_height_input_layout"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="Кирпичей в ряду"
+            android:textSize="@dimen/textsize_basic" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/stove_tube_sizes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/stove_tube_sizes_label"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tube_size_4"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tube_size_5"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tube_size_6"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6"/>
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/stove_tube_sizes"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/stove_brick_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider2"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:text="@string/bricks"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/stove_brick_spinner"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/stove_brick_subtitle"
+            android:layout_toStartOf="@id/brick_clear_btn"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_small"
+            android:hint="@string/bricks">
+
+            <AutoCompleteTextView
+                android:id="@+id/stove_brick_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:singleLine="false"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/brick_clear_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/stove_brick_spinner"
+            android:layout_alignBottom="@id/stove_brick_spinner"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/margin_horiz_small"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_close_black_24dp"/>
+
+        <TextView
+            android:id="@+id/stove_brick_price_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:layout_below="@id/stove_brick_spinner"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/stove_brick_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/stove_brick_price_currency"
+            android:layout_alignBaseline="@id/stove_brick_price_text"
+            android:textAlignment="viewEnd"
+            android:text="@string/null_price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/stove_brick_price_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/stove_brick_price_text"
+            android:layout_toStartOf="@id/stove_brick_price_units"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:text="@string/currency_slash"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/stove_brick_price_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBaseline="@id/stove_brick_price_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/quantity_units_default"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/stove_brick_reserve_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:layout_below="@id/stove_brick_price_text"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/reserve"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/stove_brick_reserve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/stove_brick_reserve_units"
+            android:layout_alignBaseline="@id/stove_brick_reserve_text"
+            android:text="@string/null_quantity"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/stove_brick_reserve_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/stove_brick_reserve"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_start_basic"
+            android:text="%"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <SeekBar
+            android:id="@+id/stove_brick_reserve_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/stove_brick_reserve_text"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginEnd="@dimen/margin_start_basic"
+            android:max="15" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/stove_brick_reserve_seekbar"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/stove_results_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_below="@id/divider3"
+            android:text="@string/result_subtitle"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <TextView
+            android:id="@+id/result_stove_bricks_quantity_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/stove_results_subtitle"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="Кол-во кирпичей"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_bricks_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_stove_bricks_quantity_text"
+            android:layout_toStartOf="@id/result_stove_bricks_quantity_units"
+            android:text="@string/null_quantity"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_stove_bricks_quantity_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_stove_bricks_quantity_text"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/quantity_units_default"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_stove_bricks_price_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/result_stove_bricks_quantity_text"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_stove_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_stove_bricks_price_text"
+            android:layout_toStartOf="@id/result_stove_price_currency"
+            android:text="@string/null_price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_stove_price_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_stove_bricks_price_text"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/currency"
+            android:textSize="@dimen/textsize_basic" />
+
+    </RelativeLayout>
+</ScrollView>

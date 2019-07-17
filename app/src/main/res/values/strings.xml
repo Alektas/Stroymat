@@ -59,5 +59,7 @@
     <string name="about_shop_phone">+7(912)867–01–01</string>
     <string name="about_shop_mail">stroymat18@mail.ru</string>
     <string name="about_address_name">с. Усть-Кулом, ул.Мостовая 1</string>
+    <string name="stove">Печь</string>
+    <string name="bricks">Кирпичи</string>
 
 </resources>
