@@ -28,6 +28,7 @@ import alektas.stroymat.R;
 import alektas.stroymat.data.db.entities.SizedItem;
 import alektas.stroymat.ui.calculators.Square;
 import alektas.stroymat.ui.calculators.SquaresAdapter;
+import alektas.stroymat.utils.ItemUtils;
 import alektas.stroymat.utils.ResourcesUtils;
 import alektas.stroymat.utils.StringUtils;
 
@@ -98,7 +99,7 @@ public class TrotuarFragment extends Fragment {
             items.clear();
             items.addAll(newItems);
             ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
-                    R.layout.spinner_dropdown_item, getNames(newItems));
+                    R.layout.spinner_dropdown_item, ItemUtils.getNames(newItems));
             dropdown.setAdapter(adapter);
         }));
         dropdown.setOnItemClickListener((parent, view, position, id) -> {
@@ -176,14 +177,6 @@ public class TrotuarFragment extends Fragment {
         viewModel.getPrice().observe(getViewLifecycleOwner(), price -> {
             priceText.setText(StringUtils.format(price));
         });
-    }
-
-    private List<String> getNames(List<SizedItem> items) {
-        List<String> names = new ArrayList<>();
-        for (SizedItem item : items) {
-            names.add(item.getName());
-        }
-        return names;
     }
 
 }
