@@ -1,7 +1,23 @@
 apply plugin: 'com.android.application'
 apply from: "$rootDir/release.gradle"
 
+// Create a variable called keystorePropertiesFile, and initialize it to
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
+    signingConfigs {
+        release_config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "alektas.stroymat"
@@ -28,8 +44,8 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.config
-//
+            signingConfig signingConfigs.release_config
+
             buildConfigField 'String', 'AUTHORITY', '"alektas.stroymat.ItemsProvider"'
             resValue 'string', 'search_authority', 'alektas.stroymat.ItemsProvider'
         }
