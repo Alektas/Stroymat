@@ -16,6 +16,7 @@ import alektas.stroymat.R;
 import alektas.stroymat.data.db.AppDatabase;
 import alektas.stroymat.data.db.dao.PricelistDao;
 import alektas.stroymat.data.db.entities.PricelistItem;
+import alektas.stroymat.data.db.entities.ProfnastilItem;
 import alektas.stroymat.data.db.entities.SizedItem;
 
 public class ItemsRepository implements Repository {
@@ -115,6 +116,15 @@ public class ItemsRepository implements Repository {
         return null;
     }
 
+    public List<ProfnastilItem> getProfnastil() {
+        try {
+            return new getProfnastilAsync(mItemsDao).execute().get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private static class getItemsAsync extends AsyncTask<Integer, Void, List<PricelistItem>> {
         private PricelistDao mDao;
         private ItemsLoadingListener mListener;
@@ -152,6 +162,19 @@ public class ItemsRepository implements Repository {
         @Override
         protected List<SizedItem> doInBackground(Integer... integers) {
             return mDao.getSizedItems(integers[0]);
+        }
+    }
+
+    private static class getProfnastilAsync extends AsyncTask<Void, Void, List<ProfnastilItem>> {
+        private PricelistDao mDao;
+
+        getProfnastilAsync(PricelistDao dao) {
+            mDao = dao;
+        }
+
+        @Override
+        protected List<ProfnastilItem> doInBackground(Void... voids) {
+            return mDao.getProfnastil();
         }
     }
 

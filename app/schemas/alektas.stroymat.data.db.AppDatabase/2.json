@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "6d7dd6cb9df6ada4873bd7d1f080fc95",
+    "identityHash": "245c03b98d3301cc0ea19d08e8983c5f",
     "entities": [
       {
         "tableName": "items",
@@ -178,12 +178,71 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "profnastil",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, `overlap` REAL NOT NULL, `length` REAL NOT NULL, `width` REAL NOT NULL, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "itemArticle",
+            "columnName": "item_article",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "overlap",
+            "columnName": "overlap",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "length",
+            "columnName": "length",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "width",
+            "columnName": "width",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "item_article"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_profnastil_item_article",
+            "unique": true,
+            "columnNames": [
+              "item_article"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_profnastil_item_article` ON `${TABLE_NAME}` (`item_article`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "items",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "item_article"
+            ],
+            "referencedColumns": [
+              "article"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6d7dd6cb9df6ada4873bd7d1f080fc95')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '245c03b98d3301cc0ea19d08e8983c5f')"
     ]
   }
 }

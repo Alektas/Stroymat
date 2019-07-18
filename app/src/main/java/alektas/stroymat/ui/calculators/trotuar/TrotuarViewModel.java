@@ -53,7 +53,7 @@ public class TrotuarViewModel extends AndroidViewModel implements SquareViewMode
         if (trotuars == null) trotuars = new ArrayList<>();
         trotuars.add(trotuar);
         mTrotuars.setValue(trotuars);
-        calculateResult();
+        recalculate();
     }
 
     public void removeTrotuar(Square trotuar) {
@@ -61,7 +61,7 @@ public class TrotuarViewModel extends AndroidViewModel implements SquareViewMode
         if (trotuars == null) return;
         trotuars.remove(trotuar);
         mTrotuars.setValue(trotuars);
-        calculateResult();
+        recalculate();
     }
 
     public MutableLiveData<List<Square>> getTrotuars() {
@@ -93,12 +93,12 @@ public class TrotuarViewModel extends AndroidViewModel implements SquareViewMode
 
     public void selectBordur(SizedItem pricelistItem) {
         mSelectedBordur.setValue(pricelistItem);
-        calculateResult();
+        recalculate();
     }
 
     public void selectPlita(SizedItem pricelistItem) {
         mSelectedPlita.setValue(pricelistItem);
-        calculateResult();
+        recalculate();
     }
     /**
      * Установка запаса товара
@@ -115,7 +115,7 @@ public class TrotuarViewModel extends AndroidViewModel implements SquareViewMode
      */
     public void setPlityReserve(int reserve) {
         mPlityReserve = reserve;
-        calculateResult();
+        recalculate();
     }
 
     /**
@@ -124,7 +124,7 @@ public class TrotuarViewModel extends AndroidViewModel implements SquareViewMode
      */
     public void setBorduryReserve(int reserve) {
         mBorduryReserve = reserve;
-        calculateResult();
+        recalculate();
     }
 
     public LiveData<SizedItem> getSelectedItem(int type) {
@@ -153,7 +153,7 @@ public class TrotuarViewModel extends AndroidViewModel implements SquareViewMode
         return mPrice;
     }
 
-    private void calculateResult() {
+    private void recalculate() {
         float trotuarSquare = calculateTrotuarSquare();
         float trotuarPerimeter = calculateTrotuarPerimeter();
         float bordurPieceLength = getSelectedBordur().getValue() == null ?

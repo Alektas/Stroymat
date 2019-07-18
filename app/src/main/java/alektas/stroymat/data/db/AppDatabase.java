@@ -19,9 +19,10 @@ import java.io.OutputStream;
 import alektas.stroymat.data.db.dao.PricelistDao;
 import alektas.stroymat.data.db.entities.Category;
 import alektas.stroymat.data.db.entities.PricelistItem;
+import alektas.stroymat.data.db.entities.Profnastil;
 import alektas.stroymat.data.db.entities.Size;
 
-@Database(entities = {PricelistItem.class, Category.class, Size.class}, version = 2)
+@Database(entities = {PricelistItem.class, Category.class, Size.class, Profnastil.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String TAG = "AppDatabase";
     private static volatile AppDatabase INSTANCE;

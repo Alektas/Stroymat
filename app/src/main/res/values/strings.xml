@@ -61,5 +61,12 @@
     <string name="about_address_name">с. Усть-Кулом, ул.Мостовая 1</string>
     <string name="stove">Печь</string>
     <string name="bricks">Кирпичи</string>
+    <string name="width">Ширина</string>
+    <string name="profnastil_quantity">Листов профнастила</string>
+    <string name="percent">%</string>
+    <string name="overlap">Нахлест (кол-во волн)</string>
+    <string name="length">Длина</string>
+    <string name="length_units">м</string>
+    <string name="roof_piece">Скат крыши</string>
 
 </resources>

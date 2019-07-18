@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import alektas.stroymat.data.db.entities.PricelistItem;
+import alektas.stroymat.data.db.entities.ProfnastilItem;
 import alektas.stroymat.data.db.entities.SizedItem;
 
 public interface Repository {
@@ -16,4 +17,5 @@ public interface Repository {
     String getCategoryName(int categ);
     void setFoundItems(String query);
     List<SizedItem> getSizedItems(int categ);
+    List<ProfnastilItem> getProfnastil();
 }
