@@ -7,6 +7,7 @@ import java.util.List;
 import alektas.stroymat.data.db.entities.PricelistItem;
 import alektas.stroymat.data.db.entities.ProfnastilItem;
 import alektas.stroymat.data.db.entities.SizedItem;
+import alektas.stroymat.ui.gallery.Photo;
 
 public interface Repository {
     LiveData<List<PricelistItem>> getItems();
@@ -18,4 +19,5 @@ public interface Repository {
     void setFoundItems(String query);
     List<SizedItem> getSizedItems(int categ);
     List<ProfnastilItem> getProfnastil();
+    LiveData<List<Photo>> getGalleryPhotos();
 }

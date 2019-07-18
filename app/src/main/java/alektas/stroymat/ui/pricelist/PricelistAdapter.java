@@ -95,21 +95,14 @@ public class PricelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             vh.priceText.setText(StringUtils.format(price));
         }
         vh.image.setImageResource(R.drawable.img_placeholder);
-        mDb.collection("pricelist").document(String.valueOf(item.getArticle()))
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()
-                            && task.getResult() != null
-                            && task.getResult().getData() != null) {
-                        Uri uri = Uri.parse((String) task.getResult().getData().get("url"));
-                        Glide.with(App.getComponent().getContext())
-                                .load(uri)
-                                .thumbnail(0.1f)
-                                .optionalCenterCrop()
-                                .optionalFitCenter()
-                                .into(vh.image);
-                    }
-                });
+        if (item.getImgResName() == null || item.getImgResName().equals("img_placeholder")) return;
+        Glide.with(App.getComponent().getContext())
+                .load(item.getImgResName())
+                .thumbnail(0.1f)
+                .optionalCenterCrop()
+                .optionalFitCenter()
+                .placeholder(R.drawable.img_placeholder)
+                .into(vh.image);
     }
 
     public List<PricelistItem> getItems() {

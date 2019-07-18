@@ -17,17 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import alektas.stroymat.R;
 
 public class GalleryFragment extends Fragment {
     private static final String TAG = "GalleryFragment";
-    private static final String DEFAULT_NAME = "Photo";
     private GalleryViewModel mViewModel;
     private GalleryAdapter galleryAdapter;
 
@@ -55,23 +48,11 @@ public class GalleryFragment extends Fragment {
         rv.setAdapter(galleryAdapter);
         View loadingBar = requireActivity().findViewById(R.id.loading_bar);
         loadingBar.setVisibility(View.VISIBLE);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("gallery")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        List<Photo> photos = new ArrayList<>();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String uri = (String) document.getData().get("url");
-                            photos.add(new Photo(uri, DEFAULT_NAME));
-                        }
-                        galleryAdapter.setItems(photos);
-                        loadingBar.setVisibility(View.GONE);
-                    } else {
-                        Log.w(TAG, "Error getting documents.", task.getException());
-                        loadingBar.setVisibility(View.GONE);
-                    }
-                });
+
+        mViewModel.getPhotos().observe(getViewLifecycleOwner(), photos -> {
+            galleryAdapter.setItems(photos);
+            loadingBar.setVisibility(View.GONE);
+        });
 
         mViewModel.getUrl().observe(getViewLifecycleOwner(), url -> {
             FragmentTransaction ft = getFragmentManager().beginTransaction();

@@ -7,6 +7,9 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -18,6 +21,7 @@ import alektas.stroymat.data.db.dao.PricelistDao;
 import alektas.stroymat.data.db.entities.PricelistItem;
 import alektas.stroymat.data.db.entities.ProfnastilItem;
 import alektas.stroymat.data.db.entities.SizedItem;
+import alektas.stroymat.ui.gallery.Photo;
 
 public class ItemsRepository implements Repository {
     private static final String TAG = "ItemsRepository";
@@ -25,6 +29,7 @@ public class ItemsRepository implements Repository {
     private PricelistDao mItemsDao;
     private MutableLiveData<List<PricelistItem>> mItemsData = new MutableLiveData<>();
     private MutableLiveData<Boolean> mItemsLoadedData = new MutableLiveData<>();
+    private MutableLiveData<List<Photo>> mGalleryPhotos = new MutableLiveData<>();
     private int mCurrentCategory;
 
     interface ItemsLoadingListener {
@@ -33,7 +38,65 @@ public class ItemsRepository implements Repository {
 
     private ItemsRepository(Context context) {
         mItemsDao = AppDatabase.getInstance(context).getDao();
-        mItemsData.setValue(getItems(mCurrentCategory));
+        FirebaseFirestore firebaseDb = FirebaseFirestore.getInstance();
+        updatePricelist(firebaseDb);
+        loadGallery(firebaseDb);
+    }
+
+    private void updatePricelist(FirebaseFirestore db) {
+        db.collection("pricelist")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            try {
+                                int article = Integer.parseInt(document.getId());
+                                String url = (String) document.getData().get("url");
+                                new setItemImageAsync(mItemsDao, article, url).execute();
+                            } catch (NumberFormatException e) {
+                                Log.e(TAG, "updatePricelist: document name should be an item article!", e);
+                                break;
+                            }
+                        }
+                        mItemsData.setValue(getItems(mCurrentCategory));
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    mItemsData.setValue(getItems(mCurrentCategory));
+                });
+    }
+
+    private void loadGallery(FirebaseFirestore db) {
+        db.collection("gallery")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        List<Photo> photos = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String uri = (String) document.getData().get("url");
+                            photos.add(new Photo(uri, document.getId()));
+                        }
+                        mGalleryPhotos.setValue(photos);
+                    }
+                });
+    }
+
+    private static class setItemImageAsync extends AsyncTask<Void, Void, Void> {
+        private PricelistDao mDao;
+        private int mArticle;
+        private String mUrl;
+
+        public setItemImageAsync(PricelistDao dao, int article, String url) {
+            mDao = dao;
+            mArticle = article;
+            mUrl = url;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mDao.setItemImage(mArticle, mUrl);
+            return null;
+        }
     }
 
     public static Repository getInstance(Context context) {
@@ -123,6 +186,11 @@ public class ItemsRepository implements Repository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public LiveData<List<Photo>> getGalleryPhotos() {
+        return mGalleryPhotos;
     }
 
     private static class getItemsAsync extends AsyncTask<Integer, Void, List<PricelistItem>> {

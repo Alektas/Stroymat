@@ -13,6 +13,9 @@ import alektas.stroymat.data.db.entities.SizedItem;
 public abstract class PricelistDao {
     private static final String TAG = "PricelistDao";
 
+    @Query("UPDATE items SET img_res = :url WHERE article = :article")
+    public abstract void setItemImage(int article, String url);
+
     @Query("SELECT article, name, price, unit, img_res, categ " +
             "FROM items ORDER BY categ, article, name")
     public abstract List<PricelistItem> getItems();
