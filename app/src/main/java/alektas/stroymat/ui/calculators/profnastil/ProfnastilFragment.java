@@ -11,34 +11,32 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButtonToggleGroup;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import alektas.stroymat.R;
+import alektas.stroymat.data.db.entities.ProfnastilItem;
 import alektas.stroymat.ui.calculators.Square;
 import alektas.stroymat.ui.calculators.SquaresAdapter;
+import alektas.stroymat.utils.ItemUtils;
+import alektas.stroymat.utils.ResourcesUtils;
 import alektas.stroymat.utils.StringUtils;
 
-public class ProfnastilFragment extends Fragment implements TextWatcher {
+public class ProfnastilFragment extends Fragment {
     private ProfnastilViewModel mViewModel;
-    private EditText roofWidthInput;
-    private EditText roofHeightInput;
-    private EditText profnastilWidthInput;
-    private EditText profnastilHeightInput;
-    private EditText profnastilPriceInput;
-    private TextView roofSquare;
-    private TextView profnastilPrice;
-    private TextView profnastilSquare;
-    private TextView profnastilQuantity;
-    private SquaresAdapter profnastilAdapter;
 
     public static ProfnastilFragment newInstance() {
         return new ProfnastilFragment();
@@ -54,101 +52,150 @@ public class ProfnastilFragment extends Fragment implements TextWatcher {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        roofSquare = view.findViewById(R.id.result_roof_square);
-        profnastilPrice = view.findViewById(R.id.result_profnastil_price);
-        profnastilSquare = view.findViewById(R.id.result_profnastil_square);
-        profnastilQuantity = view.findViewById(R.id.result_profnastil_quantity);
-        roofWidthInput = view.findViewById(R.id.input_roof_width);
-        roofHeightInput = view.findViewById(R.id.input_roof_height);
-        profnastilWidthInput = view.findViewById(R.id.input_profnastil_width);
-        profnastilHeightInput = view.findViewById(R.id.input_profnastil_height);
-        profnastilPriceInput = view.findViewById(R.id.input_profnastil_price);
+        EditText roofWidthInput = view.findViewById(R.id.input_roof_width);
+        EditText roofHeightInput = view.findViewById(R.id.input_roof_height);
         ImageButton addRoofBtn = view.findViewById(R.id.roof_add_btn);
-        addRoofBtn.setOnClickListener(v -> addRoof());
+        addRoofBtn.setOnClickListener(v -> {
+            float width = StringUtils.getFloat(roofWidthInput);
+            float height = StringUtils.getFloat(roofHeightInput);
+            mViewModel.addRoof(new Square(width, height));
+        });
 
         RecyclerView roofRv = view.findViewById(R.id.roof_list);
         RecyclerView.LayoutManager wallsLayoutManager = new LinearLayoutManager(getContext());
         roofRv.setLayoutManager(wallsLayoutManager);
         roofRv.setHasFixedSize(true);
 
-        profnastilHeightInput.addTextChangedListener(this);
-        profnastilWidthInput.addTextChangedListener(this);
-        profnastilPriceInput.addTextChangedListener(this);
+        EditText profnastilLengthInput = view.findViewById(R.id.input_profnastil_length);
+        profnastilLengthInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mViewModel.setProfnastilLength(StringUtils.getFloat(profnastilLengthInput));
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(ProfnastilViewModel.class);
-        mViewModel.getRoofs().observe(this, roofs -> profnastilAdapter.setSquares(roofs));
-        mViewModel.getRoofSquare().observe(this, square -> updateSidingCalc());
-        profnastilAdapter = new SquaresAdapter(mViewModel, SquaresAdapter.SQUARE_TYPE_ROOF);
-        RecyclerView roofRv = getView().findViewById(R.id.roof_list);
+
+        SquaresAdapter profnastilAdapter = new SquaresAdapter(mViewModel, SquaresAdapter.SQUARE_TYPE_ROOF);
+        RecyclerView roofRv = requireView().findViewById(R.id.roof_list);
         roofRv.setAdapter(profnastilAdapter);
+
+        setupProfnastilDropdown(mViewModel, requireView());
+        setupWaveOverlapGroup(mViewModel, requireView());
+        setupReserveSeekbar(mViewModel, requireView());
+
+        subscribeOnModel(mViewModel, requireView(), profnastilAdapter);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        profnastilHeightInput.removeTextChangedListener(this);
-        profnastilWidthInput.removeTextChangedListener(this);
-        profnastilPriceInput.removeTextChangedListener(this);
+    private void setupProfnastilDropdown(ProfnastilViewModel viewModel, View rootView) {
+        AutoCompleteTextView dropdown =
+                requireView().findViewById(R.id.profnastil_dropdown);
+        final List<ProfnastilItem> items = new ArrayList<>();
+        viewModel.getItems().observe(getViewLifecycleOwner(), (newItems -> {
+            items.clear();
+            items.addAll(newItems);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
+                    R.layout.spinner_dropdown_item, ItemUtils.getProfnastilNames(newItems));
+            dropdown.setAdapter(adapter);
+        }));
+        dropdown.setOnItemClickListener((parent, view, position, id) -> {
+            viewModel.selectItem(items.get(position));
+            rootView.requestLayout();
+        });
+        TextView priceText = rootView.findViewById(R.id.profnastil_price);
+        TextView widthText = rootView.findViewById(R.id.profnastil_width);
+        ImageButton clearBtn = requireView().findViewById(R.id.profnastil_clear_btn);
+        clearBtn.setOnClickListener(v -> {
+            dropdown.setText("");
+            priceText.setText(ResourcesUtils.getString(R.string.null_price));
+            widthText.setText(ResourcesUtils.getString(R.string.null_price));
+            viewModel.selectItem(new ProfnastilItem());
+            rootView.requestLayout();
+        });
     }
 
-    private void addRoof() {
-        String widthString = roofWidthInput.getText().toString();
-        float width = TextUtils.isEmpty(widthString) ? 0f : Float.valueOf(widthString);
-        String heightString = roofHeightInput.getText().toString();
-        float height = TextUtils.isEmpty(heightString) ? 0f : Float.valueOf(heightString);
-        Square roof = new Square(width, height);
-        mViewModel.addRoof(roof);
+    private void setupReserveSeekbar(ProfnastilViewModel viewModel, View rootView) {
+        TextView text = rootView.findViewById(R.id.profnastil_reserve);
+        SeekBar seekbar = rootView.findViewById(R.id.profnastil_reserve_seekbar);
+        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                text.setText(String.valueOf(progress));
+                viewModel.setReserve(progress);
+                rootView.requestLayout();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
-    private void updateSidingCalc() {
-        float roofSquare = 0;
-        List<Square> walls = profnastilAdapter.getSquares();
-        for (Square wall : walls) {
-            roofSquare += wall.getSquare();
-        }
-
-        float profnastilOneSquare = getFloat(profnastilWidthInput) * getFloat(profnastilHeightInput);
-        float profnastilPricePerMeter = getFloat(profnastilPriceInput);
-        int profnastilQuantity =
-                profnastilOneSquare == 0 ? 0 : (int) Math.ceil(roofSquare / profnastilOneSquare);
-
-        String roofSquareString =  StringUtils.format(roofSquare);
-        String profnastilSquareString = StringUtils.format(profnastilOneSquare);
-        String profnastilQuantityString = String.valueOf(profnastilQuantity);
-        String profnastilPriceString = StringUtils.format(
-                profnastilPricePerMeter
-                * profnastilQuantity
-                * profnastilOneSquare);
-
-        this.roofSquare.setText(roofSquareString);
-        this.profnastilSquare.setText(profnastilSquareString);
-        this.profnastilPrice.setText(profnastilPriceString);
-        this.profnastilQuantity.setText(profnastilQuantityString);
+    private void setupWaveOverlapGroup(ProfnastilViewModel viewModel, View view) {
+        MaterialButtonToggleGroup overlapGroup = view.findViewById(R.id.profnastil_overlap);
+        overlapGroup.check(R.id.profnastil_overlap_1);
+        mViewModel.setWaveOverlap(1);
+        int[] prevCheckedId = { R.id.profnastil_overlap_1 };
+        overlapGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (!isChecked) {
+                if (prevCheckedId[0] == checkedId) group.check(checkedId);
+                return;
+            }
+            prevCheckedId[0] = checkedId;
+            int size = 0;
+            switch (checkedId) {
+                case R.id.profnastil_overlap_1: size = 1; break;
+                case R.id.profnastil_overlap_2: size = 2; break;
+                case R.id.profnastil_overlap_3: size = 3; break;
+            }
+            viewModel.setWaveOverlap(size);
+        });
     }
 
-    private float getFloat(EditText editText) {
-        String text = editText.getText().toString();
-        if (text.equals("")) return 0f;
-        return Float.parseFloat(text);
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        updateSidingCalc();
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
+    private void subscribeOnModel(ProfnastilViewModel viewModel, View view, SquaresAdapter adapter) {
+        mViewModel.getRoofs().observe(getViewLifecycleOwner(), roofs -> {
+            adapter.setSquares(roofs);
+            requireView().requestLayout();
+        });
+        TextView roofSquare = view.findViewById(R.id.result_roof_square);
+        mViewModel.getRoofSquare().observe(this, square -> {
+            roofSquare.setText(StringUtils.format(square));
+        });
+        TextView profnastilSquareText = view.findViewById(R.id.profnastil_square);
+        mViewModel.getProfnastilSquare().observe(getViewLifecycleOwner(), square -> {
+            profnastilSquareText.setText(String.valueOf(square));
+        });
+        TextView profnastilPriceText = view.findViewById(R.id.profnastil_price);
+        TextView profnastilWidthText = view.findViewById(R.id.profnastil_width);
+        viewModel.getSelectedItem().observe(getViewLifecycleOwner(), item -> {
+            profnastilPriceText.setText(StringUtils.format(item == null ? 0f : item.getPrice()));
+            profnastilWidthText.setText(String.valueOf(item == null ? 0f : item.getWidth()));
+            view.requestLayout();
+        });
+        TextView profnastilCountText = view.findViewById(R.id.result_profnastil_quantity);
+        viewModel.getQuantity().observe(getViewLifecycleOwner(), bricksCount -> {
+            profnastilCountText.setText(String.valueOf(bricksCount));
+            view.requestLayout();
+        });
+        TextView priceText = view.findViewById(R.id.result_profnastil_price);
+        viewModel.getPrice().observe(getViewLifecycleOwner(), price -> {
+            priceText.setText(StringUtils.format(price));
+            view.requestLayout();
+        });
     }
 
 }

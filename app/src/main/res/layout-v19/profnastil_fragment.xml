@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_bottom_page"
+        android:paddingBottom="@dimen/padding_bottom_page"
+        tools:context=".ui.calculators.profnastil.ProfnastilFragment">
+
+        <TextView
+            android:id="@+id/profnastil_roof_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:text="@string/roof_piece"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <TextView
+            android:id="@+id/result_roof_square"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/result_roof_square_units"
+            android:layout_toEndOf="@id/profnastil_roof_subtitle"
+            android:textAlignment="viewEnd"
+            android:layout_alignBaseline="@id/profnastil_roof_subtitle"
+            android:text="@string/null_square"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/result_roof_square_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_roof_square"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_end_subtitle_result"
+            android:text="@string/square_units"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/roof_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profnastil_roof_subtitle"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:overScrollMode="never"
+            tools:listitem="@layout/item_square"
+            tools:itemCount="2"/>
+
+        <LinearLayout
+            android:id="@+id/roof_add_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/roof_list"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/width_and_meter">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_roof_width"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:nextFocusForward="@id/input_roof_height"
+                    android:nextFocusRight="@id/input_roof_height"
+                    android:nextFocusDown="@id/input_roof_height"
+                    android:nextFocusLeft="@id/input_roof_height"
+                    android:nextFocusUp="@id/input_roof_height"
+                    android:ems="10"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/height_and_meter">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_roof_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:ems="10"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/roof_add_btn"
+                android:layout_width="@dimen/size_square_add_btn"
+                android:layout_height="@dimen/size_square_add_btn"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
+                android:layout_gravity="center"
+                android:layout_weight="0"
+                android:background="@color/colorAccent"
+                app:srcCompat="@drawable/ic_add_black_24dp"
+                android:tint="@android:color/white" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/roof_add_container"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/profnastil_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_below="@id/divider1"
+            android:text="@string/profnastil"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <TextView
+            android:id="@+id/profnastil_square"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/profnastil_square_units"
+            android:layout_alignBaseline="@id/profnastil_subtitle"
+            android:text="@string/null_square"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/profnastil_square_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/profnastil_square"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_end_subtitle_result"
+            android:text="@string/square_units"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/profnastil_spinner"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profnastil_subtitle"
+            android:layout_toStartOf="@id/profnastil_clear_btn"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_small"
+            android:hint="@string/profnastil">
+
+            <AutoCompleteTextView
+                android:id="@+id/profnastil_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:singleLine="false"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/profnastil_clear_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/profnastil_spinner"
+            android:layout_alignBottom="@id/profnastil_spinner"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/margin_horiz_small"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_close_black_24dp"/>
+
+        <TextView
+            android:id="@+id/profnastil_price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:layout_below="@id/profnastil_spinner"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/profnastil_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/profnastil_price_currency"
+            android:layout_alignBaseline="@id/profnastil_price_label"
+            android:textAlignment="viewEnd"
+            android:text="@string/null_price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/profnastil_price_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/profnastil_price_label"
+            android:layout_toStartOf="@id/profnastil_price_units"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:text="@string/currency_slash"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/profnastil_price_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBaseline="@id/profnastil_price_label"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/square_units"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/profnastil_width_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:layout_below="@id/profnastil_price_label"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="8dp"
+            android:text="@string/width"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/profnastil_width"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/profnastil_width_units"
+            android:layout_alignBaseline="@id/profnastil_width_label"
+            android:text="@string/null_square"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/profnastil_width_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/profnastil_width_label"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/length_units"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/profnastil_length_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/profnastil_length_input_layout"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/length"
+            android:textSize="@dimen/textsize_basic" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/profnastil_length_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profnastil_width_label"
+            android:layout_toEndOf="@id/profnastil_length_label"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:hint="@string/length_and_meter">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_profnastil_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:ems="10"
+                android:inputType="numberDecimal"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/profnastil_overlap_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profnastil_length_input_layout"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/overlap"
+            android:textSize="@dimen/textsize_basic" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/profnastil_overlap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profnastil_overlap_label"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/profnastil_overlap_1"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/profnastil_overlap_2"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/profnastil_overlap_3"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"/>
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <TextView
+            android:id="@+id/profnastil_reserve_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:layout_below="@id/profnastil_overlap"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/reserve"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/profnastil_reserve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/profnastil_reserve_units"
+            android:layout_alignBaseline="@id/profnastil_reserve_text"
+            android:text="@string/null_quantity"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/profnastil_reserve_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/profnastil_reserve"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_start_basic"
+            android:text="@string/percent"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <SeekBar
+            android:id="@+id/profnastil_reserve_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profnastil_reserve_text"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginEnd="@dimen/margin_start_basic"
+            android:max="15" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/profnastil_reserve_seekbar"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/profnastil_results_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_below="@id/divider2"
+            android:text="@string/result_subtitle"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <TextView
+            android:id="@+id/result_profnastil_quantity_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profnastil_results_subtitle"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/profnastil_quantity"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_profnastil_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_profnastil_quantity_text"
+            android:layout_toStartOf="@id/result_profnastil_quantity_units"
+            android:text="@string/null_quantity"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_profnastil_quantity_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_profnastil_quantity_text"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/quantity_units_default"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_profnastil_price_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/result_profnastil_quantity_text"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_profnastil_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_profnastil_price_text"
+            android:layout_toStartOf="@id/result_profnastil_price_units"
+            android:text="@string/null_price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_profnastil_price_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_profnastil_price_text"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/quantity_units_default"
+            android:textSize="@dimen/textsize_basic" />
+
+    </RelativeLayout>
+</ScrollView>

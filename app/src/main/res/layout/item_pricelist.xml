@@ -2,8 +2,8 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_pricelist_item"
-    android:layout_margin="8dp"
+    android:layout_height="130dp"
+    android:layout_margin="4dp"
     android:backgroundTint="@color/colorSecondary"
     app:cardPreventCornerOverlap="true"
     app:cardCornerRadius="@dimen/corners_pricelist_item">
@@ -16,74 +16,65 @@
             android:id="@+id/item_img"
             android:layout_width="@dimen/width_pricelist_item_img"
             android:layout_height="match_parent"
-            android:src="@drawable/img_placeholder"/>
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/img_placeholder"/>
 
         <TextView
             android:id="@+id/item_article"
             android:layout_width="@dimen/width_pricelist_item_img"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/margin_top_item_text"
             android:background="@color/colorSecondaryBlur"
             android:textAlignment="center"
-            android:text="Артикул"
+            android:text="@string/article"
             style="@style/TextAppearance.MaterialComponents.Body2" />
-
 
         <TextView
             android:id="@+id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/item_img"
-            android:layout_marginTop="@dimen/margin_top_item_text"
+            android:layout_marginTop="@dimen/margin_top_basic"
             android:layout_marginStart="@dimen/margin_start_item_text"
             android:layout_marginEnd="@dimen/margin_start_item_text"
             android:maxLines="4"
-            android:text="Наименование"
+            android:text="@string/name"
             style="@style/TextAppearance.MaterialComponents.Subtitle1" />
-
-        <TextView
-            android:id="@+id/item_price_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/item_img"
-            android:layout_toStartOf="@id/item_price"
-            android:ellipsize="marquee"
-            android:singleLine="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/margin_start_item_text"
-            android:layout_marginBottom="@dimen/margin_top_item_text"
-            android:text="Стоимость"
-            style="@style/TextAppearance.MaterialComponents.Body2" />
 
         <TextView
             android:id="@+id/item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/item_price_currency"
-            android:layout_alignBaseline="@id/item_price_text"
-            android:text="999.99"
+            android:layout_toEndOf="@id/item_img"
+            android:layout_marginStart="@dimen/margin_start_item_text"
+            android:layout_alignBaseline="@id/item_article"
+            android:textAlignment="viewEnd"
+            android:text="@string/null_price"
             style="@style/TextAppearance.MaterialComponents.Body2" />
 
         <TextView
             android:id="@+id/item_price_currency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/item_price_text"
-            android:layout_toStartOf="@id/item_price_units"
+            android:layout_alignBaseline="@id/item_price"
+            android:layout_toEndOf="@id/item_price"
             android:layout_marginStart="8dp"
-            android:text="@string/currency"
+            android:text="@string/currency_slash"
             style="@style/TextAppearance.MaterialComponents.Body2" />
 
         <TextView
             android:id="@+id/item_price_units"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/item_price_currency"
             android:layout_alignParentEnd="true"
-            android:layout_alignBaseline="@id/item_price_text"
+            android:layout_alignBaseline="@id/item_price"
             android:layout_marginEnd="@dimen/margin_start_item_text"
-            android:text="шт"
-            style="@style/TextAppearance.MaterialComponents.Body2" />
+            android:ellipsize="marquee"
+            android:text="@string/quantity_units_default"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:singleLine="true" />
 
     </RelativeLayout>
 

@@ -1,6 +1,7 @@
 package alektas.stroymat.ui.pricelist;
 
-import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,21 +11,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import alektas.stroymat.App;
 import alektas.stroymat.R;
 import alektas.stroymat.data.db.entities.PricelistItem;
-import alektas.stroymat.utils.ResourcesUtils;
 import alektas.stroymat.utils.StringUtils;
 
 public class PricelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final String TAG = "PricelistAdapter";
+    private FirebaseFirestore mDb;
     private List<PricelistItem> mPricelistItems;
-    private Context mContext;
     private PricelistViewModel mModel;
 
-    public PricelistAdapter(Context context, PricelistViewModel model) {
-        mContext = context;
+    public PricelistAdapter(FirebaseFirestore db, PricelistViewModel model) {
+        mDb = db;
         mModel = model;
         mPricelistItems = new ArrayList<>();
         setHasStableIds(true);
@@ -57,7 +62,7 @@ public class PricelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return mPricelistItems.get(position).getArticle();
     }
 
     @NonNull
@@ -89,10 +94,15 @@ public class PricelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             vh.priceText.setVisibility(View.VISIBLE);
             vh.priceText.setText(StringUtils.format(price));
         }
-        int imgRes = ResourcesUtils.getImgId(item.getImgResName());
-        if (imgRes != 0) {
-            vh.image.setImageResource(imgRes);
-        }
+        vh.image.setImageResource(R.drawable.img_placeholder);
+        if (item.getImgResName() == null || item.getImgResName().equals("img_placeholder")) return;
+        Glide.with(App.getComponent().getContext())
+                .load(item.getImgResName())
+                .thumbnail(0.1f)
+                .optionalCenterCrop()
+                .optionalFitCenter()
+                .placeholder(R.drawable.img_placeholder)
+                .into(vh.image);
     }
 
     public List<PricelistItem> getItems() {

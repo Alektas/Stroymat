@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_top_page"
+        android:paddingBottom="@dimen/padding_bottom_page"
+        tools:context=".ui.calculators.trotuar.TrotuarFragment">
+
+        <TextView
+            android:id="@+id/trotuar_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:text="@string/trotuar"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <TextView
+            android:id="@+id/result_trotuar_square"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/result_trotuar_square_units"
+            android:layout_alignBaseline="@id/trotuar_subtitle"
+            android:text="@string/null_square"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/result_trotuar_square_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_trotuar_square"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="@dimen/margin_start_subtitle"
+            android:text="@string/square_units"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/trotuar_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/trotuar_subtitle"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:overScrollMode="never"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/item_square"
+            tools:itemCount="2"/>
+
+        <LinearLayout
+            android:id="@+id/trotuar_add_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/trotuar_list"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/width_and_meter">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_trotuar_width"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:nextFocusForward="@id/input_trotuar_height"
+                    android:nextFocusRight="@id/input_trotuar_height"
+                    android:nextFocusDown="@id/input_trotuar_height"
+                    android:nextFocusLeft="@id/input_trotuar_height"
+                    android:nextFocusUp="@id/input_trotuar_height"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/length_and_meter">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_trotuar_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:ems="10"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/trotuar_add_btn"
+                android:layout_width="@dimen/size_square_add_btn"
+                android:layout_height="@dimen/size_square_add_btn"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
+                android:layout_gravity="center"
+                android:layout_weight="0"
+                android:backgroundTint="@color/colorAccent"
+                app:srcCompat="@drawable/ic_add_black_24dp"
+                android:tint="@android:color/white" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/trotuar_add_container"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/trotuar_plity_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider1"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:text="Плиты тротуарные"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/trotuar_plity_spinner"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/trotuar_plity_subtitle"
+            android:layout_toStartOf="@id/plity_clear_btn"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_small"
+            android:hint="Плиты">
+
+            <AutoCompleteTextView
+                android:id="@+id/trotuar_plity_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:singleLine="false"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/plity_clear_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/trotuar_plity_spinner"
+            android:layout_alignBottom="@id/trotuar_plity_spinner"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/margin_horiz_small"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_close_black_24dp"/>
+
+        <TextView
+            android:id="@+id/trotuar_plity_price_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:layout_below="@id/trotuar_plity_spinner"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/trotuar_plity_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/trotuar_plity_price_currency"
+            android:layout_alignBaseline="@id/trotuar_plity_price_text"
+            android:textAlignment="viewEnd"
+            android:text="@string/null_price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/trotuar_plity_price_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/trotuar_plity_price_text"
+            android:layout_toStartOf="@id/trotuar_plity_price_units"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:text="@string/currency_slash"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/trotuar_plity_price_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBaseline="@id/trotuar_plity_price_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/quantity_units_default"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/trotuar_plity_square_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:layout_below="@id/trotuar_plity_price_text"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="8dp"
+            android:text="@string/square"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/plity_square"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/plity_square_units"
+            android:layout_alignBaseline="@id/trotuar_plity_square_text"
+            android:text="@string/null_square"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/plity_square_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/plity_square"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/square_units"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/trotuar_plity_reserve_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:layout_below="@id/trotuar_plity_square_text"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/reserve"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/plity_reserve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/plity_reserve_units"
+            android:layout_alignBaseline="@id/trotuar_plity_reserve_text"
+            android:text="@string/null_quantity"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/plity_reserve_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/plity_reserve"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_start_basic"
+            android:text="%"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <SeekBar
+            android:id="@+id/plity_reserve_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/trotuar_plity_reserve_text"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginEnd="@dimen/margin_start_basic"
+            android:max="15" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/plity_reserve_seekbar"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/trotuar_bordury_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider2"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:text="@string/bordury_vodostoky"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/trotuar_bordury_spinner"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/trotuar_bordury_subtitle"
+            android:layout_toStartOf="@id/bordury_clear_btn"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:layout_marginStart="@dimen/margin_horiz_small"
+            android:hint="@string/bordury_vodostoky">
+
+            <AutoCompleteTextView
+                android:id="@+id/trotuar_bordury_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:singleLine="false"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/bordury_clear_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/trotuar_bordury_spinner"
+            android:layout_alignBottom="@id/trotuar_bordury_spinner"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/margin_horiz_small"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_close_black_24dp"/>
+
+        <TextView
+            android:id="@+id/trotuar_bordury_price_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:layout_below="@id/trotuar_bordury_spinner"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/trotuar_bordury_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/trotuar_bordury_price_currency"
+            android:layout_alignBaseline="@id/trotuar_bordury_price_text"
+            android:textAlignment="viewEnd"
+            android:text="@string/null_price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/trotuar_bordury_price_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/trotuar_bordury_price_text"
+            android:layout_toStartOf="@id/trotuar_bordury_price_units"
+            android:layout_marginStart="@dimen/margin_horiz_small"
+            android:text="@string/currency_slash"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/trotuar_bordury_price_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBaseline="@id/trotuar_bordury_price_text"
+            android:layout_marginEnd="@dimen/margin_start_basic"
+            android:text="@string/quantity_units_default"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/trotuar_bordury_square_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:layout_below="@id/trotuar_bordury_price_text"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/square"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/bordury_square"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/plity_square_units"
+            android:layout_alignBaseline="@id/trotuar_bordury_square_text"
+            android:text="@string/null_square"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/bordury_square"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_start_basic"
+            android:text="@string/square_units"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/trotuar_bordury_reserve_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:layout_below="@id/trotuar_bordury_square_text"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/reserve"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/bordury_reserve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/bordury_reserve_units"
+            android:layout_alignBaseline="@id/trotuar_bordury_reserve_text"
+            android:text="@string/null_quantity"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/bordury_reserve_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/bordury_reserve"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_start_basic"
+            android:text="%"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <SeekBar
+            android:id="@+id/bordury_reserve_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/trotuar_bordury_reserve_text"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginEnd="@dimen/margin_start_basic"
+            android:max="15" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/bordury_reserve_seekbar"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/trotuar_results_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_below="@id/divider3"
+            android:text="@string/result_subtitle"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <TextView
+            android:id="@+id/result_plity_quantity_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/trotuar_results_subtitle"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="Кол-во плит"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_plity_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_plity_quantity_text"
+            android:layout_toStartOf="@id/result_plity_quantity_units"
+            android:text="@string/null_quantity"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_plity_quantity_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_plity_quantity_text"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/quantity_units_default"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_bordury_quantity_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/result_plity_quantity_text"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="Кол-во бордюров"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_bordury_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_bordury_quantity_text"
+            android:layout_toStartOf="@id/result_bordury_quantity_units"
+            android:text="@string/null_quantity"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_bordury_quantity_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_bordury_quantity_text"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/quantity_units_default"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_trotuar_price_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/result_bordury_quantity_text"
+            android:layout_marginStart="@dimen/margin_start_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_trotuar_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_trotuar_price_text"
+            android:layout_toStartOf="@id/result_trotuar_price_currency"
+            android:text="@string/null_price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_trotuar_price_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_trotuar_price_text"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/currency"
+            android:textSize="@dimen/textsize_basic" />
+
+    </RelativeLayout>
+</ScrollView>

@@ -1,7 +1,5 @@
 package alektas.stroymat.ui.pricelist;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -11,17 +9,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import alektas.stroymat.R;
 import alektas.stroymat.data.db.entities.PricelistItem;
-import alektas.stroymat.utils.ResourcesUtils;
 import alektas.stroymat.utils.StringUtils;
 
 public class ItemFragment extends Fragment {
@@ -29,18 +25,6 @@ public class ItemFragment extends Fragment {
 
     public static ItemFragment newInstance() {
         return new ItemFragment();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.item_details_toolbar, menu);
     }
 
     @Override
@@ -52,19 +36,13 @@ public class ItemFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
-        mViewModel = ViewModelProviders.of(getActivity()).get(PricelistViewModel.class);
-        mViewModel.getSelectedItem().observe(this, item -> {
-            bind(getView(), item);
-        });
+        mViewModel = ViewModelProviders.of(requireActivity()).get(PricelistViewModel.class);
+        mViewModel.getSelectedItem().observe(this, item -> bind(requireView(), item));
     }
 
     private void bind(View itemView, PricelistItem item) {
         ImageView img = itemView.findViewById(R.id.item_img);
-        int imgRes = ResourcesUtils.getImgId(item.getImgResName());
-        if (imgRes != 0) {
-            img.setImageResource(imgRes);
-        }
+        loadImage(item, img);
         TextView name = itemView.findViewById(R.id.item_name);
         name.setText(item.getName());
         TextView article = itemView.findViewById(R.id.item_article);
@@ -82,6 +60,16 @@ public class ItemFragment extends Fragment {
         }
         TextView units = itemView.findViewById(R.id.item_units);
         units.setText(item.getUnit());
+    }
+
+    private void loadImage(PricelistItem item, ImageView imageView) {
+        Glide.with(requireContext())
+                .load(item.getImgResName())
+                .thumbnail(0.1f)
+                .optionalCenterCrop()
+                .optionalFitCenter()
+                .placeholder(R.drawable.img_placeholder)
+                .into(imageView);
     }
 
 }

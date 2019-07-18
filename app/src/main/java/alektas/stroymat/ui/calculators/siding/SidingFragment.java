@@ -77,7 +77,7 @@ public class SidingFragment extends Fragment implements TextWatcher {
         sidingWidthInput = view.findViewById(R.id.input_siding_width);
         sidingHeightInput = view.findViewById(R.id.input_siding_height);
         sidingPriceInput = view.findViewById(R.id.input_siding_price);
-        ImageButton addWallBtn = view.findViewById(R.id.roof_add_btn);
+        ImageButton addWallBtn = view.findViewById(R.id.walls_add_btn);
         addWallBtn.setOnClickListener(v -> addWall());
         ImageButton addWindowBtn = view.findViewById(R.id.window_add_btn);
         addWindowBtn.setOnClickListener(v -> addWindow());
@@ -108,23 +108,33 @@ public class SidingFragment extends Fragment implements TextWatcher {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(SidingViewModel.class);
-        mViewModel.getWalls().observe(this, walls -> wallsAdapter.setSquares(walls));
-        mViewModel.getWallsSquare().observe(this, square -> updateSidingCalc());
-        mViewModel.getWindows().observe(this, windows -> windowsAdapter.setSquares(windows));
-        mViewModel.getWindowsSquare().observe(this, square -> updateSidingCalc());
-        mViewModel.getFrontons().observe(this, frontons -> frontonsAdapter.setSquares(frontons));
-        mViewModel.getFrontonSquare().observe(this, square -> updateSidingCalc());
 
         wallsAdapter = new SquaresAdapter(mViewModel, SquaresAdapter.SQUARE_TYPE_WALL);
         windowsAdapter = new SquaresAdapter(mViewModel, SquaresAdapter.SQUARE_TYPE_WINDOW);
         frontonsAdapter = new SquaresAdapter(mViewModel, SquaresAdapter.SQUARE_TYPE_FRONTON);
 
-        RecyclerView wallsRv = getView().findViewById(R.id.walls_list);
+        RecyclerView wallsRv = requireView().findViewById(R.id.walls_list);
         wallsRv.setAdapter(wallsAdapter);
-        RecyclerView windowsRv = getView().findViewById(R.id.windows_list);
+        RecyclerView windowsRv = requireView().findViewById(R.id.windows_list);
         windowsRv.setAdapter(windowsAdapter);
-        RecyclerView frontonsRv = getView().findViewById(R.id.fronton_list);
+        RecyclerView frontonsRv = requireView().findViewById(R.id.fronton_list);
         frontonsRv.setAdapter(frontonsAdapter);
+
+        mViewModel.getWalls().observe(this, walls -> {
+            wallsAdapter.setSquares(walls);
+            requireView().requestLayout();
+        });
+        mViewModel.getWallsSquare().observe(this, square -> updateSidingCalc());
+        mViewModel.getWindows().observe(this, windows -> {
+            windowsAdapter.setSquares(windows);
+            requireView().requestLayout();
+        });
+        mViewModel.getWindowsSquare().observe(this, square -> updateSidingCalc());
+        mViewModel.getFrontons().observe(this, frontons -> {
+            frontonsAdapter.setSquares(frontons);
+            requireView().requestLayout();
+        });
+        mViewModel.getFrontonSquare().observe(this, square -> updateSidingCalc());
     }
 
     @Override
@@ -182,8 +192,8 @@ public class SidingFragment extends Fragment implements TextWatcher {
         }
 
         float sidingSquare = wallsSquare + frontonsSquare - windowsSquare;
-        float sidingOneSquare = getFloat(sidingWidthInput) * getFloat(sidingHeightInput);
-        float sidingOnePrice = getFloat(sidingPriceInput);
+        float sidingOneSquare = StringUtils.getFloat(sidingWidthInput) * StringUtils.getFloat(sidingHeightInput);
+        float sidingOnePrice = StringUtils.getFloat(sidingPriceInput);
         int sidingQuantity =
                 sidingOneSquare == 0 ? 0 : (int) Math.ceil(sidingSquare / sidingOneSquare);
 
@@ -200,12 +210,6 @@ public class SidingFragment extends Fragment implements TextWatcher {
         this.sidingSquare.setText(sidingSquareString);
         this.sidingPrice.setText(sidingPriceString);
         this.sidingQuantity.setText(sidingQuantityString);
-    }
-
-    private float getFloat(EditText editText) {
-        String text = editText.getText().toString();
-        if (text.equals("")) return 0f;
-        return Float.parseFloat(text);
     }
 
     @Override

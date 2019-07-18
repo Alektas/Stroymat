@@ -1,7 +1,5 @@
 package alektas.stroymat.ui.pricelist;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
@@ -16,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,18 +24,34 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import alektas.stroymat.R;
 
 public class PricelistFragment extends Fragment
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static final String TAG = "PricelistFragment";
+    private FragmentListener mFragmentListener;
     private PricelistViewModel mViewModel;
     private PricelistAdapter pricelistAdapter;
-    private SearchView mSearchView;
-    private ActionBarDrawerToggle toggleMenu;
+
+    public interface FragmentListener {
+        void onFragmentCreated(String tag);
+    }
 
     public static PricelistFragment newInstance() {
         return new PricelistFragment();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            mFragmentListener = (FragmentListener) context;
+        } catch (ClassCastException e) {
+            Log.e(TAG, "onAttach: activity must implement " +
+                    FragmentListener.class.getSimpleName(), e);
+        }
     }
 
     @Override
@@ -54,26 +69,30 @@ public class PricelistFragment extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NavigationView slideMenu = getView().findViewById(R.id.slide_nav_view);
+        NavigationView slideMenu = view.findViewById(R.id.slide_nav_view);
         slideMenu.setNavigationItemSelectedListener(this);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        mViewModel = ViewModelProviders.of(requireActivity()).get(PricelistViewModel.class);
+        pricelistAdapter = new PricelistAdapter(db, mViewModel);
         RecyclerView pricelistRv = view.findViewById(R.id.pricelist);
         pricelistRv.setLayoutManager(new LinearLayoutManager(getContext()));
         pricelistRv.setHasFixedSize(true);
         pricelistRv.setAdapter(pricelistAdapter);
+        mViewModel.getItemsLoading().observe(getViewLifecycleOwner(), isLoaded -> {
+            requireActivity().findViewById(R.id.loading_bar)
+                    .setVisibility(isLoaded ? View.GONE : View.VISIBLE);
+        });
+        mViewModel.getItems().observe(getViewLifecycleOwner(), items -> {
+            pricelistAdapter.setItems(items);
+            view.requestLayout();
+        });
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(getActivity()).get(PricelistViewModel.class);
-        pricelistAdapter = new PricelistAdapter(getContext(), mViewModel);
-        RecyclerView pricelistRv = getView().findViewById(R.id.pricelist);
-        pricelistRv.setAdapter(pricelistAdapter);
-        mViewModel.getItemsLoading().observe(this, isLoaded -> {
-            getView().findViewById(R.id.loading_bar)
-                    .setVisibility(isLoaded ? View.GONE : View.VISIBLE);
-        });
-        mViewModel.getItems().observe(this, items -> pricelistAdapter.setItems(items));
+        mFragmentListener.onFragmentCreated(TAG);
     }
 
     @Override
@@ -81,31 +100,18 @@ public class PricelistFragment extends Fragment
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.pricelist_toolbar, menu);
         SearchManager searchManager =
-                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        mSearchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getActivity().getComponentName()));
-        mSearchView.setIconifiedByDefault(true);
-
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        DrawerLayout drawer = getView().findViewById(R.id.drawer_layout);
-        toggleMenu = new ActionBarDrawerToggle(
-                getActivity(), drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggleMenu);
-        toggleMenu.syncState();
-    }
-
-    @Override
-    public void onDestroyOptionsMenu() {
-        super.onDestroyOptionsMenu();
-        toggleMenu.setDrawerIndicatorEnabled(false);
+                (SearchManager) requireActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(requireActivity().getComponentName()));
+        searchView.setIconifiedByDefault(true);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
+        NavigationView nav = requireView().findViewById(R.id.slide_nav_view);
+        nav.setCheckedItem(item);
 
         if (id == R.id.nav_all) {
             setCategory(0);
@@ -249,8 +255,11 @@ public class PricelistFragment extends Fragment
             setCategory(92);
         }
 
-        DrawerLayout drawer = getView().findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = requireView().findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        RecyclerView pricelistRv = requireView().findViewById(R.id.pricelist);
+        pricelistRv.smoothScrollToPosition(0);
+
         return true;
     }
 

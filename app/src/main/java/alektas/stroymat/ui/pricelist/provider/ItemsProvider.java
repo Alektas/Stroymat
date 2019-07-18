@@ -66,7 +66,7 @@ public class ItemsProvider extends ContentProvider {
             // Cursor fields assigned in the ItemsContract.
             String price = StringUtils.formatPrice(
                     item.getPrice(),
-                    getContext().getString(R.string.currency), item.getUnit());
+                    getContext().getString(R.string.currency_slash), item.getUnit());
             cursor.addRow(new Object[] {i,                      // ID
                     item.getName(),                             // visible text
                     price,                                      // visible price

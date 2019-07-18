@@ -3,26 +3,70 @@
     <string name="title_calculators">Калькуляторы</string>
     <string name="title_gallery">Галерея</string>
     <string name="title_pricelist">Прайслист</string>
-    <string name="square_units">м"\u00b2"</string>
-    <string name="length_units">м</string>
-    <string name="all">Все</string>
-    <string name="tubes">Трубы профильные</string>
-    <string name="profnastil">Профнастил</string>
-    <string name="title_item_list">Items</string>
-    <string name="title_item_detail">Item Detail</string>
-    <string name="title_activity_pricelist">PricelistActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Категории</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
     <string name="search_hint">Поиск товаров</string>
-    <string name="currency">руб/</string>
+    <string name="nav_header_title">Категории</string>
+    <string name="all">Все</string>
+    <string name="profnastil">Профнастил</string>
+    <string name="siding">Сайдинг</string>
     <string name="other">Другое</string>
+    <string name="width_and_meter">Ширина, м</string>
+    <string name="length_and_meter">Длина, м</string>
+    <string name="height_and_meter">Высота, м</string>
+    <string name="price_per_meter">Цена, руб/шт</string>
+    <string name="price_per_meter2">Цена, руб/м2</string>
+    <string name="currency_slash">руб/</string>
+    <string name="currency">руб</string>
+    <string name="null_price" translatable="false">0.00</string>
+    <string name="null_square" translatable="false">0.00</string>
+    <string name="null_quantity" translatable="false">0</string>
+    <string name="square_units">м"\u00b2"</string>
+    <string name="quantity_units_default">шт</string>
+    <string name="result_subtitle">Итого</string>
+    <string name="price">Стоимость</string>
+    <string name="square">Площадь</string>
+    <string name="reserve">Запас</string>
+    <string name="trotuar">Тротуар</string>
+    <string name="bordury_vodostoky">Бордюры, водостоки</string>
+    <string name="name">Наименование</string>
+    <string name="article">Артикул</string>
+    <string name="about_dev_mail" translatable="false">alektas@inbox.ru</string>
+    <string name="about_developer">Тотилас Александр</string>
+    <string name="about_shop_descr">
+        Магазин строительных и отделочных материалов \"СТРОЙМАТ\"
+        имеет широкий ассортимент товаров на складе и под заказ.
+        \n
+        \n✔ Выезд замерщика БЕСПЛАТНО
+        \n✔ Товар В НАЛИЧИИ на складе
+        \n✔ Все образцы представлены в магазине
+        \n✔ Доставка заказных позиций в течении недели
+        \n✔ Рассрочка без банка и кредит на выгодных условиях
+        \n✔ При комплексной покупке строительных материалов вы получите дополнительные скидки
+        \n
+        \nРежим работы:
+        \nПН-ПТ:  9 — 18
+        \nСБ:  9 — 16
+        \nВС:  9 — 12</string>
+    <string name="about_icons_by">Иконки:</string>
+    <string name="about_google_material" translatable="false">Google Material</string>
+    <string name="about_license">(лицензия)</string>
+    <string name="apache_license_link" translatable="false">https://www.apache.org/licenses/LICENSE-2.0.html</string>
+    <string name="google_material_link" translatable="false">https://material.io/tools/icons/</string>
+    <string name="about_version">Версия: %s</string>
+    <string name="about_title">О магазине</string>
+    <string name="about_developer_text">Разработчик:</string>
+    <string name="about_address_link" translatable="false">https://yandex.ru/maps/-/CCs~F67~</string>
+    <string name="about_address_label">Адрес:</string>
+    <string name="about_shop_phone">+7(912)867–01–01</string>
+    <string name="about_shop_mail">stroymat18@mail.ru</string>
+    <string name="about_address_name">с. Усть-Кулом, ул.Мостовая 1</string>
+    <string name="stove">Печь</string>
+    <string name="bricks">Кирпичи</string>
+    <string name="width">Ширина</string>
+    <string name="profnastil_quantity">Листов профнастила</string>
+    <string name="percent">%</string>
+    <string name="overlap">Нахлест (кол-во волн)</string>
+    <string name="length">Длина</string>
+    <string name="length_units">м</string>
+    <string name="roof_piece">Скат крыши</string>
+
 </resources>

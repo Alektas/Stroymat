@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_top_page"
+        android:paddingBottom="@dimen/padding_bottom_page"
+        tools:context=".ui.calculators.siding.SidingFragment">
+
+        <TextView
+            android:id="@+id/siding_walls_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:text="Стены"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <TextView
+            android:id="@+id/result_walls_square"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/result_walls_square_units"
+            android:layout_alignBaseline="@id/siding_walls_subtitle"
+            android:text="@string/null_square"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/result_walls_square_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_walls_square"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_end_subtitle_result"
+            android:text="@string/square_units"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/walls_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/siding_walls_subtitle"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:overScrollMode="never"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/item_square"
+            tools:itemCount="2"/>
+
+        <LinearLayout
+            android:id="@+id/walls_add_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/walls_list"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/width_and_meter">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_walls_width"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:nextFocusForward="@id/input_walls_height"
+                    android:nextFocusRight="@id/input_walls_height"
+                    android:nextFocusDown="@id/input_walls_height"
+                    android:nextFocusLeft="@id/input_walls_height"
+                    android:nextFocusUp="@id/input_walls_height"
+                    android:ems="10"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/height_and_meter">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_walls_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:ems="10"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/walls_add_btn"
+                android:layout_width="@dimen/size_square_add_btn"
+                android:layout_height="@dimen/size_square_add_btn"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
+                android:layout_gravity="center"
+                android:layout_weight="0"
+                android:background="@color/colorAccent"
+                app:srcCompat="@drawable/ic_add_black_24dp"
+                android:tint="@android:color/white" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/walls_add_container"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/siding_windows_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider1"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:text="Окна и двери"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <TextView
+            android:id="@+id/result_windows_square"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/result_windows_square_units"
+            android:layout_alignBaseline="@id/siding_windows_subtitle"
+            android:text="@string/null_price"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/result_windows_square_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_windows_square"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_end_subtitle_result"
+            android:text="@string/square_units"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/windows_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/siding_windows_subtitle"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:overScrollMode="never"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/item_square"
+            tools:itemCount="2"/>
+
+        <LinearLayout
+            android:id="@+id/windows_add_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/windows_list"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/width_and_meter">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_windows_width"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:nextFocusForward="@id/input_windows_height"
+                    android:nextFocusRight="@id/input_windows_height"
+                    android:nextFocusDown="@id/input_windows_height"
+                    android:nextFocusLeft="@id/input_windows_height"
+                    android:nextFocusUp="@id/input_windows_height"
+                    android:ems="10"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/height_and_meter">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_windows_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:ems="10"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/window_add_btn"
+                android:layout_width="@dimen/size_square_add_btn"
+                android:layout_height="@dimen/size_square_add_btn"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
+                android:layout_gravity="center"
+                android:layout_weight="0"
+                android:background="@color/colorAccent"
+                app:srcCompat="@drawable/ic_add_black_24dp"
+                android:tint="@android:color/white" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/windows_add_container"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/siding_fronton_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider2"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:text="Фронтоны"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <TextView
+            android:id="@+id/result_fronton_square"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/result_fronton_square_units"
+            android:layout_alignBaseline="@id/siding_fronton_subtitle"
+            android:text="@string/null_square"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/result_fronton_square_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_fronton_square"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_end_subtitle_result"
+            android:text="@string/square_units"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fronton_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/siding_fronton_subtitle"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:overScrollMode="never"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/item_square"
+            tools:itemCount="2"/>
+
+        <LinearLayout
+            android:id="@+id/fronton_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fronton_list"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/width_and_meter">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_fronton_width"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:nextFocusForward="@id/input_fronton_height"
+                    android:nextFocusRight="@id/input_fronton_height"
+                    android:nextFocusDown="@id/input_fronton_height"
+                    android:nextFocusLeft="@id/input_fronton_height"
+                    android:nextFocusUp="@id/input_fronton_height"
+                    android:ems="10"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/height_and_meter">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_fronton_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:ems="10"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/fronton_add_btn"
+                android:layout_width="@dimen/size_square_add_btn"
+                android:layout_height="@dimen/size_square_add_btn"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
+                android:layout_gravity="center"
+                android:layout_weight="0"
+                android:background="@color/colorAccent"
+                app:srcCompat="@drawable/ic_add_black_24dp"
+                android:tint="@android:color/white" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/fronton_container"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/siding_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_below="@id/divider3"
+            android:text="@string/siding"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <TextView
+            android:id="@+id/result_siding_square"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/result_siding_square_units"
+            android:layout_alignBaseline="@id/siding_subtitle"
+            android:text="@string/null_price"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <TextView
+            android:id="@+id/result_siding_square_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_siding_square"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_end_subtitle_result"
+            android:text="@string/square_units"
+            android:textSize="@dimen/textsize_basic"/>
+
+        <LinearLayout
+            android:id="@+id/siding_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/siding_subtitle"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/width_and_meter">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_siding_width"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:nextFocusForward="@id/input_siding_height"
+                    android:nextFocusRight="@id/input_siding_height"
+                    android:nextFocusDown="@id/input_siding_height"
+                    android:nextFocusLeft="@id/input_siding_height"
+                    android:nextFocusUp="@id/input_siding_height"
+                    android:ems="10"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/length_and_meter">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_siding_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:nextFocusForward="@id/input_siding_price"
+                    android:nextFocusRight="@id/input_siding_price"
+                    android:nextFocusDown="@id/input_siding_price"
+                    android:nextFocusLeft="@id/input_siding_price"
+                    android:nextFocusUp="@id/input_siding_price"
+                    android:ems="10"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_horiz_between_text"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/price_per_meter">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_siding_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:ems="10"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/siding_container"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_divider"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/siding_results_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_subtitle"
+            android:layout_marginStart="@dimen/margin_start_subtitle"
+            android:layout_below="@id/divider4"
+            android:text="@string/result_subtitle"
+            android:textSize="@dimen/textsize_subtitle" />
+
+        <TextView
+            android:id="@+id/result_siding_quantity_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/siding_results_subtitle"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="Кол-во сайдинга"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_siding_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_siding_quantity_text"
+            android:layout_toStartOf="@id/result_siding_quantity_units"
+            android:text="@string/null_quantity"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_siding_quantity_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_siding_quantity_text"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/quantity_units_default"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_siding_price_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/result_siding_quantity_text"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:text="@string/price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_siding_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_siding_price_text"
+            android:layout_toStartOf="@id/result_siding_price_currency"
+            android:text="@string/null_price"
+            android:textSize="@dimen/textsize_basic" />
+
+        <TextView
+            android:id="@+id/result_siding_price_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/result_siding_price_text"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_horiz_between_text"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/currency"
+            android:textSize="@dimen/textsize_basic" />
+
+    </RelativeLayout>
+</ScrollView>

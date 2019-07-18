@@ -2,33 +2,31 @@ package alektas.stroymat.ui;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.SearchView;
 
 import alektas.stroymat.R;
-import alektas.stroymat.ui.calculators.CalculatorsFragment;
-import alektas.stroymat.ui.calculators.profnastil.ProfnastilFragment;
-import alektas.stroymat.ui.calculators.siding.SidingFragment;
-import alektas.stroymat.ui.calculators.vodostock.VodostockFragment;
-import alektas.stroymat.ui.gallery.GalleryFragment;
-import alektas.stroymat.ui.pricelist.ItemFragment;
 import alektas.stroymat.ui.pricelist.PricelistFragment;
 import alektas.stroymat.ui.pricelist.PricelistViewModel;
 
@@ -44,144 +42,99 @@ import alektas.stroymat.ui.pricelist.PricelistViewModel;
  * Прости за корявое подобие архитектуры.
  * Прости и за многое другое, чего я не припомнил или о чем не ведаю.
  *
- * В оправдание лишь скажу, что у меня было крайне мало времени,
+ * В оправдание лишь приведу крайне сжатые сроки,
  * минимальный шанс на получение достойной оплаты, отсутствие опыта
  * и уверенность в том, что сюда никто не заглянет.
  *
  * @author Alektas, студент-самоучка
  */
-public class MainActivity extends AppCompatActivity
-        implements FragmentManager.OnBackStackChangedListener {
+public class MainActivity extends AppCompatActivity implements PricelistFragment.FragmentListener {
     private static final String TAG = "MainActivity";
-    private static final String TAG_FRAGMENT_CALCULATORS = "TAG_FRAGMENT_CALCULATORS";
-    private static final String TAG_FRAGMENT_CALC_PROFNASTIL = "TAG_FRAGMENT_CALC_PROFNASTIL";
-    private static final String TAG_FRAGMENT_CALC_SIDING = "TAG_FRAGMENT_CALC_SIDING";
-    private static final String TAG_FRAGMENT_CALC_VODOSTOCK = "TAG_FRAGMENT_CALC_VODOSTOCK";
-    private static final String TAG_FRAGMENT_PRICELIST = "TAG_FRAGMENT_PRICELIST";
-    private static final String TAG_FRAGMENT_PRICELIST_ITEM = "TAG_FRAGMENT_PRICELIST_ITEM";
-    private static final String TAG_FRAGMENT_GALLERY = "TAG_FRAGMENT_GALLERY";
-
-    private List<Fragment> fragments;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = item -> {
-                switch (item.getItemId()) {
-                    case R.id.navigation_pricelist:
-                        switchFragment(0, TAG_FRAGMENT_PRICELIST);
-                        return true;
-                    case R.id.navigation_calculators:
-                        switchFragment(1, TAG_FRAGMENT_CALCULATORS);
-                        return true;
-                    case R.id.navigation_gallery:
-                        switchFragment(2, TAG_FRAGMENT_GALLERY);
-                        return true;
-                }
-                return false;
-            };
     private PricelistViewModel mPricelistViewModel;
     private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme); // Убираем сплэш
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        initToolbar();
-
-        getSupportFragmentManager().addOnBackStackChangedListener(this);
-        fragments = buildFragmentsList();
-        BottomNavigationView navView = findViewById(R.id.bottom_nav_view);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        switchFragment(0, TAG_FRAGMENT_PRICELIST);
+        setupNavigation();
 
         mPricelistViewModel = ViewModelProviders.of(this).get(PricelistViewModel.class);
         mPricelistViewModel.getSelectedItem().observe(this, item -> {
-            switchBackStackFragment(6, TAG_FRAGMENT_PRICELIST_ITEM);
+            navController.navigate(R.id.action_pricelistFragment_to_itemFragment);
         });
     }
 
-    private void initToolbar() {
+    private void setupNavigation() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.ic_launcher);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+        navController =
+                Navigation.findNavController(this, R.id.nav_host_fragment);
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_view);
+        NavigationUI.setupWithNavController(bottomNav, navController);
+    }
+
+    @Override
+    public void onFragmentCreated(String tag) {
+        if (tag.equals(PricelistFragment.TAG)) {
+            Fragment fragment =
+                    getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+            if (fragment == null) return;
+            drawerLayout = fragment.requireView().findViewById(R.id.drawer_layout);
+            NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout);
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(navController, drawerLayout) || super.onSupportNavigateUp();
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
             return;
         }
         super.onBackPressed();
     }
 
     @Override
-    public void onBackStackChanged() {
-        if (getSupportActionBar() == null) return;
-        int count = getSupportFragmentManager().getBackStackEntryCount();
-        if (count > 0) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            toolbar.setNavigationOnClickListener(v -> onBackPressed());
-        } else {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (R.id.action_about == item.getItemId()) {
+            DialogFragment dialog = new AboutDialog();
+            dialog.show(getSupportFragmentManager(), "AboutDialog");
+            return true;
         }
-    }
-
-    private void switchFragment(int pos, String tag) {
-        FragmentManager manager = getSupportFragmentManager();
-        if (manager.getBackStackEntryCount() > 0) {
-            int firstId = manager.getBackStackEntryAt(0).getId();
-            manager.popBackStack(firstId, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
-        manager.beginTransaction()
-                .replace(R.id.fragment_container, fragments.get(pos), tag)
-                .commit();
-    }
-
-    private void switchBackStackFragment(int pos, String tag) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragments.get(pos), tag)
-                .addToBackStack(null)
-                .commit();
-    }
-
-    private ArrayList<Fragment> buildFragmentsList() {
-        ArrayList<Fragment> fragments = new ArrayList<>();
-
-        PricelistFragment pricelistFrag = PricelistFragment.newInstance();
-        ItemFragment itemFrag = ItemFragment.newInstance();
-
-        CalculatorsFragment calculatorsFrag = CalculatorsFragment.newInstance();
-        ProfnastilFragment profnastilFrag = ProfnastilFragment.newInstance();
-        SidingFragment sidingFrag = SidingFragment.newInstance();
-        VodostockFragment vodostockFrag = VodostockFragment.newInstance();
-
-        GalleryFragment galleryFrag = GalleryFragment.newInstance();
-
-        fragments.add(pricelistFrag);
-        fragments.add(calculatorsFrag);
-        fragments.add(galleryFrag);
-        fragments.add(profnastilFrag);
-        fragments.add(sidingFrag);
-        fragments.add(vodostockFrag);
-        fragments.add(itemFrag);
-
-        return fragments;
+        return super.onOptionsItemSelected(item);
     }
 
     public void onCalcBtnClick(View view) {
         switch(view.getId()) {
             case R.id.btn_calc_profnastil:
-                switchBackStackFragment(3, TAG_FRAGMENT_CALC_PROFNASTIL);
+                navController.navigate(R.id.action_calculatorsFragment_to_profnastilFragment);
                 break;
             case R.id.btn_calc_siding:
-                switchBackStackFragment(4, TAG_FRAGMENT_CALC_SIDING);
+                navController.navigate(R.id.action_calculatorsFragment_to_sidingFragment);
+                break;
+            case R.id.btn_calc_trotuar:
+                navController.navigate(R.id.action_calculatorsFragment_to_trotuarFragment);
+                break;
+            case R.id.btn_calc_stove:
+                navController.navigate(R.id.action_calculatorsFragment_to_stoveFragment);
                 break;
         }
     }
@@ -200,6 +153,7 @@ public class MainActivity extends AppCompatActivity
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             onSearchEnter(query);
+            cancelSearch();
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             String itemArticle = intent.getDataString();
             onSearchItemSelected(itemArticle);
@@ -208,6 +162,14 @@ public class MainActivity extends AppCompatActivity
 
     private void onSearchEnter(String query) {
         mPricelistViewModel.onSearchEnter(query);
+        RecyclerView pricelistRv = findViewById(R.id.pricelist);
+        if (pricelistRv != null) pricelistRv.smoothScrollToPosition(0);
+    }
+
+    private void cancelSearch() {
+        MenuItem menuSearch = toolbar.getMenu().findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuSearch.getActionView();
+        searchView.onActionViewCollapsed();
     }
 
     private void onSearchItemSelected(String articleString) {
@@ -217,6 +179,31 @@ public class MainActivity extends AppCompatActivity
         } catch (NumberFormatException e) {
             Log.e(TAG, "onSearchItemSelected: item article " + articleString + " is not a number", e);
         }
+    }
+
+    public void onLinkClick(View view) {
+        String link = null;
+
+        switch (view.getId()) {
+            case R.id.address: {
+                link = getString(R.string.about_address_link);
+                break;
+            }
+
+            case R.id.apache_link: {
+                link = getString(R.string.apache_license_link);
+                break;
+            }
+
+            case R.id.google_link: {
+                link = getString(R.string.google_material_link);
+                break;
+            }
+        }
+
+        if (link == null) return;
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+        startActivity(browserIntent);
     }
 
 }

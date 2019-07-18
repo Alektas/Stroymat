@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/pricelistFragment">
+
+    <fragment
+        android:id="@+id/pricelistFragment"
+        android:name="alektas.stroymat.ui.pricelist.PricelistFragment"
+        android:label="Прайслист"
+        tools:layout="@layout/pricelist_fragment" >
+        <action
+            android:id="@+id/action_pricelistFragment_to_itemFragment"
+            app:destination="@id/itemFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/calculatorsFragment"
+        android:name="alektas.stroymat.ui.calculators.CalculatorsFragment"
+        android:label="Калькуляторы"
+        tools:layout="@layout/calculators_fragment">
+        <action
+            android:id="@+id/action_calculatorsFragment_to_sidingFragment"
+            app:destination="@id/sidingFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_calculatorsFragment_to_profnastilFragment"
+            app:destination="@id/profnastilFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_calculatorsFragment_to_trotuarFragment"
+            app:destination="@id/trotuarFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_calculatorsFragment_to_stoveFragment"
+            app:destination="@id/stoveFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/galleryFragment"
+        android:name="alektas.stroymat.ui.gallery.GalleryFragment"
+        android:label="Галерея"
+        tools:layout="@layout/gallery_fragment"/>
+    <fragment
+        android:id="@+id/sidingFragment"
+        android:name="alektas.stroymat.ui.calculators.siding.SidingFragment"
+        android:label="Сайдинг"
+        tools:layout="@layout/siding_fragment" />
+    <fragment
+        android:id="@+id/profnastilFragment"
+        android:name="alektas.stroymat.ui.calculators.profnastil.ProfnastilFragment"
+        android:label="Профнастил"
+        tools:layout="@layout/profnastil_fragment" />
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="alektas.stroymat.ui.pricelist.ItemFragment"
+        android:label="Товар"
+        tools:layout="@layout/item_pricelist_details" />
+    <fragment
+        android:id="@+id/trotuarFragment"
+        android:name="alektas.stroymat.ui.calculators.trotuar.TrotuarFragment"
+        android:label="Тротуар"
+        tools:layout="@layout/trotuar_fragment" />
+    <fragment
+        android:id="@+id/stoveFragment"
+        android:name="alektas.stroymat.ui.calculators.stove.StoveFragment"
+        android:label="Печь"
+        tools:layout="@layout/stove_fragment" />
+</navigation>

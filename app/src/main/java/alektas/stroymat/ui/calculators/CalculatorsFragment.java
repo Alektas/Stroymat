@@ -1,7 +1,5 @@
 package alektas.stroymat.ui.calculators;
 
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,8 +14,6 @@ import alektas.stroymat.R;
 
 public class CalculatorsFragment extends Fragment {
 
-    private CalculatorsViewModel mViewModel;
-
     public static CalculatorsFragment newInstance() {
         return new CalculatorsFragment();
     }
@@ -26,12 +22,6 @@ public class CalculatorsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.calculators_fragment, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(CalculatorsViewModel.class);
     }
 
 }
