@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.Menu;
@@ -41,7 +42,7 @@ import alektas.stroymat.ui.pricelist.PricelistViewModel;
  * Прости за корявое подобие архитектуры.
  * Прости и за многое другое, чего я не припомнил или о чем не ведаю.
  *
- * В оправдание лишь скажу, что у меня было крайне мало времени,
+ * В оправдание лишь приведу крайне сжатые сроки,
  * минимальный шанс на получение достойной оплаты, отсутствие опыта
  * и уверенность в том, что сюда никто не заглянет.
  *
@@ -161,6 +162,8 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
 
     private void onSearchEnter(String query) {
         mPricelistViewModel.onSearchEnter(query);
+        RecyclerView pricelistRv = findViewById(R.id.pricelist);
+        if (pricelistRv != null) pricelistRv.smoothScrollToPosition(0);
     }
 
     private void cancelSearch() {

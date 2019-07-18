@@ -85,7 +85,7 @@ public class PricelistFragment extends Fragment
         });
         mViewModel.getItems().observe(getViewLifecycleOwner(), items -> {
             pricelistAdapter.setItems(items);
-            pricelistRv.smoothScrollToPosition(0);
+            view.requestLayout();
         });
     }
 
@@ -257,6 +257,9 @@ public class PricelistFragment extends Fragment
 
         DrawerLayout drawer = requireView().findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        RecyclerView pricelistRv = requireView().findViewById(R.id.pricelist);
+        pricelistRv.smoothScrollToPosition(0);
+
         return true;
     }
 
