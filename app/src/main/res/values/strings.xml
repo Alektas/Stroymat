@@ -68,5 +68,6 @@
     <string name="length">Длина</string>
     <string name="length_units">м</string>
     <string name="roof_piece">Скат крыши</string>
+    <string name="default_notification_channel_id">DEFAULT_NOTIFICATIONS_CHANNEL</string>
 
 </resources>
