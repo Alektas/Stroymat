@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -62,6 +64,17 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupNavigation();
+
+        FirebaseMessaging.getInstance().subscribeToTopic("discounts");
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.w(TAG, "getInstanceId failed", task.getException());
+                        return;
+                    }
+                    String token = task.getResult().getToken();
+                    Log.d(TAG, "token=" + token);
+                });
 
         mPricelistViewModel = ViewModelProviders.of(this).get(PricelistViewModel.class);
         mPricelistViewModel.getSelectedItem().observe(this, item -> {
