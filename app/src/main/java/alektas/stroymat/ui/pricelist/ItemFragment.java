@@ -56,7 +56,7 @@ public class ItemFragment extends Fragment {
             itemView.findViewById(R.id.item_price_text).setVisibility(View.GONE);
             priceText.setVisibility(View.GONE);
         } else {
-            priceText.setText(StringUtils.format(price));
+            priceText.setText(StringUtils.formatPrice(price));
         }
         TextView units = itemView.findViewById(R.id.item_units);
         units.setText(item.getUnit());

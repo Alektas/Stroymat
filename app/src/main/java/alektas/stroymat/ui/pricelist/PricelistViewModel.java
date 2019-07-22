@@ -11,19 +11,30 @@ import java.util.List;
 
 import alektas.stroymat.data.ItemsRepository;
 import alektas.stroymat.data.Repository;
+import alektas.stroymat.data.db.entities.Category;
 import alektas.stroymat.data.db.entities.PricelistItem;
 
 public class PricelistViewModel extends AndroidViewModel {
     private Repository mRepository;
     private MutableLiveData<PricelistItem> mSelectedItem = new MutableLiveData<>();
+    private MutableLiveData<Integer> mSelectedCategory = new MutableLiveData<>();
+    private LiveData<List<Category>> mCategories;
+    private LiveData<List<PricelistItem>> mItems;
 
     public PricelistViewModel(@NonNull Application application) {
         super(application);
         mRepository = ItemsRepository.getInstance(application);
+        mCategories = mRepository.getCategories();
+        mItems = mRepository.getItems(); // Установка всех товаров в списке по-умолчанию
+        mSelectedCategory.setValue(0); // Отметить категорию "Все" (== 0) в меню
+    }
+
+    public LiveData<List<Category>> getCategories() {
+        return mCategories;
     }
 
     public LiveData<List<PricelistItem>> getItems() {
-        return mRepository.getItems();
+        return mItems;
     }
 
     public LiveData<Boolean> getItemsLoading() {
@@ -36,6 +47,7 @@ public class PricelistViewModel extends AndroidViewModel {
 
     public void setCategory(int category) {
         mRepository.setCategory(category);
+        mSelectedCategory.setValue(category);
     }
 
     public void onItemSelected(int article) {
@@ -48,5 +60,9 @@ public class PricelistViewModel extends AndroidViewModel {
 
     public String getCategoryName(int categ) {
         return mRepository.getCategoryName(categ);
+    }
+
+    public LiveData<Integer> getSelectedCategory() {
+        return mSelectedCategory;
     }
 }

@@ -3,6 +3,9 @@ package alektas.stroymat;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
 
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+
 import alektas.stroymat.di.AppComponent;
 import alektas.stroymat.di.AppModule;
 import alektas.stroymat.di.DaggerAppComponent;
@@ -15,6 +18,14 @@ public class App extends MultiDexApplication {
         super.onCreate();
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         sAppComponent = buildComponent();
+
+        FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(3600)
+                .build();
+        remoteConfig.setConfigSettingsAsync(configSettings);
+        remoteConfig.setDefaults(R.xml.remote_config_defaults);
+        remoteConfig.fetchAndActivate();
     }
 
     public static AppComponent getComponent() {

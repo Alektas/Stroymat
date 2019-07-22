@@ -11,6 +11,7 @@
         android:id="@+id/gallery_grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="false"
         tools:listitem="@layout/item_gallery"
         tools:itemCount="5"/>
 

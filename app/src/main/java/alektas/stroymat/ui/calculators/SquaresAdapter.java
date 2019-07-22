@@ -69,9 +69,9 @@ public class SquaresAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
         final Square square = mSquares.get(position);
         SquareHolder vh = (SquareHolder) viewHolder;
-        vh.heightText.setText(StringUtils.format(square.getHeight()));
-        vh.widthText.setText(StringUtils.format(square.getWidth()));
-        vh.squareText.setText(StringUtils.format(square.getSquare()));
+        vh.heightText.setText(StringUtils.formatPrice(square.getHeight()));
+        vh.widthText.setText(StringUtils.formatPrice(square.getWidth()));
+        vh.squareText.setText(StringUtils.formatPrice(square.getSquare()));
         vh.view.findViewById(R.id.item_del_btn).setOnClickListener(v -> {
             mModel.removeSquare(square, mSquareType);
         });

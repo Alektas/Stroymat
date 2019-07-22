@@ -17,12 +17,20 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import alektas.stroymat.data.db.dao.PricelistDao;
+import alektas.stroymat.data.db.entities.Bordur;
 import alektas.stroymat.data.db.entities.Category;
+import alektas.stroymat.data.db.entities.Photo;
+import alektas.stroymat.data.db.entities.Plita;
 import alektas.stroymat.data.db.entities.PricelistItem;
 import alektas.stroymat.data.db.entities.Profnastil;
+import alektas.stroymat.data.db.entities.Siding;
 import alektas.stroymat.data.db.entities.Size;
+import alektas.stroymat.data.db.entities.StoveBrick;
 
-@Database(entities = {PricelistItem.class, Category.class, Size.class, Profnastil.class}, version = 2)
+@Database(entities = {
+        PricelistItem.class, Category.class, Photo.class,
+        Size.class, Profnastil.class, Siding.class, StoveBrick.class, Plita.class, Bordur.class},
+        version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String TAG = "AppDatabase";
     private static volatile AppDatabase INSTANCE;
@@ -92,6 +100,13 @@ public abstract class AppDatabase extends RoomDatabase {
             e.printStackTrace();
         }
     }
+
+    private static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            // Just handle loading database from assets, so the migration is not necessary
+        }
+    };
 
     private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override

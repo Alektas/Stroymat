@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.util.StringUtil;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import alektas.stroymat.R;
-import alektas.stroymat.data.db.entities.ProfnastilItem;
+import alektas.stroymat.data.model.ProfnastilItem;
 import alektas.stroymat.ui.calculators.Square;
 import alektas.stroymat.ui.calculators.SquaresAdapter;
 import alektas.stroymat.utils.ItemUtils;
@@ -173,16 +174,16 @@ public class ProfnastilFragment extends Fragment {
         });
         TextView roofSquare = view.findViewById(R.id.result_roof_square);
         mViewModel.getRoofSquare().observe(this, square -> {
-            roofSquare.setText(StringUtils.format(square));
+            roofSquare.setText(StringUtils.formatSquare(square));
         });
         TextView profnastilSquareText = view.findViewById(R.id.profnastil_square);
         mViewModel.getProfnastilSquare().observe(getViewLifecycleOwner(), square -> {
-            profnastilSquareText.setText(String.valueOf(square));
+            profnastilSquareText.setText(StringUtils.formatSquare(square));
         });
         TextView profnastilPriceText = view.findViewById(R.id.profnastil_price);
         TextView profnastilWidthText = view.findViewById(R.id.profnastil_width);
         viewModel.getSelectedItem().observe(getViewLifecycleOwner(), item -> {
-            profnastilPriceText.setText(StringUtils.format(item == null ? 0f : item.getPrice()));
+            profnastilPriceText.setText(StringUtils.formatPrice(item == null ? 0f : item.getPrice()));
             profnastilWidthText.setText(String.valueOf(item == null ? 0f : item.getWidth()));
             view.requestLayout();
         });
@@ -193,7 +194,7 @@ public class ProfnastilFragment extends Fragment {
         });
         TextView priceText = view.findViewById(R.id.result_profnastil_price);
         viewModel.getPrice().observe(getViewLifecycleOwner(), price -> {
-            priceText.setText(StringUtils.format(price));
+            priceText.setText(StringUtils.formatPrice(price));
             view.requestLayout();
         });
     }
