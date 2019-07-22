@@ -12,7 +12,7 @@ import java.util.List;
 
 import alektas.stroymat.data.ItemsRepository;
 import alektas.stroymat.data.Repository;
-import alektas.stroymat.data.db.entities.SizedItem;
+import alektas.stroymat.data.model.SizedItem;
 import alektas.stroymat.ui.calculators.Square;
 import alektas.stroymat.ui.calculators.SquareViewModelBase;
 import alektas.stroymat.ui.calculators.SquaresAdapter;
@@ -20,10 +20,10 @@ import alektas.stroymat.ui.calculators.SquaresAdapter;
 public class TrotuarViewModel extends AndroidViewModel implements SquareViewModelBase {
     public static final int CATEG_PLITY = 19;
     public static final int CATEG_BORDURY = 36;
+    private LiveData<List<SizedItem>> mPlity;
+    private LiveData<List<SizedItem>> mBordury;
     private MutableLiveData<List<Square>> mTrotuars = new MutableLiveData<>();
     private MutableLiveData<Float> mTrotuarsSquare = new MutableLiveData<>();
-    private MutableLiveData<List<SizedItem>> mPlity = new MutableLiveData<>();
-    private MutableLiveData<List<SizedItem>> mBordury = new MutableLiveData<>();
     private MutableLiveData<SizedItem> mSelectedPlita = new MutableLiveData<>();
     private MutableLiveData<SizedItem> mSelectedBordur = new MutableLiveData<>();
     private MutableLiveData<Integer> mPlityCount = new MutableLiveData<>();
@@ -35,10 +35,8 @@ public class TrotuarViewModel extends AndroidViewModel implements SquareViewMode
     public TrotuarViewModel(@NonNull Application application) {
         super(application);
         Repository repository = ItemsRepository.getInstance(application);
-        List<SizedItem> plityItems = repository.getSizedItems(CATEG_PLITY);
-        mPlity.setValue(plityItems);
-        List<SizedItem> borduryItems = repository.getSizedItems(CATEG_BORDURY);
-        mBordury.setValue(borduryItems);
+        mPlity = repository.getPlity();
+        mBordury = repository.getBordury();
     }
 
     @Override

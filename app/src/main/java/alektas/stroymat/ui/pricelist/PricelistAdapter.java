@@ -1,7 +1,5 @@
 package alektas.stroymat.ui.pricelist;
 
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,7 +90,7 @@ public class PricelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else {
             vh.view.findViewById(R.id.item_price_currency).setVisibility(View.VISIBLE);
             vh.priceText.setVisibility(View.VISIBLE);
-            vh.priceText.setText(StringUtils.format(price));
+            vh.priceText.setText(StringUtils.formatPrice(price));
         }
         vh.image.setImageResource(R.drawable.img_placeholder);
         if (item.getImgResName() == null || item.getImgResName().equals("img_placeholder")) return;

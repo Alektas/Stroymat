@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import alektas.stroymat.R;
-import alektas.stroymat.data.db.entities.SizedItem;
+import alektas.stroymat.data.model.SizedItem;
 import alektas.stroymat.ui.calculators.Square;
 import alektas.stroymat.ui.calculators.SquaresAdapter;
 import alektas.stroymat.utils.ItemUtils;
@@ -110,8 +110,8 @@ public class TrotuarFragment extends Fragment {
         TextView unitsText = rootView.findViewById(unitsTextRes);
         TextView squareText = rootView.findViewById(squareTextRes);
         viewModel.getSelectedItem(type).observe(getViewLifecycleOwner(), item -> {
-            priceText.setText(StringUtils.format(item == null ? 0f : item.getPrice()));
-            squareText.setText(StringUtils.format(item == null ? 0f : item.getSquare()));
+            priceText.setText(StringUtils.formatPrice(item == null ? 0f : item.getPrice()));
+            squareText.setText(StringUtils.formatSquare(item == null ? 0f : item.getSquare()));
             unitsText.setText(item == null || TextUtils.isEmpty(item.getUnit())?
                     requireContext().getString(R.string.quantity_units_default) : item.getUnit());
         });
@@ -163,7 +163,7 @@ public class TrotuarFragment extends Fragment {
         });
         TextView trotuarSquareText = view.findViewById(R.id.result_trotuar_square);
         viewModel.getTrotuarsSquare().observe(getViewLifecycleOwner(), trotuarSquare -> {
-            trotuarSquareText.setText(StringUtils.format(trotuarSquare));
+            trotuarSquareText.setText(StringUtils.formatSquare(trotuarSquare));
         });
         TextView bordursCountText = view.findViewById(R.id.result_bordury_quantity);
         viewModel.getBordursCount().observe(getViewLifecycleOwner(), bordursCount -> {
@@ -175,7 +175,7 @@ public class TrotuarFragment extends Fragment {
         });
         TextView priceText = view.findViewById(R.id.result_trotuar_price);
         viewModel.getPrice().observe(getViewLifecycleOwner(), price -> {
-            priceText.setText(StringUtils.format(price));
+            priceText.setText(StringUtils.formatPrice(price));
         });
     }
 

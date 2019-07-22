@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>CATEGORIES_VERSION_KEY</key>
+        <value>1</value>
+    </entry>
+    <entry>
+        <key>PRICELIST_VERSION_KEY</key>
+        <value>1</value>
+    </entry>
+    <entry>
+        <key>GALLERY_VERSION_KEY</key>
+        <value>1</value>
+    </entry>
+</defaultsMap>

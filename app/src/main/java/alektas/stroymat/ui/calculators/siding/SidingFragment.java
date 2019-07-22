@@ -197,12 +197,12 @@ public class SidingFragment extends Fragment implements TextWatcher {
         int sidingQuantity =
                 sidingOneSquare == 0 ? 0 : (int) Math.ceil(sidingSquare / sidingOneSquare);
 
-        String wallSquareString =  StringUtils.format(wallsSquare);
-        String windowSquareString = StringUtils.format(windowsSquare);
-        String frontonSquareString = StringUtils.format(frontonsSquare);
-        String sidingSquareString = StringUtils.format(sidingSquare);
+        String wallSquareString =  StringUtils.formatPrice(wallsSquare);
+        String windowSquareString = StringUtils.formatPrice(windowsSquare);
+        String frontonSquareString = StringUtils.formatPrice(frontonsSquare);
+        String sidingSquareString = StringUtils.formatPrice(sidingSquare);
         String sidingQuantityString = String.valueOf(sidingQuantity);
-        String sidingPriceString = StringUtils.format(sidingOnePrice * sidingQuantity);
+        String sidingPriceString = StringUtils.formatPrice(sidingOnePrice * sidingQuantity);
 
         this.wallSquare.setText(wallSquareString);
         this.windowSquare.setText(windowSquareString);

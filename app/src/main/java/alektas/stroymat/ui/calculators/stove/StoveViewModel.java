@@ -14,9 +14,8 @@ import alektas.stroymat.data.Repository;
 import alektas.stroymat.data.db.entities.PricelistItem;
 
 public class StoveViewModel extends AndroidViewModel {
-    public static final int CATEG_BRICKS = 1;
+    private LiveData<List<PricelistItem>> mBricks;
     private MutableLiveData<Float> mBaseSquare = new MutableLiveData<>();
-    private MutableLiveData<List<PricelistItem>> mBricks = new MutableLiveData<>();
     private MutableLiveData<PricelistItem> mSelectedBrick = new MutableLiveData<>();
     private MutableLiveData<Integer> mBricksCount = new MutableLiveData<>();
     private MutableLiveData<Float> mPrice = new MutableLiveData<>();
@@ -36,8 +35,7 @@ public class StoveViewModel extends AndroidViewModel {
     public StoveViewModel(@NonNull Application application) {
         super(application);
         Repository repository = ItemsRepository.getInstance(application);
-        List<PricelistItem> bricks = repository.getItems(CATEG_BRICKS);
-        mBricks.setValue(bricks);
+        mBricks = repository.getStoveBricks();
     }
 
     public MutableLiveData<Float> getBaseSquare() {

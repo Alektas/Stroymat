@@ -21,10 +21,7 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,14 +148,14 @@ public class StoveFragment extends Fragment {
         TextView brickPriceText = view.findViewById(R.id.stove_brick_price);
         TextView unitsText = view.findViewById(R.id.stove_brick_price_units);
         viewModel.getSelectedItem().observe(getViewLifecycleOwner(), item -> {
-            brickPriceText.setText(StringUtils.format(item == null ? 0f : item.getPrice()));
+            brickPriceText.setText(StringUtils.formatPrice(item == null ? 0f : item.getPrice()));
             unitsText.setText(item == null || TextUtils.isEmpty(item.getUnit())?
                     requireContext().getString(R.string.quantity_units_default) : item.getUnit());
             view.requestLayout();
         });
         TextView baseSquareText = view.findViewById(R.id.result_stove_base_square);
         viewModel.getBaseSquare().observe(getViewLifecycleOwner(), baseSquare -> {
-            baseSquareText.setText(StringUtils.format(baseSquare));
+            baseSquareText.setText(StringUtils.formatSquare(baseSquare));
             view.requestLayout();
         });
         TextView bricksCountText = view.findViewById(R.id.result_bricks_quantity);
@@ -168,7 +165,7 @@ public class StoveFragment extends Fragment {
         });
         TextView priceText = view.findViewById(R.id.result_stove_price);
         viewModel.getPrice().observe(getViewLifecycleOwner(), price -> {
-            priceText.setText(StringUtils.format(price));
+            priceText.setText(StringUtils.formatPrice(price));
             view.requestLayout();
         });
     }

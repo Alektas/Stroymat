@@ -6,29 +6,28 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "profnastil",
+@Entity(tableName = "bordury",
         indices = {
                 @Index(value = "item_article", unique = true)},
         foreignKeys = @ForeignKey(
                 entity = PricelistItem.class,
                 parentColumns = "article",
                 childColumns = "item_article"))
-public class Profnastil {
+public class Bordur {
     @PrimaryKey
     @ColumnInfo(name = "item_article")
     private int itemArticle;
-    private float overlap;
 
-    public Profnastil(int itemArticle, float overlap) {
+    public Bordur(int itemArticle) {
         this.itemArticle = itemArticle;
-        this.overlap = overlap;
     }
 
     public int getItemArticle() {
         return itemArticle;
     }
 
-    public float getOverlap() {
-        return overlap;
+    public void setItemArticle(int itemArticle) {
+        this.itemArticle = itemArticle;
     }
+
 }

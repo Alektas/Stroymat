@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import alektas.stroymat.data.ItemsRepository;
+import alektas.stroymat.data.db.entities.Photo;
 
 public class GalleryViewModel extends AndroidViewModel {
     private MutableLiveData<String> mUrl = new MutableLiveData<>();
