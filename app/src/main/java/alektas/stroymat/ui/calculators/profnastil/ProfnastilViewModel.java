@@ -12,16 +12,16 @@ import java.util.List;
 
 import alektas.stroymat.data.ItemsRepository;
 import alektas.stroymat.data.Repository;
-import alektas.stroymat.data.db.entities.ProfnastilItem;
+import alektas.stroymat.data.model.ProfnastilItem;
 import alektas.stroymat.ui.calculators.Square;
 import alektas.stroymat.ui.calculators.SquareViewModelBase;
 import alektas.stroymat.ui.calculators.SquaresAdapter;
 
 public class ProfnastilViewModel extends AndroidViewModel implements SquareViewModelBase {
+    private LiveData<List<ProfnastilItem>> mProfnastil;
     private MutableLiveData<List<Square>> mRoofs = new MutableLiveData<>();
     private MutableLiveData<Float> mRoofSquare = new MutableLiveData<>();
     private MutableLiveData<ProfnastilItem> mSelectedProfnastil = new MutableLiveData<>();
-    private MutableLiveData<List<ProfnastilItem>> mProfnastil = new MutableLiveData<>();
     private MutableLiveData<Integer> mProfnastilQuantity = new MutableLiveData<>();
     private MutableLiveData<Float> mProfnastilPrice = new MutableLiveData<>();
     private MutableLiveData<Float> mProfnastilSquare = new MutableLiveData<>();
@@ -32,8 +32,7 @@ public class ProfnastilViewModel extends AndroidViewModel implements SquareViewM
     public ProfnastilViewModel(@NonNull Application application) {
         super(application);
         Repository repository = ItemsRepository.getInstance(application);
-        List<ProfnastilItem> bricks = repository.getProfnastil();
-        mProfnastil.setValue(bricks);
+        mProfnastil = repository.getProfnastil();
     }
 
     public void selectItem(ProfnastilItem pricelistItem) {

@@ -18,7 +18,6 @@ import androidx.room.PrimaryKey;
                 childColumns = "categ"))
 public class PricelistItem {
     @PrimaryKey
-    @NonNull
     private int article;
     @NonNull
     private String name;
@@ -27,14 +26,15 @@ public class PricelistItem {
     private String unit;
     @ColumnInfo(name = "img_res")
     private String imgResName;
-    @NonNull
     private int categ;
 
-    public PricelistItem(int article, @NonNull String name, float price, @NonNull String unit, int categ) {
+    public PricelistItem(int article, @NonNull String name, float price, @NonNull String unit,
+                         String imgResName, int categ) {
         this.article = article;
         this.name = name;
         this.price = price;
         this.unit = unit;
+        this.imgResName = imgResName;
         this.categ = categ;
     }
 
@@ -63,6 +63,7 @@ public class PricelistItem {
         this.price = price;
     }
 
+    @NonNull
     public String getUnit() {
         return unit;
     }
@@ -83,7 +84,7 @@ public class PricelistItem {
         return categ;
     }
 
-    public void setCateg(@NonNull int categ) {
+    public void setCateg(int categ) {
         this.categ = categ;
     }
 

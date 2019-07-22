@@ -1,6 +1,5 @@
 package alektas.stroymat.ui.gallery;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import alektas.stroymat.R;
+import alektas.stroymat.data.db.entities.Photo;
 
 public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = "GalleryAdapter";
@@ -44,7 +44,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public long getItemId(int position) {
-        return mPhotos.get(position).getUrl().hashCode();
+        return mPhotos.get(position).getName().hashCode();
     }
 
     @NonNull
@@ -60,6 +60,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         final Photo item = mPhotos.get(position);
         ItemHolder vh = (ItemHolder) viewHolder;
         vh.view.setOnClickListener(view -> mModel.onPhotoSelected(item.getUrl()));
+        vh.image.setImageResource(R.drawable.img_placeholder);
         GlideApp.with(vh.view.getContext())
                 .load(item.getUrl())
                 .optionalCenterCrop()

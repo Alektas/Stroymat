@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import alektas.stroymat.data.db.entities.PricelistItem;
-import alektas.stroymat.data.db.entities.ProfnastilItem;
-import alektas.stroymat.data.db.entities.SizedItem;
+import alektas.stroymat.data.model.ProfnastilItem;
+import alektas.stroymat.data.model.SizedItem;
 
 public class ItemUtils {
     public static List<String> getNames(List<SizedItem> items) {
