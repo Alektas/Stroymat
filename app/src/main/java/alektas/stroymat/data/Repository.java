@@ -22,6 +22,7 @@ public interface Repository {
     void setCategory(int category);
     String getCategoryName(int categ);
     void setFoundItems(String query);
+    void loadGallery();
 
     LiveData<Boolean> getItemsLoading();
     LiveData<List<PricelistItem>> getItems();

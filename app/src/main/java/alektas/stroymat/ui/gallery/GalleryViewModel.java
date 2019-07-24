@@ -10,15 +10,18 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import alektas.stroymat.data.ItemsRepository;
+import alektas.stroymat.data.Repository;
 import alektas.stroymat.data.db.entities.Photo;
 
 public class GalleryViewModel extends AndroidViewModel {
+    private final Repository mRepository;
     private MutableLiveData<String> mUrl = new MutableLiveData<>();
     private LiveData<List<Photo>> mPhotos;
 
     public GalleryViewModel(@NonNull Application application) {
         super(application);
-        mPhotos = ItemsRepository.getInstance(application).getGalleryPhotos();
+        mRepository = ItemsRepository.getInstance(application);
+        mPhotos = mRepository.getGalleryPhotos();
     }
 
     public void onPhotoSelected(String url) {
@@ -31,5 +34,9 @@ public class GalleryViewModel extends AndroidViewModel {
 
     public LiveData<List<Photo>> getPhotos() {
         return mPhotos;
+    }
+
+    public void loadPhotos() {
+        mRepository.loadGallery();
     }
 }

@@ -39,6 +39,7 @@ public class ItemsRepository implements Repository {
     private static final String PRICELIST_VERSION_KEY = "PRICELIST_VERSION_KEY";
     private static final String GALLERY_VERSION_KEY = "GALLERY_VERSION_KEY";
     private static Repository INSTANCE;
+    private final FirestoreLoader loader;
     private PricelistDao mItemsDao;
     private MutableLiveData<Boolean> mItemsLoadedData = new MutableLiveData<>();
     private MutableLiveData<List<PricelistItem>> mItemsData = new MutableLiveData<>();
@@ -59,7 +60,7 @@ public class ItemsRepository implements Repository {
         mItemsDao = AppDatabase.getInstance(context).getDao();
         FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseFirestore firebaseDb = FirebaseFirestore.getInstance();
-        FirestoreLoader loader = new FirestoreLoader(firebaseDb, this);
+        loader = new FirestoreLoader(firebaseDb, this);
         SharedPreferences prefs = context.getSharedPreferences(
                         ResourcesUtils.getString(R.string.PREFS_NAME),
                         Context.MODE_PRIVATE);
@@ -108,6 +109,11 @@ public class ItemsRepository implements Repository {
             }
         }
         return INSTANCE;
+    }
+
+    @Override
+    public void loadGallery() {
+        loader.loadGallery();
     }
 
     @Override

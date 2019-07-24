@@ -75,7 +75,7 @@ public abstract class PricelistDao {
     @Query("SELECT categ, categ_name FROM categories")
     public abstract LiveData<List<Category>> getCategories();
 
-    @Query("SELECT _id, url, name FROM photos ORDER BY _id")
+    @Query("SELECT _id, url, name FROM photos ORDER BY name")
     public abstract LiveData<List<Photo>> getGalleryPhotos();
 
     @Query("SELECT article, name, price, unit, img_res, categ, sizes.length, sizes.width " +

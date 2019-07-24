@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +21,19 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final String TAG = "GalleryAdapter";
     private List<Photo> mPhotos;
     private GalleryViewModel mModel;
+    private RequestManager mGlide;
 
-    public GalleryAdapter(GalleryViewModel model) {
+    public GalleryAdapter(RequestManager glide, GalleryViewModel model) {
+        mGlide = glide;
         mModel = model;
         mPhotos = new ArrayList<>();
+        setHasStableIds(true);
+    }
+
+    public GalleryAdapter(RequestManager glide, GalleryViewModel model, List<Photo> photos) {
+        mGlide = glide;
+        mModel = model;
+        mPhotos = photos;
         setHasStableIds(true);
     }
 
@@ -44,7 +56,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public long getItemId(int position) {
-        return mPhotos.get(position).getName().hashCode();
+        return mPhotos.get(position).getUrl().hashCode();
     }
 
     @NonNull
@@ -60,14 +72,21 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         final Photo item = mPhotos.get(position);
         ItemHolder vh = (ItemHolder) viewHolder;
         vh.view.setOnClickListener(view -> mModel.onPhotoSelected(item.getUrl()));
-        vh.image.setImageResource(R.drawable.img_placeholder);
-        GlideApp.with(vh.view.getContext())
-                .load(item.getUrl())
+        vh.image.setImageResource(0);
+        mGlide.load(item.getUrl())
                 .optionalCenterCrop()
                 .optionalFitCenter()
                 .thumbnail(0.1f)
                 .placeholder(R.drawable.img_placeholder)
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(vh.image);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        ((ItemHolder) holder).image.clearAnimation();
     }
 
     public List<Photo> getItems() {
