@@ -61,7 +61,6 @@
     </style>
     <style name="Text.Pricelist.Price" parent="TextAppearance.MaterialComponents.Subtitle2">
         <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>
