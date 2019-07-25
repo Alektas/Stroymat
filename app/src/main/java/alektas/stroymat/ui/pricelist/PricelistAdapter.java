@@ -87,6 +87,7 @@ public class PricelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (price == 0.00f) {
             vh.view.findViewById(R.id.item_price_currency).setVisibility(View.GONE);
             vh.priceText.setVisibility(View.GONE);
+            vh.unitText.setVisibility(View.GONE);
         } else {
             vh.view.findViewById(R.id.item_price_currency).setVisibility(View.VISIBLE);
             vh.priceText.setVisibility(View.VISIBLE);
