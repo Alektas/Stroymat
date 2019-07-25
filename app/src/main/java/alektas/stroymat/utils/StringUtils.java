@@ -15,7 +15,7 @@ public class StringUtils {
     }
 
     public static String formatPrice(float f) {
-        return String.format(Locale.US,"%.2f", f);
+        return String.format(Locale.US,"%.0f", f);
     }
 
     public static String formatSquare(float f) {
