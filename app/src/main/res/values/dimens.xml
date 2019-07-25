@@ -4,7 +4,7 @@
     <dimen name="item_add_btn">52dp</dimen>
     <dimen name="size_square_add_btn">52dp</dimen>
     <dimen name="width_pricelist_item_img">120dp</dimen>
-    <dimen name="height_pricelist_item">120dp</dimen>
+    <dimen name="height_pricelist_item">130dp</dimen>
     <dimen name="corners_pricelist_item">16dp</dimen>
     <dimen name="height_item_details_img">250dp</dimen>
 
@@ -22,7 +22,7 @@
     <dimen name="margin_start_basic">32dp</dimen>
     <dimen name="margin_horiz_basic">32dp</dimen>
     <dimen name="margin_wall_item">8dp</dimen>
-    <dimen name="margin_start_item_text">16dp</dimen>
+    <dimen name="margin_start_item_text">8dp</dimen>
     <dimen name="margin_start_item_details_text">32dp</dimen>
     <dimen name="margin_top_item_text">8dp</dimen>
     <dimen name="margin_top_item_details_text">16dp</dimen>

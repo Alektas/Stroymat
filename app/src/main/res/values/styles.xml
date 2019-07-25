@@ -57,4 +57,11 @@
         <item name="android:windowExitAnimation">@anim/nav_default_exit_anim</item>
     </style>
 
+    <style name="Text.Pricelist.Name" parent="TextAppearance.MaterialComponents.Subtitle1">
+    </style>
+    <style name="Text.Pricelist.Price" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>
