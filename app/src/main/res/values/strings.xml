@@ -22,7 +22,7 @@
     <string name="square_units">м"\u00b2"</string>
     <string name="quantity_units_default">шт</string>
     <string name="result_subtitle">Итого</string>
-    <string name="price">Стоимость</string>
+    <string name="price">Цена</string>
     <string name="square">Площадь</string>
     <string name="reserve">Запас</string>
     <string name="trotuar">Тротуар</string>
@@ -32,7 +32,7 @@
     <string name="about_dev_mail" translatable="false">alektas@inbox.ru</string>
     <string name="about_developer">Тотилас Александр</string>
     <string name="about_shop_descr">
-        Магазин строительных и отделочных материалов \"СТРОЙМАТ\"
+        Магазин строительных и отделочных материалов \u00ABСТРОЙМАТ\u00BB
         имеет широкий ассортимент товаров на складе и под заказ.
         \n
         \n✔ Выезд замерщика БЕСПЛАТНО
@@ -72,5 +72,7 @@
     <string name="PREFS_NAME">app_preferences</string>
     <string name="PRICELIST_VERSION_KEY">PRICELIST_VERSION_KEY</string>
     <string name="CATEGORIES_VERSION_KEY">CATEGORIES_VERSION_KEY</string>
+    <string name="category">Категория</string>
+    <string name="article_empty">0000000</string>
 
 </resources>
