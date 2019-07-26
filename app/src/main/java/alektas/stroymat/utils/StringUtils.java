@@ -23,7 +23,6 @@ public class StringUtils {
     }
 
     public static String formatPrice(float price, String currency, String unit) {
-        if (price == 0.00f) return unit;
-        return price + " " + currency + unit;
+        return String.format(Locale.US,"%.0f %s%s", price, currency, unit);
     }
 }
