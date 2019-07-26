@@ -74,5 +74,8 @@
     <string name="CATEGORIES_VERSION_KEY">CATEGORIES_VERSION_KEY</string>
     <string name="category">Категория</string>
     <string name="article_empty">0000000</string>
+    <string name="update_gallery">Обновить</string>
+    <string name="no_internet">Нет подключения к Интернету</string>
+    <string name="no_items">Товары не найдены</string>
 
 </resources>

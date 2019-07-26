@@ -24,7 +24,6 @@ public interface Repository {
     void setFoundItems(String query);
     void loadGallery();
 
-    LiveData<Boolean> getItemsLoading();
     LiveData<List<PricelistItem>> getItems();
     LiveData<List<Category>> getCategories();
     LiveData<List<Photo>> getGalleryPhotos();

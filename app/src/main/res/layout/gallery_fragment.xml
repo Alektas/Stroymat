@@ -7,6 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/gallery_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="false"/>
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/gallery_placeholder"
         android:layout_width="match_parent"
@@ -36,25 +42,19 @@
         style="@style/TextAppearance.MaterialComponents.Subtitle1"
         android:textAlignment="center"
         android:textSize="@dimen/textsize_subtitle"
-        android:text="Нет подключения к Интернету"/>
+        android:text="@string/no_internet"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/gallery_placeholder_reloader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
-        android:text="Обновить"
+        android:text="@string/update_gallery"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintVertical_bias="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/gallery_placeholder_label"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/gallery_grid"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:animateLayoutChanges="false"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

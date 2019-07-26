@@ -128,6 +128,7 @@ public class PricelistFragment extends Fragment
         searchView.setIconifiedByDefault(true);
     }
 
+    // Установка в меню новых категорий, загруженных с сервера в локальную БД
     private void updateDrawerMenu(List<Category> categories) {
         Menu menu = slideMenu.getMenu();
         menu.clear();
