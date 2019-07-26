@@ -29,6 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:adjustViewBounds="true"
+        android:visibility="invisible"
         app:srcCompat="@drawable/img_placeholder"/>
 
     <TextView
@@ -40,6 +41,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0"
         style="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:visibility="invisible"
         android:textAlignment="center"
         android:textSize="@dimen/textsize_subtitle"
         android:text="@string/no_items"/>
