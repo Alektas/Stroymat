@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -84,6 +85,8 @@ public class ItemsProvider extends ContentProvider {
     }
 
     Uri loadIcon(String url) {
+        if (TextUtils.isEmpty(url)) return null;
+
         FutureTarget<File> futureTarget  = Glide
                 .with(getContext().getApplicationContext())
                 .downloadOnly()
