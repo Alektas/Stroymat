@@ -6,7 +6,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorSecondary">@color/colorSecondary</item>
-        <!--<item name="android:windowBackground">@color/colorSecondaryDark</item>-->
         <item name="android:statusBarColor">@color/colorSecondary</item>
         <item name="actionBarStyle">@style/ActionBar</item>
         <item name="actionBarPopupTheme">@style/ActionBar.Popup</item>
@@ -20,8 +19,6 @@
     <style name="ActionBar" parent="Widget.MaterialComponents.Light.ActionBar.Solid">
         <item name="background">?attr/colorSecondary</item>
         <item name="backgroundTint">?attr/colorSecondary</item>
-        <item name="backgroundStacked">?attr/colorSecondary</item>
-        <item name="backgroundSplit">?attr/colorSecondary</item>
         <item name="titleTextStyle">@style/TextAppearance.MaterialComponents.Subtitle1</item>
         <item name="subtitleTextStyle">@style/TextAppearance.MaterialComponents.Body2</item>
     </style>
@@ -29,8 +26,6 @@
     <style name="ActionBar.Popup">
         <item name="background">@color/colorSecondaryDark</item>
         <item name="backgroundTint">@color/colorSecondaryDark</item>
-        <item name="backgroundStacked">@color/colorSecondaryDark</item>
-        <item name="backgroundSplit">@color/colorSecondaryDark</item>
     </style>
 
     <style name="SearchView" parent="Widget.AppCompat.SearchView">
@@ -45,7 +40,7 @@
         <item name="colorPrimary">@color/colorSecondary</item>
 
         <!-- Set this to true if you want Full Screen without status bar -->
-        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowFullscreen">false</item>
 
         <item name="android:windowIsFloating">false</item>
 
