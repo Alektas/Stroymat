@@ -1,5 +1,6 @@
 package alektas.stroymat.ui.pricelist;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
@@ -11,6 +12,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +42,8 @@ public class PricelistFragment extends Fragment
     private PricelistViewModel mViewModel;
     private PricelistAdapter pricelistAdapter;
     private NavigationView slideMenu;
+    private RecyclerView pricelistRv;
+    private DrawerLayout drawerLayout;
 
     public interface FragmentListener {
         void onFragmentCreated(String tag);
@@ -67,10 +74,27 @@ public class PricelistFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.pricelist_fragment, container, false);
-        RecyclerView pricelistRv = view.findViewById(R.id.pricelist);
+
+        setupNavigation(view);
+
+        pricelistRv = view.findViewById(R.id.pricelist);
         pricelistRv.setLayoutManager(new LinearLayoutManager(getContext()));
         pricelistRv.setHasFixedSize(true);
         return view;
+    }
+
+    private void setupNavigation(View view) {
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
+        NavController navController = NavHostFragment.findNavController(this);
+        drawerLayout = view.findViewById(R.id.drawer_layout);
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
+                .setDrawerLayout(drawerLayout)
+                .build();
+        NavigationUI.setupActionBarWithNavController(activity,
+                navController, appBarConfiguration);
+
+        NavigationView navView = view.findViewById(R.id.slide_nav_view);
+        NavigationUI.setupWithNavController(navView, navController);
     }
 
     @Override
@@ -87,8 +111,6 @@ public class PricelistFragment extends Fragment
 
         mViewModel = ViewModelProviders.of(requireActivity()).get(PricelistViewModel.class);
         pricelistAdapter = new PricelistAdapter(mViewModel);
-
-        RecyclerView pricelistRv = requireView().findViewById(R.id.pricelist);
         pricelistRv.setAdapter(pricelistAdapter);
 
         mViewModel.getCategories().observe(getViewLifecycleOwner(), categories -> {
@@ -128,6 +150,19 @@ public class PricelistFragment extends Fragment
         searchView.setIconifiedByDefault(true);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (android.R.id.home == item.getItemId()) {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     // Установка в меню новых категорий, загруженных с сервера в локальную БД
     private void updateDrawerMenu(List<Category> categories) {
         Menu menu = slideMenu.getMenu();
@@ -149,7 +184,6 @@ public class PricelistFragment extends Fragment
 
         DrawerLayout drawer = requireView().findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        RecyclerView pricelistRv = requireView().findViewById(R.id.pricelist);
         pricelistRv.smoothScrollToPosition(0);
 
         return true;

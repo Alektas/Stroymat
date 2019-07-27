@@ -96,27 +96,39 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
 
     @Override
     public void onFragmentCreated(String tag) {
+        // Установка навигации AppBar с DrawerLayout во фрагменте прайслиста
         if (tag.equals(PricelistFragment.TAG)) {
             Fragment fragment =
                     getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
             if (fragment == null) return;
             drawerLayout = fragment.requireView().findViewById(R.id.drawer_layout);
-            NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout);
         }
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, drawerLayout) || super.onSupportNavigateUp();
+        // Вызывает обработчик из PricelistFragment#onOptionsItemSelected, который закрывает меню
+        if (isDrawerOpen()) return super.onSupportNavigateUp();
+        // Открывает меню
+        return NavigationUI.navigateUp(navController, drawerLayout);
     }
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-            return;
-        }
+        if (closeDrawer()) return;
         super.onBackPressed();
+    }
+
+    private boolean closeDrawer() {
+        if (isDrawerOpen()) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isDrawerOpen() {
+        return drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START);
     }
 
     @Override
@@ -132,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
             dialog.show(getSupportFragmentManager(), "AboutDialog");
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
