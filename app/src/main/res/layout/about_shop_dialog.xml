@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/about_shop_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:text="@string/about_shop_descr" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/about_shop_description"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="onLinkClick"
+            android:text="@string/about_shop_address_name" />
+
+        <TextView
+            android:id="@+id/shop_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/address"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:autoLink="phone"
+            android:text="@string/about_shop_phone" />
+
+        <TextView
+            android:id="@+id/shop_mail_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/shop_phone"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:autoLink="email"
+            android:text="@string/about_shop_mail" />
+
+    </RelativeLayout>
+</ScrollView>

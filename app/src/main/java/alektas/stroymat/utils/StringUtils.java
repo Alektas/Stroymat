@@ -1,10 +1,22 @@
 package alektas.stroymat.utils;
 
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.URLSpan;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.Locale;
 
 public class StringUtils {
+
+    public static void makeLinkable(TextView tv, String link) {
+        SpannableString ss = new SpannableString(tv.getText());
+        ss.setSpan(new URLSpan(link), 0, tv.getText().length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tv.setText(ss);
+    }
+
     public static float getFloat(EditText editText) {
         String text = editText.getText().toString();
         try {

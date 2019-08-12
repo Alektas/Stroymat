@@ -139,9 +139,13 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (R.id.action_about == item.getItemId()) {
-            DialogFragment dialog = new AboutDialog();
-            dialog.show(getSupportFragmentManager(), "AboutDialog");
+        if (R.id.action_about_shop == item.getItemId()) {
+            DialogFragment dialog = new AboutShopDialog();
+            dialog.show(getSupportFragmentManager(), "AboutShopDialog");
+            return true;
+        } else if (R.id.action_about_app == item.getItemId()) {
+            DialogFragment dialog = new AboutAppDialog();
+            dialog.show(getSupportFragmentManager(), "AboutAppDialog");
             return true;
         }
 
@@ -212,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
 
         switch (view.getId()) {
             case R.id.address: {
-                link = getString(R.string.about_address_link);
+                link = getString(R.string.about_shop_address_link);
                 break;
             }
 
@@ -223,6 +227,11 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
 
             case R.id.google_link: {
                 link = getString(R.string.google_material_link);
+                break;
+            }
+
+            case R.id.license_link: {
+                link = getString(R.string.about_app_license_link);
                 break;
             }
         }

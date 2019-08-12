@@ -29,8 +29,8 @@
     <string name="bordury_vodostoky">Бордюры, водостоки</string>
     <string name="name">Наименование</string>
     <string name="article">Артикул</string>
-    <string name="about_dev_mail" translatable="false">alektas@inbox.ru</string>
-    <string name="about_developer">Тотилас Александр</string>
+    <string name="about_app_dev_mail" translatable="false">alektas@inbox.ru</string>
+    <string name="about_app_developer">\u00A9 2019 Тотилас А.А.</string>
     <string name="about_shop_descr">
         Магазин строительных и отделочных материалов \u00ABСТРОЙМАТ\u00BB
         имеет широкий ассортимент товаров на складе и под заказ.
@@ -46,19 +46,20 @@
         \nПН-ПТ:  9 — 18
         \nСБ:  9 — 16
         \nВС:  9 — 12</string>
-    <string name="about_icons_by">Иконки:</string>
-    <string name="about_google_material" translatable="false">Google Material</string>
-    <string name="about_license">(лицензия)</string>
+    <string name="about_app_icons_by">Иконки:</string>
+    <string name="about_app_google_material" translatable="false">Google Material</string>
+    <string name="about_app_license">(лицензия)</string>
     <string name="apache_license_link" translatable="false">https://www.apache.org/licenses/LICENSE-2.0.html</string>
     <string name="google_material_link" translatable="false">https://material.io/tools/icons/</string>
-    <string name="about_version">Версия: %s</string>
-    <string name="about_title">О магазине</string>
-    <string name="about_developer_text">Разработчик:</string>
-    <string name="about_address_link" translatable="false">https://yandex.ru/maps/-/CCs~F67~</string>
-    <string name="about_address_label">Адрес:</string>
+    <string name="about_app_version">Версия: %s</string>
+    <string name="about_shop_title">О магазине</string>
+    <string name="about_app_developer_text">Разработчик:</string>
+    <string name="about_app_license_link" translatable="false">https://drive.google.com/open?id=16AqzRmjffnTd2uTeKOGGI5Tm6KIX145e</string>
+    <string name="about_shop_address_link" translatable="false">https://yandex.ru/maps/-/CCs~F67~</string>
+    <string name="about_shop_address_label">Адрес:</string>
     <string name="about_shop_phone">+7(912)867–01–01</string>
     <string name="about_shop_mail">stroymat18@mail.ru</string>
-    <string name="about_address_name">с. Усть-Кулом, ул.Мостовая 1</string>
+    <string name="about_shop_address_name">с. Усть-Кулом, ул.Мостовая 1</string>
     <string name="stove">Печь</string>
     <string name="bricks">Кирпичи</string>
     <string name="width">Ширина</string>
@@ -77,5 +78,10 @@
     <string name="update_gallery">Обновить</string>
     <string name="no_internet">Нет подключения к Интернету</string>
     <string name="no_items">Товары не найдены</string>
+    <string name="about_app_descr">Приложение предназначено для ознакомления со списком товаров
+        магазина \u00ABСТРОЙМАТ\u00BB, приблизительного расчета необходимых материалов
+        и просмотра реальных объектов, использующих товары магазина</string>
+    <string name="license_label">Лицензионное соглашение и политика конфиденциальности</string>
+    <string name="about_app_title">О приложении</string>
 
 </resources>
