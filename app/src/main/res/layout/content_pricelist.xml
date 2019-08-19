@@ -20,4 +20,30 @@
         tools:itemCount="3"
         tools:listitem="@layout/item_pricelist" />
 
+    <ImageView
+        android:id="@+id/pricelist_placeholder_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:adjustViewBounds="true"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/img_placeholder"/>
+
+    <TextView
+        android:id="@+id/pricelist_placeholder_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_horiz_basic"
+        app:layout_constraintTop_toBottomOf="@id/pricelist_placeholder_img"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:visibility="invisible"
+        android:textAlignment="center"
+        android:textSize="@dimen/textsize_subtitle"
+        android:text="@string/no_items"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

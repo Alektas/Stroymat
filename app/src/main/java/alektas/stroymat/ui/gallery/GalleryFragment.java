@@ -24,7 +24,7 @@ import alektas.stroymat.R;
 public class GalleryFragment extends Fragment {
     private static final String TAG = "GalleryFragment";
     private GalleryViewModel mViewModel;
-    private boolean isReloaded = false;
+    private boolean isReloaded = false; // Для попытки перезагрузить фотографии с сервера
 
     public static GalleryFragment newInstance() {
         return new GalleryFragment();
@@ -73,9 +73,10 @@ public class GalleryFragment extends Fragment {
                     placeholder.setVisibility(View.VISIBLE);
                 }
             }
-            loadingBar.setVisibility(View.GONE);
+            loadingBar.setVisibility(View.INVISIBLE);
         });
 
+        // Пользователь выбрал фото, открываем его в диалоге на весь экран
         mViewModel.getUrl().observe(getViewLifecycleOwner(), url -> {
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             Fragment prev = getFragmentManager().findFragmentByTag("dialog");
@@ -84,7 +85,6 @@ public class GalleryFragment extends Fragment {
             }
             ft.addToBackStack(null);
 
-            // Create and show the dialog.
             DialogFragment photoFragment = PhotoFragment.newInstance(url);
             photoFragment.show(ft, "dialog");
         });

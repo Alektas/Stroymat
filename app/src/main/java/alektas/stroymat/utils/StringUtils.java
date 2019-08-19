@@ -1,10 +1,22 @@
 package alektas.stroymat.utils;
 
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.URLSpan;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.Locale;
 
 public class StringUtils {
+
+    public static void makeLinkable(TextView tv, String link) {
+        SpannableString ss = new SpannableString(tv.getText());
+        ss.setSpan(new URLSpan(link), 0, tv.getText().length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tv.setText(ss);
+    }
+
     public static float getFloat(EditText editText) {
         String text = editText.getText().toString();
         try {
@@ -15,15 +27,14 @@ public class StringUtils {
     }
 
     public static String formatPrice(float f) {
-        return String.format(Locale.US,"%.2f", f);
+        return String.format(Locale.US,"%.0f", f);
     }
 
     public static String formatSquare(float f) {
-        return String.format(Locale.US,"%.3f", f);
+        return String.format(Locale.US,"%.1f", f);
     }
 
     public static String formatPrice(float price, String currency, String unit) {
-        if (price == 0.00f) return unit;
-        return price + " " + currency + unit;
+        return String.format(Locale.US,"%.0f %s%s", price, currency, unit);
     }
 }

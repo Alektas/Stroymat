@@ -41,7 +41,6 @@ public class ItemsRepository implements Repository {
     private static Repository INSTANCE;
     private final FirestoreLoader loader;
     private PricelistDao mItemsDao;
-    private MutableLiveData<Boolean> mItemsLoadedData = new MutableLiveData<>();
     private MutableLiveData<List<PricelistItem>> mItemsData = new MutableLiveData<>();
     private LiveData<List<Category>> mCategories;
     private LiveData<List<Photo>> mGalleryPhotos;
@@ -51,10 +50,6 @@ public class ItemsRepository implements Repository {
     private LiveData<List<SizedItem>> mSiding;
     private LiveData<List<SizedItem>> mBordury;
     private LiveData<List<SizedItem>> mPlity;
-
-    interface ItemsLoadingListener {
-        void onLoad(boolean isLoaded);
-    }
 
     private ItemsRepository(Context context) {
         mItemsDao = AppDatabase.getInstance(context).getDao();
@@ -117,11 +112,6 @@ public class ItemsRepository implements Repository {
     }
 
     @Override
-    public LiveData<Boolean> getItemsLoading() {
-        return mItemsLoadedData;
-    }
-
-    @Override
     public LiveData<List<PricelistItem>> getItems() {
         return mItemsData;
     }
@@ -169,12 +159,11 @@ public class ItemsRepository implements Repository {
     @Override
     public List<PricelistItem> getItems(int category) {
         try {
-            return new getItemsAsync(mItemsDao, (isLoaded) -> mItemsLoadedData.setValue(isLoaded))
-                    .execute(category).get();
+            return new getItemsAsync(mItemsDao).execute(category).get();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -184,7 +173,7 @@ public class ItemsRepository implements Repository {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -194,7 +183,7 @@ public class ItemsRepository implements Repository {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -204,7 +193,7 @@ public class ItemsRepository implements Repository {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -214,7 +203,7 @@ public class ItemsRepository implements Repository {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -224,7 +213,7 @@ public class ItemsRepository implements Repository {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -234,7 +223,7 @@ public class ItemsRepository implements Repository {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -449,28 +438,14 @@ public class ItemsRepository implements Repository {
 
     private static class getItemsAsync extends AsyncTask<Integer, Void, List<PricelistItem>> {
         private PricelistDao mDao;
-        private ItemsLoadingListener mListener;
 
-        getItemsAsync(PricelistDao dao, ItemsLoadingListener listener) {
+        getItemsAsync(PricelistDao dao) {
             mDao = dao;
-            mListener = listener;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mListener.onLoad(false);
         }
 
         @Override
         protected List<PricelistItem> doInBackground(Integer... integers) {
             return integers[0] == 0 ? mDao.getItems() : mDao.getItems(integers[0]);
-        }
-
-        @Override
-        protected void onPostExecute(List<PricelistItem> pricelistItems) {
-            super.onPostExecute(pricelistItems);
-            mListener.onLoad(true);
         }
     }
 

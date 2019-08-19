@@ -22,12 +22,10 @@ import alektas.stroymat.utils.StringUtils;
 
 public class PricelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = "PricelistAdapter";
-    private FirebaseFirestore mDb;
     private List<PricelistItem> mPricelistItems;
     private PricelistViewModel mModel;
 
-    public PricelistAdapter(FirebaseFirestore db, PricelistViewModel model) {
-        mDb = db;
+    public PricelistAdapter(PricelistViewModel model) {
         mModel = model;
         mPricelistItems = new ArrayList<>();
         setHasStableIds(true);
@@ -87,6 +85,7 @@ public class PricelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (price == 0.00f) {
             vh.view.findViewById(R.id.item_price_currency).setVisibility(View.GONE);
             vh.priceText.setVisibility(View.GONE);
+            vh.unitText.setVisibility(View.GONE);
         } else {
             vh.view.findViewById(R.id.item_price_currency).setVisibility(View.VISIBLE);
             vh.priceText.setVisibility(View.VISIBLE);

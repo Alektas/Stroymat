@@ -24,9 +24,9 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         multiDexEnabled true
-        versionCode 5
-        versionName "0.5.0"
-        project.ext.set("archivesBaseName", "PocketBasket-" + defaultConfig.versionName)
+        versionCode 6
+        versionName "0.6.0"
+        project.ext.set("archivesBaseName", "Stroymat-" + defaultConfig.versionName)
 
         resConfigs "en", "ru"
 

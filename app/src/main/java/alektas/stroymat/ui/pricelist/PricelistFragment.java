@@ -1,5 +1,6 @@
 package alektas.stroymat.ui.pricelist;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
@@ -11,6 +12,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +29,6 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -38,6 +42,8 @@ public class PricelistFragment extends Fragment
     private PricelistViewModel mViewModel;
     private PricelistAdapter pricelistAdapter;
     private NavigationView slideMenu;
+    private RecyclerView pricelistRv;
+    private DrawerLayout drawerLayout;
 
     public interface FragmentListener {
         void onFragmentCreated(String tag);
@@ -67,7 +73,28 @@ public class PricelistFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.pricelist_fragment, container, false);
+        View view = inflater.inflate(R.layout.pricelist_fragment, container, false);
+
+        setupNavigation(view);
+
+        pricelistRv = view.findViewById(R.id.pricelist);
+        pricelistRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        pricelistRv.setHasFixedSize(true);
+        return view;
+    }
+
+    private void setupNavigation(View view) {
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
+        NavController navController = NavHostFragment.findNavController(this);
+        drawerLayout = view.findViewById(R.id.drawer_layout);
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
+                .setDrawerLayout(drawerLayout)
+                .build();
+        NavigationUI.setupActionBarWithNavController(activity,
+                navController, appBarConfiguration);
+
+        NavigationView navView = view.findViewById(R.id.slide_nav_view);
+        NavigationUI.setupWithNavController(navView, navController);
     }
 
     @Override
@@ -75,13 +102,15 @@ public class PricelistFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
         slideMenu = view.findViewById(R.id.slide_nav_view);
         slideMenu.setNavigationItemSelectedListener(this);
+    }
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mFragmentListener.onFragmentCreated(TAG);
+
         mViewModel = ViewModelProviders.of(requireActivity()).get(PricelistViewModel.class);
-        pricelistAdapter = new PricelistAdapter(db, mViewModel);
-        RecyclerView pricelistRv = view.findViewById(R.id.pricelist);
-        pricelistRv.setLayoutManager(new LinearLayoutManager(getContext()));
-        pricelistRv.setHasFixedSize(true);
+        pricelistAdapter = new PricelistAdapter(mViewModel);
         pricelistRv.setAdapter(pricelistAdapter);
 
         mViewModel.getCategories().observe(getViewLifecycleOwner(), categories -> {
@@ -90,20 +119,23 @@ public class PricelistFragment extends Fragment
         mViewModel.getSelectedCategory().observe(getViewLifecycleOwner(), category -> {
             slideMenu.setCheckedItem(category);
         });
-        mViewModel.getItemsLoading().observe(getViewLifecycleOwner(), isLoaded -> {
-            requireActivity().findViewById(R.id.loading_bar)
-                    .setVisibility(isLoaded ? View.GONE : View.VISIBLE);
-        });
-        mViewModel.getItems().observe(getViewLifecycleOwner(), items -> {
-            pricelistAdapter.setItems(items);
-            view.requestLayout();
-        });
-    }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mFragmentListener.onFragmentCreated(TAG);
+        View placeholderImg = requireView().findViewById(R.id.pricelist_placeholder_img);
+        View placeholderLabel = requireView().findViewById(R.id.pricelist_placeholder_label);
+        View loadBar = requireActivity().findViewById(R.id.loading_bar);
+        loadBar.setVisibility(View.VISIBLE);
+        mViewModel.getItems().observe(getViewLifecycleOwner(), items -> {
+            if (items.size() != 0) {
+                placeholderImg.setVisibility(View.INVISIBLE);
+                placeholderLabel.setVisibility(View.INVISIBLE);
+            } else {
+                placeholderImg.setVisibility(View.VISIBLE);
+                placeholderLabel.setVisibility(View.VISIBLE);
+            }
+            pricelistAdapter.setItems(items);
+            requireView().requestLayout();
+            loadBar.setVisibility(View.INVISIBLE);
+        });
     }
 
     @Override
@@ -118,6 +150,20 @@ public class PricelistFragment extends Fragment
         searchView.setIconifiedByDefault(true);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (android.R.id.home == item.getItemId()) {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    // Установка в меню новых категорий, загруженных с сервера в локальную БД
     private void updateDrawerMenu(List<Category> categories) {
         Menu menu = slideMenu.getMenu();
         menu.clear();
@@ -138,7 +184,6 @@ public class PricelistFragment extends Fragment
 
         DrawerLayout drawer = requireView().findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        RecyclerView pricelistRv = requireView().findViewById(R.id.pricelist);
         pricelistRv.smoothScrollToPosition(0);
 
         return true;

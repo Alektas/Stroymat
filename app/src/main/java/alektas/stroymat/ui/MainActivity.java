@@ -96,27 +96,39 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
 
     @Override
     public void onFragmentCreated(String tag) {
+        // Установка навигации AppBar с DrawerLayout во фрагменте прайслиста
         if (tag.equals(PricelistFragment.TAG)) {
             Fragment fragment =
                     getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
             if (fragment == null) return;
             drawerLayout = fragment.requireView().findViewById(R.id.drawer_layout);
-            NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout);
         }
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, drawerLayout) || super.onSupportNavigateUp();
+        // Вызывает обработчик из PricelistFragment#onOptionsItemSelected, который закрывает меню
+        if (isDrawerOpen()) return super.onSupportNavigateUp();
+        // Открывает меню
+        return NavigationUI.navigateUp(navController, drawerLayout);
     }
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-            return;
-        }
+        if (closeDrawer()) return;
         super.onBackPressed();
+    }
+
+    private boolean closeDrawer() {
+        if (isDrawerOpen()) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isDrawerOpen() {
+        return drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START);
     }
 
     @Override
@@ -127,11 +139,16 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (R.id.action_about == item.getItemId()) {
-            DialogFragment dialog = new AboutDialog();
-            dialog.show(getSupportFragmentManager(), "AboutDialog");
+        if (R.id.action_about_shop == item.getItemId()) {
+            DialogFragment dialog = new AboutShopDialog();
+            dialog.show(getSupportFragmentManager(), "AboutShopDialog");
+            return true;
+        } else if (R.id.action_about_app == item.getItemId()) {
+            DialogFragment dialog = new AboutAppDialog();
+            dialog.show(getSupportFragmentManager(), "AboutAppDialog");
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -199,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
 
         switch (view.getId()) {
             case R.id.address: {
-                link = getString(R.string.about_address_link);
+                link = getString(R.string.about_shop_address_link);
                 break;
             }
 
@@ -210,6 +227,11 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
 
             case R.id.google_link: {
                 link = getString(R.string.google_material_link);
+                break;
+            }
+
+            case R.id.license_link: {
+                link = getString(R.string.about_app_license_link);
                 break;
             }
         }

@@ -37,10 +37,6 @@ public class PricelistViewModel extends AndroidViewModel {
         return mItems;
     }
 
-    public LiveData<Boolean> getItemsLoading() {
-        return mRepository.getItemsLoading();
-    }
-
     public LiveData<PricelistItem> getSelectedItem() {
         return mSelectedItem;
     }

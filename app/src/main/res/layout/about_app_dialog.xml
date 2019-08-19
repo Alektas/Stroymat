@@ -10,51 +10,21 @@
         android:paddingEnd="16dp">
 
         <TextView
-            android:id="@+id/about_shop_description"
+            android:id="@+id/about_app_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             style="@style/TextAppearance.AppCompat.Medium"
-            android:text="@string/about_shop_descr" />
-
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_below="@id/about_shop_description"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="onLinkClick"
-            android:text="@string/about_address_name" />
-
-        <TextView
-            android:id="@+id/shop_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/address"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:autoLink="phone"
-            android:text="@string/about_shop_phone" />
-
-        <TextView
-            android:id="@+id/shop_mail_link"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/shop_phone"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:autoLink="email"
-            android:text="@string/about_shop_mail" />
+            android:text="@string/about_app_descr" />
 
         <TextView
             android:id="@+id/developer_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_below="@id/shop_mail_link"
+            android:layout_below="@id/about_app_description"
             style="@style/TextAppearance.AppCompat.Medium"
-            android:text="@string/about_developer_text" />
+            android:text="@string/about_app_developer_text" />
 
         <TextView
             android:id="@+id/developer"
@@ -62,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/developer_text"
             style="@style/TextAppearance.AppCompat.Medium"
-            android:text="@string/about_developer" />
+            android:text="@string/about_app_developer" />
 
         <TextView
             android:id="@+id/dev_mail_link"
@@ -71,7 +41,7 @@
             android:layout_below="@id/developer"
             style="@style/TextAppearance.AppCompat.Medium"
             android:autoLink="email"
-            android:text="@string/about_dev_mail" />
+            android:text="@string/about_app_dev_mail" />
 
         <TextView
             android:id="@+id/icons_designers_text"
@@ -80,7 +50,7 @@
             android:layout_marginTop="16dp"
             android:layout_below="@id/dev_mail_link"
             style="@style/TextAppearance.AppCompat.Medium"
-            android:text="@string/about_icons_by" />
+            android:text="@string/about_app_icons_by" />
 
         <TextView
             android:id="@+id/google_link"
@@ -91,7 +61,7 @@
             style="@style/TextAppearance.AppCompat.Medium"
             android:clickable="true"
             android:onClick="onLinkClick"
-            android:text="@string/about_google_material"
+            android:text="@string/about_app_google_material"
             android:focusable="true" />
 
         <TextView
@@ -103,8 +73,20 @@
             style="@style/TextAppearance.AppCompat.Medium"
             android:clickable="true"
             android:onClick="onLinkClick"
-            android:text="@string/about_license"
+            android:text="@string/about_app_license"
             android:focusable="true" />
+
+        <TextView
+            android:id="@+id/license_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/google_link"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="onLinkClick"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:text="@string/license_label" />
 
         <TextView
             android:id="@+id/version_text"
@@ -112,7 +94,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="textEnd"
             android:layout_marginTop="16dp"
-            android:layout_below="@id/google_link"
+            android:layout_below="@id/license_link"
             android:layout_alignParentEnd="true"
             style="@style/TextAppearance.AppCompat.Small" />
 
