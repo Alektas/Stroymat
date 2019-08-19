@@ -31,7 +31,7 @@ public class StringUtils {
     }
 
     public static String formatSquare(float f) {
-        return String.format(Locale.US,"%.3f", f);
+        return String.format(Locale.US,"%.1f", f);
     }
 
     public static String formatPrice(float price, String currency, String unit) {
