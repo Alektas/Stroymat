@@ -77,4 +77,9 @@
         android:name="alektas.stroymat.ui.calculators.stove.StoveFragment"
         android:label="Печь"
         tools:layout="@layout/stove_fragment" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="alektas.stroymat.ui.cart.CartFragment"
+        android:label="Корзина"
+        tools:layout="@layout/cart_fragment" />
 </navigation>

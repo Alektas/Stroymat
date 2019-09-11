@@ -11,9 +11,11 @@ import java.util.List;
 
 import alektas.stroymat.data.ItemsRepository;
 import alektas.stroymat.data.Repository;
+import alektas.stroymat.data.db.entities.CartItem;
 import alektas.stroymat.data.db.entities.PricelistItem;
 
 public class StoveViewModel extends AndroidViewModel {
+    private Repository mRepository;
     private LiveData<List<PricelistItem>> mBricks;
     private MutableLiveData<Float> mBaseSquare = new MutableLiveData<>();
     private MutableLiveData<PricelistItem> mSelectedBrick = new MutableLiveData<>();
@@ -34,8 +36,8 @@ public class StoveViewModel extends AndroidViewModel {
 
     public StoveViewModel(@NonNull Application application) {
         super(application);
-        Repository repository = ItemsRepository.getInstance(application);
-        mBricks = repository.getStoveBricks();
+        mRepository = ItemsRepository.getInstance(application);
+        mBricks = mRepository.getStoveBricks();
     }
 
     public MutableLiveData<Float> getBaseSquare() {
@@ -114,5 +116,14 @@ public class StoveViewModel extends AndroidViewModel {
         float brickPrice = mSelectedBrick.getValue() == null ?
                 0f : mSelectedBrick.getValue().getPrice();
         mPrice.setValue(brickPrice * bricks);
+    }
+
+    public boolean addToCart() {
+        PricelistItem item = mSelectedBrick.getValue();
+        float quantity = mBricksCount.getValue() == null ? 0f : mBricksCount.getValue();
+        if (item == null || quantity == 0) return false;
+
+        mRepository.addCartItem(new CartItem(item, quantity));
+        return true;
     }
 }

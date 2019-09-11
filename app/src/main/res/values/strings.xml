@@ -83,5 +83,12 @@
         и просмотра реальных объектов, использующих товары магазина</string>
     <string name="license_label">Лицензионное соглашение и политика конфиденциальности</string>
     <string name="about_app_title">О приложении</string>
+    <string name="add_to_cart">В корзину</string>
+    <string name="quantity">Количество</string>
+    <string name="unit">Единица</string>
+    <string name="title_cart">Корзина</string>
+    <string name="order">Заказать</string>
+    <string name="result_with_star">Итого*</string>
+    <string name="order_price_ps">* Цены приблизительные. Для уточнения обращайтесь в отделение магазина</string>
 
 </resources>

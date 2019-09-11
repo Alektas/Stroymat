@@ -8,13 +8,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.button.MaterialButton;
 
 import alektas.stroymat.R;
 import alektas.stroymat.data.db.entities.PricelistItem;
@@ -50,7 +54,7 @@ public class ItemFragment extends Fragment {
         TextView category = itemView.findViewById(R.id.item_category);
         category.setText(mViewModel.getCategoryName(item.getCateg()));
         float price = item.getPrice();
-        TextView priceText = itemView.findViewById(R.id.item_price);
+        TextView priceText = itemView.findViewById(R.id.item_price_label);
         if (price == 0.00f) {
             itemView.findViewById(R.id.item_price_currency).setVisibility(View.GONE);
             itemView.findViewById(R.id.item_price_text).setVisibility(View.GONE);
@@ -60,6 +64,21 @@ public class ItemFragment extends Fragment {
         }
         TextView units = itemView.findViewById(R.id.item_units);
         units.setText(item.getUnit());
+
+        EditText quantityText = itemView.findViewById(R.id.item_quantity_input);
+        int q = mViewModel.getCartQuantity(item.getArticle());
+        if (q != 0) quantityText.setText(String.valueOf(q));
+        MaterialButton toCartBtn = itemView.findViewById(R.id.item_to_cart_btn);
+        toCartBtn.setOnClickListener(v -> {
+            float quantity = StringUtils.getQuantity(quantityText);
+            if (TextUtils.isEmpty(quantityText.getText()) || quantity == 0) {
+                Toast.makeText(getContext(), "Укажите корректное количество товара (больше 0)",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+            mViewModel.addToCart(item, quantity);
+            Toast.makeText(getContext(), "Товар добавлен в корзину", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void loadImage(PricelistItem item, ImageView imageView) {

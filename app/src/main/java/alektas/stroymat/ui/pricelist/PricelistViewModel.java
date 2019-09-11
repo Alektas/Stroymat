@@ -11,6 +11,7 @@ import java.util.List;
 
 import alektas.stroymat.data.ItemsRepository;
 import alektas.stroymat.data.Repository;
+import alektas.stroymat.data.db.entities.CartItem;
 import alektas.stroymat.data.db.entities.Category;
 import alektas.stroymat.data.db.entities.PricelistItem;
 
@@ -60,5 +61,13 @@ public class PricelistViewModel extends AndroidViewModel {
 
     public LiveData<Integer> getSelectedCategory() {
         return mSelectedCategory;
+    }
+
+    public void addToCart(PricelistItem item, float quantity) {
+        mRepository.addCartItem(new CartItem(item, quantity));
+    }
+
+    public int getCartQuantity(int article) {
+        return mRepository.getCartQuantity(article);
     }
 }

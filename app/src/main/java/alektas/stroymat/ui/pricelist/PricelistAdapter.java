@@ -9,8 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.bumptech.glide.Glide;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class PricelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             view = itemView;
             articleText = itemView.findViewById(R.id.item_article);
             nameText = itemView.findViewById(R.id.item_name);
-            priceText = itemView.findViewById(R.id.item_price);
+            priceText = itemView.findViewById(R.id.item_price_label);
             unitText = itemView.findViewById(R.id.item_price_units);
             image = itemView.findViewById(R.id.item_img);
         }

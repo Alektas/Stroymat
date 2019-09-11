@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "ae02f89be9ee1839d9bf4cde8bf54999",
+    "identityHash": "fbd341e79b0c4fff3f1c5c83d31d7f96",
     "entities": [
       {
         "tableName": "items",
@@ -204,6 +204,53 @@
               "item_article"
             ],
             "createSql": "CREATE UNIQUE INDEX `index_sizes_item_article` ON `${TABLE_NAME}` (`item_article`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "items",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "item_article"
+            ],
+            "referencedColumns": [
+              "article"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "quantities",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, `cart_quantity` REAL NOT NULL, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "itemArticle",
+            "columnName": "item_article",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cartQuantity",
+            "columnName": "cart_quantity",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "item_article"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_quantities_item_article",
+            "unique": true,
+            "columnNames": [
+              "item_article"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_quantities_item_article` ON `${TABLE_NAME}` (`item_article`)"
           }
         ],
         "foreignKeys": [
@@ -435,7 +482,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ae02f89be9ee1839d9bf4cde8bf54999')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fbd341e79b0c4fff3f1c5c83d31d7f96')"
     ]
   }
 }

@@ -20,7 +20,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.util.ArrayList;
@@ -70,6 +72,15 @@ public class StoveFragment extends Fragment {
         setupBricksDropdown(mViewModel, requireView());
         setupReserveSeekbar(mViewModel, requireView());
         setupTubeSizesGroup(mViewModel, requireView());
+
+        MaterialButton toCartBtn = requireView().findViewById(R.id.item_to_cart_btn);
+        toCartBtn.setOnClickListener(v -> {
+            boolean isSuccess = mViewModel.addToCart();
+            Toast.makeText(getContext(),
+                    isSuccess ? "Товар добавлен в корзину" :
+                            "Укажите корректное количество товара (больше 0)",
+                    Toast.LENGTH_SHORT).show();
+        });
 
         subscribeOnModel(mViewModel, requireView());
     }

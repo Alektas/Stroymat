@@ -12,14 +12,18 @@ import java.util.List;
 
 import alektas.stroymat.data.ItemsRepository;
 import alektas.stroymat.data.Repository;
+import alektas.stroymat.data.db.entities.CartItem;
+import alektas.stroymat.data.db.entities.PricelistItem;
 import alektas.stroymat.data.model.SizedItem;
 import alektas.stroymat.ui.calculators.Square;
 import alektas.stroymat.ui.calculators.SquareViewModelBase;
 import alektas.stroymat.ui.calculators.SquaresAdapter;
+import alektas.stroymat.utils.StringUtils;
 
 public class TrotuarViewModel extends AndroidViewModel implements SquareViewModelBase {
     public static final int CATEG_PLITY = 19;
     public static final int CATEG_BORDURY = 36;
+    private Repository mRepository;
     private LiveData<List<SizedItem>> mPlity;
     private LiveData<List<SizedItem>> mBordury;
     private MutableLiveData<List<Square>> mTrotuars = new MutableLiveData<>();
@@ -34,9 +38,9 @@ public class TrotuarViewModel extends AndroidViewModel implements SquareViewMode
 
     public TrotuarViewModel(@NonNull Application application) {
         super(application);
-        Repository repository = ItemsRepository.getInstance(application);
-        mPlity = repository.getPlity();
-        mBordury = repository.getBordury();
+        mRepository = ItemsRepository.getInstance(application);
+        mPlity = mRepository.getPlity();
+        mBordury = mRepository.getBordury();
     }
 
     @Override
@@ -207,10 +211,30 @@ public class TrotuarViewModel extends AndroidViewModel implements SquareViewMode
         if (plita == null) {
             return borduryCount*bordurPrice;
         } else {
-            float plitaPrice = plita.getUnit().equals("м2") ?
+            float plitaPrice = StringUtils.isSquareUnit(plita.getUnit()) ?
                     (plita.getPrice() * plita.getSquare()) : plita.getPrice();
             return plityCount*plitaPrice + borduryCount*bordurPrice;
         }
+    }
+
+    public boolean addToCart() {
+        PricelistItem bordurItem = mSelectedBordur.getValue();
+        SizedItem plitaItem = mSelectedPlita.getValue();
+        float plityQuantity = mPlityCount.getValue() == null ? 0f : mPlityCount.getValue();
+        float bordurQuantity = mBorduryCount.getValue() == null ? 0f : mBorduryCount.getValue();
+
+        if (plitaItem != null && StringUtils.isSquareUnit(plitaItem.getUnit())) {
+            plityQuantity *= plitaItem.getSquare();
+        }
+        if (plityQuantity != 0 && plitaItem != null) {
+            mRepository.addCartItem(new CartItem(plitaItem, plityQuantity));
+        }
+
+        if (bordurQuantity != 0 && bordurItem != null) {
+            mRepository.addCartItem(new CartItem(bordurItem, bordurQuantity));
+        }
+
+        return plityQuantity != 0 || bordurQuantity != 0;
     }
 
 }
