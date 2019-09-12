@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import alektas.stroymat.BuildConfig;
 import alektas.stroymat.R;
 import alektas.stroymat.auth.AuthManager;
 import alektas.stroymat.data.db.entities.CartItem;
@@ -35,7 +36,7 @@ public class CartFragment extends Fragment {
     private CartViewModel mViewModel;
     private CartAdapter mAdapter;
     private TextView mPriceText;
-    private static final String EMAIL_ADDRESS = "alektas@inbox.ru";
+    private static final String EMAIL_ADDRESS = BuildConfig.DEBUG ? "alektas@inbox.ru" : "stroymat18@mail.ru";
     private static final String EMAIL_SUBJECT = "Заказ товаров";
 
     public static CartFragment newInstance() {
