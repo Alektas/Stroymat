@@ -2,6 +2,7 @@ package alektas.stroymat.data.db.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -10,11 +11,13 @@ import androidx.room.Transaction;
 import java.util.List;
 
 import alektas.stroymat.data.db.entities.Bordur;
+import alektas.stroymat.data.db.entities.CartItem;
 import alektas.stroymat.data.db.entities.Category;
 import alektas.stroymat.data.db.entities.Plita;
 import alektas.stroymat.data.db.entities.PricelistItem;
 import alektas.stroymat.data.db.entities.Photo;
 import alektas.stroymat.data.db.entities.Profnastil;
+import alektas.stroymat.data.db.entities.Quantity;
 import alektas.stroymat.data.db.entities.Siding;
 import alektas.stroymat.data.db.entities.Size;
 import alektas.stroymat.data.db.entities.StoveBrick;
@@ -46,6 +49,9 @@ public abstract class PricelistDao {
 
     @Query("SELECT categ_name FROM categories WHERE categ = :category")
     public abstract String getCategoryName(int category);
+
+    @Query("SELECT cart_quantity FROM quantities WHERE item_article = :article")
+    public abstract int getCartQuantity(int article);
 
     @Query("SELECT items.article, items.name, items.price, items.unit, items.img_res, items.categ, " +
             "sizes.length, sizes.width " +
@@ -112,6 +118,11 @@ public abstract class PricelistDao {
             "FROM items " +
             "INNER JOIN sizes ON items.article = sizes.item_article")
     public abstract LiveData<List<SizedItem>> getSizes();
+
+    @Query("SELECT article, name, price, unit, img_res, categ, cart_quantity " +
+            "FROM items " +
+            "INNER JOIN quantities ON items.article = quantities.item_article")
+    public abstract LiveData<List<CartItem>> getCartItems();
 
     @Transaction
     public void setCategories(List<Category> categories) {
@@ -194,6 +205,9 @@ public abstract class PricelistDao {
     @Query("DELETE FROM photos")
     public abstract void clearGallery();
 
+    @Query("DELETE FROM quantities")
+    public abstract void clearCart();
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertCategories(List<Category> categories);
 
@@ -220,5 +234,11 @@ public abstract class PricelistDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertGalleryPhotos(List<Photo> photos);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public abstract void add(Quantity quantity);
+
+    @Delete
+    public abstract void remove(Quantity quantity);
 
 }

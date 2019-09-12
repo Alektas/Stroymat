@@ -28,7 +28,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 
+import javax.inject.Inject;
+
+import alektas.stroymat.App;
 import alektas.stroymat.R;
+import alektas.stroymat.auth.AuthManager;
 import alektas.stroymat.ui.pricelist.PricelistFragment;
 import alektas.stroymat.ui.pricelist.PricelistViewModel;
 
@@ -56,12 +60,14 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavController navController;
+    @Inject AuthManager mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme); // Убираем сплэш
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         super.onCreate(savedInstanceState);
+        App.getComponent().inject(this);
         setContentView(R.layout.activity_main);
         setupNavigation();
 
@@ -134,12 +140,33 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_toolbar, menu);
+        int destId = navController.getCurrentDestination() == null ?
+                0 : navController.getCurrentDestination().getId();
+        if (destId == R.id.loginFragment) {
+            menu.removeItem(R.id.action_login);
+            menu.removeItem(R.id.action_logout);
+            return true;
+        }
+        if (mAuth.isLogin()) {
+            menu.removeItem(R.id.action_login);
+        } else {
+            menu.removeItem(R.id.action_logout);
+        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (R.id.action_about_shop == item.getItemId()) {
+        if (R.id.action_login == item.getItemId()) {
+            navController.navigate(R.id.loginFragment);
+            invalidateOptionsMenu();
+            return true;
+        } else if (R.id.action_logout == item.getItemId()) {
+            mAuth.reset();
+            invalidateOptionsMenu();
+            navController.navigate(R.id.loginFragment);
+            return true;
+        } else if (R.id.action_about_shop == item.getItemId()) {
             DialogFragment dialog = new AboutShopDialog();
             dialog.show(getSupportFragmentManager(), "AboutShopDialog");
             return true;

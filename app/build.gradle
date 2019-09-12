@@ -24,8 +24,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         multiDexEnabled true
-        versionCode 6
-        versionName "0.6.0"
+        versionCode 7
+        versionName "0.7.0"
         project.ext.set("archivesBaseName", "Stroymat-" + defaultConfig.versionName)
 
         resConfigs "en", "ru"

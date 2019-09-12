@@ -72,7 +72,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_roof_width"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nextFocusForward="@id/input_roof_height"
                     android:nextFocusRight="@id/input_roof_height"
@@ -94,7 +94,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_roof_height"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
                     android:ems="10"
@@ -278,12 +278,13 @@
             android:layout_toEndOf="@id/profnastil_length_label"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:hint="@string/length_and_meter">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_profnastil_length"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:ems="10"
@@ -452,6 +453,17 @@
             android:layout_marginEnd="@dimen/margin_horiz_basic"
             android:text="@string/currency"
             android:textSize="@dimen/textsize_basic" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/item_to_cart_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/result_profnastil_price_text"
+            android:layout_marginTop="@dimen/margin_top_basic"
+            android:layout_marginBottom="@dimen/margin_top_basic"
+            android:layout_marginStart="@dimen/margin_horiz_basic"
+            android:layout_marginEnd="@dimen/margin_horiz_basic"
+            android:text="@string/add_to_cart"/>
 
     </RelativeLayout>
 </ScrollView>

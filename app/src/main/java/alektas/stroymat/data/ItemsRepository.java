@@ -21,10 +21,12 @@ import alektas.stroymat.data.db.AppDatabase;
 import alektas.stroymat.data.db.FirestoreLoader;
 import alektas.stroymat.data.db.dao.PricelistDao;
 import alektas.stroymat.data.db.entities.Bordur;
+import alektas.stroymat.data.db.entities.CartItem;
 import alektas.stroymat.data.db.entities.Category;
 import alektas.stroymat.data.db.entities.Plita;
 import alektas.stroymat.data.db.entities.PricelistItem;
 import alektas.stroymat.data.db.entities.Profnastil;
+import alektas.stroymat.data.db.entities.Quantity;
 import alektas.stroymat.data.db.entities.Size;
 import alektas.stroymat.data.model.ProfnastilItem;
 import alektas.stroymat.data.db.entities.Siding;
@@ -42,6 +44,7 @@ public class ItemsRepository implements Repository {
     private final FirestoreLoader loader;
     private PricelistDao mItemsDao;
     private MutableLiveData<List<PricelistItem>> mItemsData = new MutableLiveData<>();
+    private LiveData<List<CartItem>> mCartItems;
     private LiveData<List<Category>> mCategories;
     private LiveData<List<Photo>> mGalleryPhotos;
     private LiveData<List<PricelistItem>> mBricks;
@@ -70,6 +73,7 @@ public class ItemsRepository implements Repository {
         mBricks = mItemsDao.getStoveBricks();
         mPlity = mItemsDao.getPlity();
         mBordury = mItemsDao.getBordury();
+        mCartItems = mItemsDao.getCartItems();
     }
 
     private void lookForUpdate(SharedPreferences prefs,
@@ -114,6 +118,11 @@ public class ItemsRepository implements Repository {
     @Override
     public LiveData<List<PricelistItem>> getItems() {
         return mItemsData;
+    }
+
+    @Override
+    public LiveData<List<CartItem>> getCartItems() {
+        return mCartItems;
     }
 
     @Override
@@ -308,6 +317,88 @@ public class ItemsRepository implements Repository {
     @Override
     public void setStoveBricks(List<StoveBrick> bricks) {
         new setStoveBricksAsync(mItemsDao).execute(bricks);
+    }
+
+    @Override
+    public void addCartItem(CartItem item) {
+        Quantity q = new Quantity(item.getArticle(), item.getQuantity());
+        new addCartItemAsync(mItemsDao).execute(q);
+    }
+
+    @Override
+    public void removeCartItem(CartItem item) {
+        Quantity q = new Quantity(item.getArticle(), item.getQuantity());
+        new removeCartItemAsync(mItemsDao).execute(q);
+    }
+
+    @Override
+    public void clearCart() {
+        new clearCartAsync(mItemsDao).execute();
+    }
+
+    @Override
+    public int getCartQuantity(int article) {
+        try {
+            return new getCartQuantityAsync(mItemsDao).execute(article).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    private static class clearCartAsync extends AsyncTask<Void, Void, Void> {
+        private PricelistDao mDao;
+
+        clearCartAsync(PricelistDao dao) {
+            mDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mDao.clearCart();
+            return null;
+        }
+    }
+
+    private static class getCartQuantityAsync extends AsyncTask<Integer, Void, Integer> {
+        private PricelistDao mDao;
+
+        getCartQuantityAsync(PricelistDao dao) {
+            mDao = dao;
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            return mDao.getCartQuantity(integers[0]);
+        }
+    }
+
+    private static class addCartItemAsync extends AsyncTask<Quantity, Void, Void> {
+        private PricelistDao mDao;
+
+        addCartItemAsync(PricelistDao dao) {
+            mDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Quantity... quantities) {
+            mDao.add(quantities[0]);
+            return null;
+        }
+    }
+
+    private static class removeCartItemAsync extends AsyncTask<Quantity, Void, Void> {
+        private PricelistDao mDao;
+
+        removeCartItemAsync(PricelistDao dao) {
+            mDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Quantity... quantities) {
+            mDao.remove(quantities[0]);
+            return null;
+        }
     }
 
     private static class setCategoriesAsync extends AsyncTask<List<Category>, Void, Void> {

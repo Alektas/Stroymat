@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.util.StringUtil;
 
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.util.ArrayList;
@@ -77,6 +80,15 @@ public class ProfnastilFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void afterTextChanged(Editable s) { }
+        });
+
+        MaterialButton toCartBtn = view.findViewById(R.id.item_to_cart_btn);
+        toCartBtn.setOnClickListener(v -> {
+            boolean isSuccess = mViewModel.addToCart();
+            Toast.makeText(getContext(),
+                    isSuccess ? "Товар добавлен в корзину" :
+                            "Укажите корректное количество товара (больше 0)",
+                    Toast.LENGTH_SHORT).show();
         });
     }
 

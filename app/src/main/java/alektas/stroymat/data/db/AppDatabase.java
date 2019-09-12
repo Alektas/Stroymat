@@ -23,13 +23,15 @@ import alektas.stroymat.data.db.entities.Photo;
 import alektas.stroymat.data.db.entities.Plita;
 import alektas.stroymat.data.db.entities.PricelistItem;
 import alektas.stroymat.data.db.entities.Profnastil;
+import alektas.stroymat.data.db.entities.Quantity;
 import alektas.stroymat.data.db.entities.Siding;
 import alektas.stroymat.data.db.entities.Size;
 import alektas.stroymat.data.db.entities.StoveBrick;
 
 @Database(entities = {
         PricelistItem.class, Category.class, Photo.class,
-        Size.class, Profnastil.class, Siding.class, StoveBrick.class, Plita.class, Bordur.class},
+        Size.class, Quantity.class,
+        Profnastil.class, Siding.class, StoveBrick.class, Plita.class, Bordur.class},
         version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String TAG = "AppDatabase";

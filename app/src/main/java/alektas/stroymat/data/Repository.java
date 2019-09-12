@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import alektas.stroymat.data.db.entities.Bordur;
+import alektas.stroymat.data.db.entities.CartItem;
 import alektas.stroymat.data.db.entities.Category;
 import alektas.stroymat.data.db.entities.Plita;
 import alektas.stroymat.data.db.entities.PricelistItem;
@@ -25,6 +26,7 @@ public interface Repository {
     void loadGallery();
 
     LiveData<List<PricelistItem>> getItems();
+    LiveData<List<CartItem>> getCartItems();
     LiveData<List<Category>> getCategories();
     LiveData<List<Photo>> getGalleryPhotos();
     LiveData<List<ProfnastilItem>> getProfnastil();
@@ -50,4 +52,9 @@ public interface Repository {
     void setSiding(List<Siding> sidings);
     void setProfnastil(List<Profnastil> profnastil);
     void setStoveBricks(List<StoveBrick> bricks);
+
+    void addCartItem(CartItem item);
+    void removeCartItem(CartItem item);
+    void clearCart();
+    int getCartQuantity(int article);
 }

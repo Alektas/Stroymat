@@ -12,12 +12,15 @@ import java.util.List;
 
 import alektas.stroymat.data.ItemsRepository;
 import alektas.stroymat.data.Repository;
+import alektas.stroymat.data.db.entities.CartItem;
+import alektas.stroymat.data.db.entities.PricelistItem;
 import alektas.stroymat.data.model.ProfnastilItem;
 import alektas.stroymat.ui.calculators.Square;
 import alektas.stroymat.ui.calculators.SquareViewModelBase;
 import alektas.stroymat.ui.calculators.SquaresAdapter;
 
 public class ProfnastilViewModel extends AndroidViewModel implements SquareViewModelBase {
+    private Repository mRepository;
     private LiveData<List<ProfnastilItem>> mProfnastil;
     private MutableLiveData<List<Square>> mRoofs = new MutableLiveData<>();
     private MutableLiveData<Float> mRoofSquare = new MutableLiveData<>();
@@ -31,8 +34,8 @@ public class ProfnastilViewModel extends AndroidViewModel implements SquareViewM
 
     public ProfnastilViewModel(@NonNull Application application) {
         super(application);
-        Repository repository = ItemsRepository.getInstance(application);
-        mProfnastil = repository.getProfnastil();
+        mRepository = ItemsRepository.getInstance(application);
+        mProfnastil = mRepository.getProfnastil();
     }
 
     public void selectItem(ProfnastilItem pricelistItem) {
@@ -135,6 +138,23 @@ public class ProfnastilViewModel extends AndroidViewModel implements SquareViewM
             roofSquare += roof.getSquare();
         }
         return roofSquare;
+    }
+
+    public boolean addToCart() {
+        PricelistItem item = mSelectedProfnastil.getValue();
+        if (item == null ||
+                mProfnastilSquare.getValue() == null ||
+                mProfnastilQuantity.getValue() == null) {
+            return false;
+        }
+
+        float square = mProfnastilSquare.getValue();
+        int lists = mProfnastilQuantity.getValue();
+        float quantity = square * lists;
+        if (quantity == 0) return false;
+
+        mRepository.addCartItem(new CartItem(item, quantity));
+        return true;
     }
 
 }

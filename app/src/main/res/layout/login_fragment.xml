@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/margin_horiz_basic"
+    android:paddingEnd="@dimen/margin_horiz_basic"
+    tools:context=".ui.login.LoginFragment">
+
+    <TextView
+        android:id="@+id/login_intro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_title"
+        android:layout_marginBottom="@dimen/margin_top_basic"
+        style="@style/Text.Login.Title"
+        android:text="@string/login_intro"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_surname_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_basic"
+        android:layout_below="@id/login_intro"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:hint="@string/login_surname">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_surname_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:ems="10"
+            android:inputType="textPersonName"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_name_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_basic"
+        android:layout_below="@id/login_surname_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:hint="@string/name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:ems="10"
+            android:inputType="textPersonName"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_phone_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_name_layout"
+        android:layout_marginTop="@dimen/margin_top_basic"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:hint="@string/login_phone">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_phone_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:ems="10"
+            android:inputType="phone"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login_complete_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_phone_layout"
+        android:layout_marginTop="@dimen/margin_top_basic"
+        android:layout_marginBottom="@dimen/margin_top_basic"
+        android:text="@string/login_save"/>
+
+</RelativeLayout>

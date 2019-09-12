@@ -2,10 +2,11 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/padding_bottom_page"
@@ -29,7 +30,7 @@
             android:layout_marginStart="@dimen/margin_start_item_details_text"
             android:layout_marginTop="@dimen/margin_top_item_details_text"
             android:layout_marginEnd="@dimen/margin_start_item_details_text"
-            android:text="@string/name"
+            android:text="@string/item_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +94,7 @@
             style="@style/TextAppearance.MaterialComponents.Body1" />
 
         <TextView
-            android:id="@+id/item_price"
+            android:id="@+id/item_price_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@id/item_price_currency"
@@ -122,7 +123,7 @@
             app:layout_constraintTop_toBottomOf="@id/item_price_text"
             android:layout_marginStart="@dimen/margin_start_item_details_text"
             android:layout_marginTop="@dimen/margin_top_item_details_text"
-            android:text="Единица"
+            android:text="@string/unit"
             style="@style/TextAppearance.MaterialComponents.Body1" />
 
         <TextView
@@ -134,6 +135,38 @@
             android:layout_marginEnd="@dimen/margin_start_item_details_text"
             android:text="@string/quantity_units_default"
             style="@style/TextAppearance.MaterialComponents.Body1" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/item_quantity_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_item_details_text"
+            android:layout_marginStart="@dimen/margin_start_item_details_text"
+            android:layout_marginEnd="@dimen/margin_horiz_between_text"
+            app:layout_constraintEnd_toStartOf="@id/item_to_cart_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_units_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/item_quantity_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:hint="@string/quantity" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/item_to_cart_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@id/item_quantity_layout"
+            android:layout_marginEnd="@dimen/margin_start_item_details_text"
+            android:layout_marginTop="@dimen/margin_top_item_details_text"
+            android:text="@string/add_to_cart"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
