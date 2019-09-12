@@ -236,12 +236,13 @@ public class ItemsRepository implements Repository {
     }
 
     @Override
-    public String getCategoryName(int categ) {
+    public Category getCategory(int categ) {
         try {
-            return new getCategoryNameAsync(mItemsDao).execute(categ).get();
+            return new getCategoryAsync(mItemsDao).execute(categ).get();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
-            return App.getComponent().getResources().getString(R.string.other);
+            String name = App.getComponent().getResources().getString(R.string.other);
+            return new Category(0, name, null);
         }
     }
 
@@ -631,16 +632,16 @@ public class ItemsRepository implements Repository {
         }
     }
 
-    private static class getCategoryNameAsync extends AsyncTask<Integer, Void, String> {
+    private static class getCategoryAsync extends AsyncTask<Integer, Void, Category> {
         private PricelistDao mDao;
 
-        getCategoryNameAsync(PricelistDao dao) {
+        getCategoryAsync(PricelistDao dao) {
             mDao = dao;
         }
 
         @Override
-        protected String doInBackground(Integer... integers) {
-            return mDao.getCategoryName(integers[0]);
+        protected Category doInBackground(Integer... integers) {
+            return mDao.getCategory(integers[0]);
         }
     }
 
