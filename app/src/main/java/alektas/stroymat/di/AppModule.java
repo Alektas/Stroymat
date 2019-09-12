@@ -6,6 +6,7 @@ import android.content.res.Resources;
 
 import javax.inject.Singleton;
 
+import alektas.stroymat.auth.AuthManager;
 import alektas.stroymat.data.ItemsRepository;
 import alektas.stroymat.data.Repository;
 import dagger.Module;
@@ -35,5 +36,11 @@ public class AppModule {
     @Singleton
     Repository provideRepository() {
         return ItemsRepository.getInstance(mContext);
+    }
+
+    @Provides
+    @Singleton
+    AuthManager provideAuthManager() {
+        return new AuthManager(mContext);
     }
 }

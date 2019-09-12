@@ -5,6 +5,7 @@ import android.content.res.Resources;
 
 import javax.inject.Singleton;
 
+import alektas.stroymat.ui.MainActivity;
 import alektas.stroymat.ui.cart.CartViewModel;
 import dagger.Component;
 
@@ -14,4 +15,5 @@ public interface AppComponent {
     Context getContext();
     Resources getResources();
     void inject(CartViewModel vm);
+    void inject(MainActivity activity);
 }

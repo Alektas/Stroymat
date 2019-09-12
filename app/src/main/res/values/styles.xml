@@ -58,5 +58,6 @@
     <style name="Text.Cart.Title" parent="TextAppearance.MaterialComponents.Subtitle1"/>
     <style name="Text.Cart.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle2"/>
     <style name="Text.Cart.Tiny" parent="TextAppearance.MaterialComponents.Caption"/>
+    <style name="Text.Login.Title" parent="TextAppearance.MaterialComponents.Subtitle1"/>
 
 </resources>

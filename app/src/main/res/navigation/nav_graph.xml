@@ -45,7 +45,11 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_calculatorsFragment_to_stoveFragment"
-            app:destination="@id/stoveFragment" />
+            app:destination="@id/stoveFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/galleryFragment"
@@ -82,4 +86,9 @@
         android:name="alektas.stroymat.ui.cart.CartFragment"
         android:label="Корзина"
         tools:layout="@layout/cart_fragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="alektas.stroymat.ui.login.LoginFragment"
+        android:label="Регистрация"
+        tools:layout="@layout/login_fragment"/>
 </navigation>

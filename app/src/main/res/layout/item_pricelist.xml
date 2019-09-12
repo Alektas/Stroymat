@@ -41,7 +41,7 @@
             android:layout_marginEnd="@dimen/margin_start_item_text"
             android:maxLines="4"
             android:textAlignment="textStart"
-            android:text="@string/name"
+            android:text="@string/item_name"
             style="@style/Text.Pricelist.Name" />
 
         <TextView

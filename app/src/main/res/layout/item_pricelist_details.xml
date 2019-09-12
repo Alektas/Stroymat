@@ -30,7 +30,7 @@
             android:layout_marginStart="@dimen/margin_start_item_details_text"
             android:layout_marginTop="@dimen/margin_top_item_details_text"
             android:layout_marginEnd="@dimen/margin_start_item_details_text"
-            android:text="@string/name"
+            android:text="@string/item_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

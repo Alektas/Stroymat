@@ -26,7 +26,7 @@
             android:layout_toStartOf="@id/item_del_btn"
             style="@style/Text.Pricelist.Name"
             android:maxLines="3"
-            android:text="@string/name"/>
+            android:text="@string/item_name"/>
 
         <TextView
             android:id="@+id/item_price_label"

@@ -2,6 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:yourapp="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_login"
+        android:title="@string/menu_login"
+        yourapp:showAsAction="never"/>
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/menu_logout"
+        yourapp:showAsAction="never"/>
+    <item
         android:id="@+id/action_about_shop"
         android:title="@string/about_shop_title"
         yourapp:showAsAction="never"/>

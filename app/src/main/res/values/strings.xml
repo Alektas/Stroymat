@@ -27,7 +27,7 @@
     <string name="reserve">Запас</string>
     <string name="trotuar">Тротуар</string>
     <string name="bordury_vodostoky">Бордюры, водостоки</string>
-    <string name="name">Наименование</string>
+    <string name="item_name">Наименование</string>
     <string name="article">Артикул</string>
     <string name="about_app_dev_mail" translatable="false">alektas@inbox.ru</string>
     <string name="about_app_developer">\u00A9 2019 Тотилас А.А.</string>
@@ -90,5 +90,16 @@
     <string name="order">Заказать</string>
     <string name="result_with_star">Итого*</string>
     <string name="order_price_ps">* Цены приблизительные. Для уточнения обращайтесь в отделение магазина</string>
+    <string name="login_surname">Фамилия</string>
+    <string name="login_phone">Номер телефона</string>
+    <string name="login_save">Сохранить</string>
+    <string name="login_intro">Для осуществления заказов необходимо ввести фамилию, имя и номер телефона.\nВсе поля обязательны</string>
+    <string name="name">Имя</string>
+    <string name="PREFS_LOGIN_KEY">LOGIN_PREFS</string>
+    <string name="LOGIN_SURNAME_KEY">LOGIN_SURNAME_KEY</string>
+    <string name="LOGIN_NAME_KEY">LOGIN_NAME_KEY</string>
+    <string name="LOGIN_PHONE_KEY">LOGIN_PHONE_KEY</string>
+    <string name="menu_login">Зарегистрироваться</string>
+    <string name="menu_logout">Очистить данные</string>
 
 </resources>
