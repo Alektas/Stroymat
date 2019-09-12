@@ -55,4 +55,8 @@ public class CartViewModel extends AndroidViewModel {
         }
         mPrice.setValue(p);
     }
+
+    public void changeQuantity(CartItem item) {
+        mRepository.addCartItem(item);
+    }
 }

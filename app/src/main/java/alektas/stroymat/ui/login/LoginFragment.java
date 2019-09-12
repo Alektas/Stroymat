@@ -2,7 +2,6 @@ package alektas.stroymat.ui.login;
 
 import androidx.activity.OnBackPressedCallback;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,13 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import alektas.stroymat.R;
 import alektas.stroymat.auth.AuthManager;
+import alektas.stroymat.utils.AppUtils;
 
 public class LoginFragment extends Fragment {
 
@@ -68,7 +67,7 @@ public class LoginFragment extends Fragment {
             auth.save(surname, name, phone);
 
             requireActivity().invalidateOptionsMenu();
-            hideKeyboard();
+            AppUtils.hideKeyboard(this);
 
             navController.popBackStack();
         });
@@ -80,18 +79,6 @@ public class LoginFragment extends Fragment {
                         navController.popBackStack(R.id.pricelistFragment, false);
                     }
                 });
-    }
-
-    private void hideKeyboard() {
-        // Check if no view has focus:
-        View view = getView();
-        if (view != null) {
-            InputMethodManager inputManager = (InputMethodManager) requireContext()
-                    .getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(
-                    view.getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
-        }
     }
 
 }

@@ -452,7 +452,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="@dimen/margin_horiz_between_text"
             android:layout_marginEnd="@dimen/margin_horiz_basic"
-            android:text="@string/quantity_units_default"
+            android:text="@string/currency"
             android:textSize="@dimen/textsize_basic" />
 
         <com.google.android.material.button.MaterialButton

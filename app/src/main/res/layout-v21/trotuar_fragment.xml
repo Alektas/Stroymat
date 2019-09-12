@@ -26,6 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/result_trotuar_square_units"
+            android:layout_toEndOf="@id/trotuar_subtitle"
+            android:textAlignment="viewEnd"
             android:layout_alignBaseline="@id/trotuar_subtitle"
             android:text="@string/null_square"
             android:textSize="@dimen/textsize_basic"/>

@@ -120,7 +120,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@id/item_quantity_layout"
             android:layout_alignBottom="@id/item_quantity_layout"
-            android:background="@color/colorAccent"
+            android:backgroundTint="@color/colorAccent"
             android:tint="@android:color/white"
             app:srcCompat="@drawable/ic_mode_edit_black_24dp"/>
 
