@@ -123,8 +123,9 @@ public class FirestoreLoader {
                             try {
                                 int categ = (int) document.getData().get("categ");
                                 String categName = (String) document.getData().get("name");
+                                String categImg = (String) document.getData().get("url");
                                 Category category = new Category(categ, categName == null ?
-                                        ResourcesUtils.getString(R.string.other) : categName);
+                                        ResourcesUtils.getString(R.string.other) : categName, categImg);
                                 categories.add(category);
                             } catch (NumberFormatException | ClassCastException e) {
                                 Log.e(TAG, "updateCategories: categ should be an integer and name a text!", e);
@@ -186,6 +187,7 @@ public class FirestoreLoader {
         List<Map<String, Object>> docs = new ArrayList<>();
         for (Category category : categories) {
             Map<String, Object> doc = new HashMap<>();
+            doc.put("url", category.getCategImg());
             doc.put("name", category.getCategName());
             doc.put("categ", category.getCateg());
             docs.add(doc);

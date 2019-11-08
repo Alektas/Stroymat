@@ -21,7 +21,7 @@ public interface Repository {
     List<PricelistItem> getItems(int categ);
     PricelistItem getItem(int article);
     void setCategory(int category);
-    String getCategoryName(int categ);
+    Category getCategory(int categ);
     void setFoundItems(String query);
     void loadGallery();
 
