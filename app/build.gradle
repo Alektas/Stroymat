@@ -107,6 +107,8 @@ dependencies {
 
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
+    implementation 'com.github.luongvo:GmailBackground:2.1.1'
+
     implementation 'com.google.firebase:firebase-core:17.0.1'
     implementation 'com.google.firebase:firebase-inappmessaging-display:18.0.2'
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
