@@ -31,6 +31,7 @@ import alektas.stroymat.R;
 import alektas.stroymat.data.model.SizedItem;
 import alektas.stroymat.ui.calculators.Square;
 import alektas.stroymat.ui.calculators.SquaresAdapter;
+import alektas.stroymat.utils.AppUtils;
 import alektas.stroymat.utils.ItemUtils;
 import alektas.stroymat.utils.ResourcesUtils;
 import alektas.stroymat.utils.StringUtils;
@@ -72,6 +73,11 @@ public class TrotuarFragment extends Fragment {
             mViewModel.addTrotuar(new Square(width, height));
         });
 
+        trotuarHeightInput.setOnEditorActionListener((v, actionId, event) -> {
+            addTrotuarBtn.performClick();
+            return false;
+        });
+
         MaterialButton toCartBtn = requireView().findViewById(R.id.item_to_cart_btn);
         toCartBtn.setOnClickListener(v -> {
             boolean isSuccess = mViewModel.addToCart();
@@ -106,6 +112,7 @@ public class TrotuarFragment extends Fragment {
 
         AutoCompleteTextView dropdown =
                 requireView().findViewById(dropdownRes);
+
         final List<SizedItem> items = new ArrayList<>();
         viewModel.getItems(type).observe(getViewLifecycleOwner(), (newItems -> {
             items.clear();
@@ -114,19 +121,25 @@ public class TrotuarFragment extends Fragment {
                     R.layout.spinner_dropdown_item, ItemUtils.getNames(newItems));
             dropdown.setAdapter(adapter);
         }));
+
         dropdown.setOnItemClickListener((parent, view, position, id) -> {
             viewModel.selectItem(type, items.get(position));
             rootView.requestLayout();
         });
+
+        dropdown.setOnClickListener(v -> AppUtils.hideKeyboard(this));
+
         TextView priceText = rootView.findViewById(priceTextRes);
         TextView unitsText = rootView.findViewById(unitsTextRes);
         TextView squareText = rootView.findViewById(squareTextRes);
+
         viewModel.getSelectedItem(type).observe(getViewLifecycleOwner(), item -> {
             priceText.setText(StringUtils.formatPrice(item == null ? 0f : item.getPrice()));
             squareText.setText(StringUtils.formatSquare(item == null ? 0f : item.getSquare()));
             unitsText.setText(item == null || TextUtils.isEmpty(item.getUnit())?
                     requireContext().getString(R.string.quantity_units_default) : item.getUnit());
         });
+
         ImageButton clearBtn = requireView().findViewById(clearBtnRes);
         clearBtn.setOnClickListener(v -> {
             dropdown.setText("");
