@@ -24,8 +24,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         multiDexEnabled true
-        versionCode 7
-        versionName "0.7.0"
+        versionCode 8
+        versionName "0.8.0"
         project.ext.set("archivesBaseName", "Stroymat-" + defaultConfig.versionName)
 
         resConfigs "en", "ru"
@@ -106,6 +106,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
+    implementation 'com.github.luongvo:GmailBackground:2.1.1'
 
     implementation 'com.google.firebase:firebase-core:17.0.1'
     implementation 'com.google.firebase:firebase-inappmessaging-display:18.0.2'

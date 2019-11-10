@@ -1,5 +1,6 @@
 package alektas.stroymat.ui.pricelist;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,10 +92,18 @@ public class PricelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             vh.priceText.setVisibility(View.VISIBLE);
             vh.priceText.setText(StringUtils.formatPrice(price));
         }
+
         vh.image.setImageResource(R.drawable.img_placeholder);
-        if (item.getImgResName() == null || item.getImgResName().equals("img_placeholder")) return;
+        String imgUrl;
+        if (TextUtils.isEmpty(item.getImgResName()) || item.getImgResName().equals("img_placeholder")) {
+            imgUrl = mModel.getCategory(item.getCateg()).getCategImg();
+            if (TextUtils.isEmpty(imgUrl)) return;
+        } else {
+            imgUrl = item.getImgResName();
+        }
+
         Glide.with(App.getComponent().getContext())
-                .load(item.getImgResName())
+                .load(imgUrl)
                 .thumbnail(0.1f)
                 .optionalCenterCrop()
                 .optionalFitCenter()

@@ -66,7 +66,7 @@ public class ItemsRepository implements Repository {
 
         mCategories = mItemsDao.getCategories();
         mItemsData.setValue(getItems(0));
-        mGalleryPhotos = mItemsDao.getGalleryPhotos();
+//        mGalleryPhotos = mItemsDao.getGalleryPhotos();
         mSizedItems = mItemsDao.getSizes();
         mProfnastil = mItemsDao.getProfnastil();
         mSiding = mItemsDao.getSiding();
@@ -81,7 +81,7 @@ public class ItemsRepository implements Repository {
                                FirestoreLoader loader) {
         long pricelistVersion = prefs.getLong(PRICELIST_VERSION_KEY, 1);
         long categoriesVersion = prefs.getLong(CATEGORIES_VERSION_KEY, 1);
-        long galleryVersion = prefs.getLong(GALLERY_VERSION_KEY, 0); // 0 потому что галерею нужно загрузить
+//        long galleryVersion = prefs.getLong(GALLERY_VERSION_KEY, 0); // 0 потому что галерею нужно загрузить
         long pricelistActualVersion = remoteConfig.getLong(PRICELIST_VERSION_KEY);
         long categActualVersion = remoteConfig.getLong(CATEGORIES_VERSION_KEY);
         long galleryActualVersion = remoteConfig.getLong(GALLERY_VERSION_KEY);
@@ -93,10 +93,10 @@ public class ItemsRepository implements Repository {
             loader.loadCategories();
             prefs.edit().putLong(CATEGORIES_VERSION_KEY, categActualVersion).apply();
         }
-        if (galleryActualVersion > galleryVersion) {
-            loader.loadGallery();
-            prefs.edit().putLong(GALLERY_VERSION_KEY, galleryActualVersion).apply();
-        }
+//        if (galleryActualVersion > galleryVersion) {
+//            loader.loadGallery();
+//            prefs.edit().putLong(GALLERY_VERSION_KEY, galleryActualVersion).apply();
+//        }
     }
 
     public static Repository getInstance(Context context) {
@@ -236,12 +236,13 @@ public class ItemsRepository implements Repository {
     }
 
     @Override
-    public String getCategoryName(int categ) {
+    public Category getCategory(int categ) {
         try {
-            return new getCategoryNameAsync(mItemsDao).execute(categ).get();
+            return new getCategoryAsync(mItemsDao).execute(categ).get();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
-            return App.getComponent().getResources().getString(R.string.other);
+            String name = App.getComponent().getResources().getString(R.string.other);
+            return new Category(0, name, null);
         }
     }
 
@@ -631,16 +632,16 @@ public class ItemsRepository implements Repository {
         }
     }
 
-    private static class getCategoryNameAsync extends AsyncTask<Integer, Void, String> {
+    private static class getCategoryAsync extends AsyncTask<Integer, Void, Category> {
         private PricelistDao mDao;
 
-        getCategoryNameAsync(PricelistDao dao) {
+        getCategoryAsync(PricelistDao dao) {
             mDao = dao;
         }
 
         @Override
-        protected String doInBackground(Integer... integers) {
-            return mDao.getCategoryName(integers[0]);
+        protected Category doInBackground(Integer... integers) {
+            return mDao.getCategory(integers[0]);
         }
     }
 

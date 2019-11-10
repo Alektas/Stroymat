@@ -30,6 +30,7 @@ import java.util.List;
 
 import alektas.stroymat.R;
 import alektas.stroymat.data.db.entities.PricelistItem;
+import alektas.stroymat.utils.AppUtils;
 import alektas.stroymat.utils.ItemUtils;
 import alektas.stroymat.utils.ResourcesUtils;
 import alektas.stroymat.utils.StringUtils;
@@ -89,6 +90,7 @@ public class StoveFragment extends Fragment {
     private void setupBricksDropdown(StoveViewModel viewModel, View rootView) {
         AutoCompleteTextView dropdown =
                 requireView().findViewById(R.id.stove_brick_dropdown);
+
         final List<PricelistItem> items = new ArrayList<>();
         viewModel.getItems().observe(getViewLifecycleOwner(), (newItems -> {
             items.clear();
@@ -97,10 +99,14 @@ public class StoveFragment extends Fragment {
                     R.layout.spinner_dropdown_item, ItemUtils.getPricelistNames(newItems));
             dropdown.setAdapter(adapter);
         }));
+
         dropdown.setOnItemClickListener((parent, view, position, id) -> {
             viewModel.selectItem(items.get(position));
             rootView.requestLayout();
         });
+
+        dropdown.setOnClickListener(v -> AppUtils.hideKeyboard(this));
+
         TextView priceText = rootView.findViewById(R.id.stove_brick_price);
         ImageButton clearBtn = requireView().findViewById(R.id.brick_clear_btn);
         clearBtn.setOnClickListener(v -> {

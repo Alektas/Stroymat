@@ -55,8 +55,8 @@ public class PricelistViewModel extends AndroidViewModel {
         mRepository.setFoundItems("%"+query+"%");
     }
 
-    public String getCategoryName(int categ) {
-        return mRepository.getCategoryName(categ);
+    public Category getCategory(int categ) {
+        return mRepository.getCategory(categ);
     }
 
     public LiveData<Integer> getSelectedCategory() {

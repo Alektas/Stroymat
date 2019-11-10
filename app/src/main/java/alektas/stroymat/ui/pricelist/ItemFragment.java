@@ -52,7 +52,7 @@ public class ItemFragment extends Fragment {
         TextView article = itemView.findViewById(R.id.item_article);
         article.setText(String.valueOf(item.getArticle()));
         TextView category = itemView.findViewById(R.id.item_category);
-        category.setText(mViewModel.getCategoryName(item.getCateg()));
+        category.setText(mViewModel.getCategory(item.getCateg()).getCategName());
         float price = item.getPrice();
         TextView priceText = itemView.findViewById(R.id.item_price_label);
         if (price == 0.00f) {

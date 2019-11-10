@@ -9,10 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.util.StringUtil;
 
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +33,7 @@ import alektas.stroymat.R;
 import alektas.stroymat.data.model.ProfnastilItem;
 import alektas.stroymat.ui.calculators.Square;
 import alektas.stroymat.ui.calculators.SquaresAdapter;
+import alektas.stroymat.utils.AppUtils;
 import alektas.stroymat.utils.ItemUtils;
 import alektas.stroymat.utils.ResourcesUtils;
 import alektas.stroymat.utils.StringUtils;
@@ -58,11 +57,17 @@ public class ProfnastilFragment extends Fragment {
 
         EditText roofWidthInput = view.findViewById(R.id.input_roof_width);
         EditText roofHeightInput = view.findViewById(R.id.input_roof_height);
+
         ImageButton addRoofBtn = view.findViewById(R.id.roof_add_btn);
         addRoofBtn.setOnClickListener(v -> {
             float width = StringUtils.getFloat(roofWidthInput);
             float height = StringUtils.getFloat(roofHeightInput);
             mViewModel.addRoof(new Square(width, height));
+        });
+
+        roofHeightInput.setOnEditorActionListener((v, actionId, event) -> {
+            addRoofBtn.performClick();
+            return false;
         });
 
         RecyclerView roofRv = view.findViewById(R.id.roof_list);
@@ -111,6 +116,7 @@ public class ProfnastilFragment extends Fragment {
     private void setupProfnastilDropdown(ProfnastilViewModel viewModel, View rootView) {
         AutoCompleteTextView dropdown =
                 requireView().findViewById(R.id.profnastil_dropdown);
+
         final List<ProfnastilItem> items = new ArrayList<>();
         viewModel.getItems().observe(getViewLifecycleOwner(), (newItems -> {
             items.clear();
@@ -119,10 +125,16 @@ public class ProfnastilFragment extends Fragment {
                     R.layout.spinner_dropdown_item, ItemUtils.getProfnastilNames(newItems));
             dropdown.setAdapter(adapter);
         }));
+
         dropdown.setOnItemClickListener((parent, view, position, id) -> {
             viewModel.selectItem(items.get(position));
             rootView.requestLayout();
         });
+
+        dropdown.setOnClickListener(v -> {
+            AppUtils.hideKeyboard(this);
+        });
+
         TextView priceText = rootView.findViewById(R.id.profnastil_price);
         TextView widthText = rootView.findViewById(R.id.profnastil_width);
         ImageButton clearBtn = requireView().findViewById(R.id.profnastil_clear_btn);

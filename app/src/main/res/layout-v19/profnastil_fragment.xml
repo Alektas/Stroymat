@@ -156,7 +156,7 @@
             android:textSize="@dimen/textsize_basic"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/profnastil_spinner"
+            android:id="@+id/profnastil_dropdown_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -178,8 +178,8 @@
             android:id="@+id/profnastil_clear_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/profnastil_spinner"
-            android:layout_alignBottom="@id/profnastil_spinner"
+            android:layout_alignTop="@id/profnastil_dropdown_layout"
+            android:layout_alignBottom="@id/profnastil_dropdown_layout"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/margin_horiz_small"
             android:layout_marginStart="@dimen/margin_horiz_between_text"
@@ -192,7 +192,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:layout_below="@id/profnastil_spinner"
+            android:layout_below="@id/profnastil_dropdown_layout"
             android:layout_marginStart="@dimen/margin_horiz_basic"
             android:layout_marginTop="@dimen/margin_top_basic"
             android:text="@string/price"

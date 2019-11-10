@@ -24,6 +24,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
+
 import java.util.List;
 
 import alektas.stroymat.BuildConfig;
@@ -56,9 +58,14 @@ public class CartFragment extends Fragment {
 
         Button orderBtn = view.findViewById(R.id.cart_order_btn);
         orderBtn.setOnClickListener(v -> {
-            String body = makeOrderBody(mAdapter.getItems());
-            sendEmail(EMAIL_ADDRESS, EMAIL_SUBJECT, body);
-//            mViewModel.clearCart();
+            List<CartItem> items = mAdapter.getItems();
+            if (items.isEmpty()) {
+                Toast.makeText(requireContext(), "Чтобы осуществить заказ, добавьте товары в корзину", Toast.LENGTH_LONG).show();
+                return;
+            }
+            String senderName = makeOrderSenderName();
+            String body = makeOrderBody(items);
+            sendEmailInternal(EMAIL_ADDRESS, senderName, EMAIL_SUBJECT, body);
         });
         return view;
     }
@@ -87,6 +94,14 @@ public class CartFragment extends Fragment {
         });
     }
 
+    private String makeOrderSenderName() {
+        SharedPreferences prefs = requireContext()
+                .getSharedPreferences(getString(R.string.PREFS_LOGIN_KEY), Context.MODE_PRIVATE);
+        String surname = prefs.getString(getString(R.string.LOGIN_SURNAME_KEY), "");
+        String name = prefs.getString(getString(R.string.LOGIN_NAME_KEY), "");
+        return "Заказ: " + surname + " " + name;
+    }
+
     private String makeOrderBody(List<CartItem> items) {
         SharedPreferences prefs = requireContext()
                 .getSharedPreferences(getString(R.string.PREFS_LOGIN_KEY), Context.MODE_PRIVATE);
@@ -99,10 +114,10 @@ public class CartFragment extends Fragment {
                 .append("\nФамилия: ").append(surname)
                 .append("\nИмя: ").append(name)
                 .append("\nНомер: ").append(phone)
-        .append("\n---------------------------------\n\n");
+                .append("\n---------------------------------\n\n");
         for (int i = 0; i < items.size(); i++) {
             CartItem item = items.get(i);
-            sb.append(i+1).append(". ").append(item.getName())
+            sb.append(i + 1).append(". ").append(item.getName())
                     .append("\nАртикул: ").append(item.getArticle())
                     .append("\nКоличество: ").append(item.getQuantity())
                     .append("\nЦена: ")
@@ -110,14 +125,14 @@ public class CartFragment extends Fragment {
                     .append("\n\n");
         }
         sb.append("---------------------------------\n")
-        .append("Итого: ").append(mPriceText.getText()).append(" руб\n");
+                .append("Итого: ").append(mPriceText.getText()).append(" руб\n");
 
         return sb.toString();
     }
 
-    private boolean sendEmail(String email, String subject, String body) {
+    private boolean sendEmail(String toEmail, String subject, String body) {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto", email, null));
+                "mailto", toEmail, null));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
         emailIntent.putExtra(Intent.EXTRA_TEXT, body);
 
@@ -131,6 +146,31 @@ public class CartFragment extends Fragment {
                     Toast.LENGTH_SHORT).show();
             return false;
         }
+    }
+
+    private void sendEmailInternal(String toEmail, String senderName, String subject, String body) {
+        BackgroundMail.newBuilder(requireContext())
+                .withUsername("11.stroymat@gmail.com")
+                .withPassword("iskscusrgtzlsrgh")
+                .withSenderName(senderName)
+                .withMailTo(toEmail)
+                .withType(BackgroundMail.TYPE_PLAIN)
+                .withSubject(subject)
+                .withBody(body)
+                .withSendingMessage("Оформление заказа...")
+                .withOnSuccessCallback(new BackgroundMail.OnSendingCallback() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(requireContext(), getString(R.string.order_sucess), Toast.LENGTH_SHORT).show();
+                        new OrderCompleteDialog().show(getChildFragmentManager(), "OrderCompleteDialog");
+                    }
+
+                    @Override
+                    public void onFail(Exception e) {
+                        Toast.makeText(requireContext(), "Не удалось оформить заказ. Проверьте подключение к интернету.", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .send();
     }
 
 }

@@ -84,6 +84,21 @@ public class SidingFragment extends Fragment implements TextWatcher {
         ImageButton addFrontonBtn = view.findViewById(R.id.fronton_add_btn);
         addFrontonBtn.setOnClickListener(v -> addFronton());
 
+        wallsHeightInput.setOnEditorActionListener((v, actionId, event) -> {
+            addWallBtn.performClick();
+            return false;
+        });
+
+        windowsHeightInput.setOnEditorActionListener((v, actionId, event) -> {
+            addWindowBtn.performClick();
+            return false;
+        });
+
+        frontonsHeightInput.setOnEditorActionListener((v, actionId, event) -> {
+            addFrontonBtn.performClick();
+            return false;
+        });
+
         RecyclerView wallsRv = view.findViewById(R.id.walls_list);
         RecyclerView.LayoutManager wallsLayoutManager = new LinearLayoutManager(getContext());
         wallsRv.setLayoutManager(wallsLayoutManager);
