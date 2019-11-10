@@ -58,8 +58,13 @@ public class CartFragment extends Fragment {
 
         Button orderBtn = view.findViewById(R.id.cart_order_btn);
         orderBtn.setOnClickListener(v -> {
+            List<CartItem> items = mAdapter.getItems();
+            if (items.isEmpty()) {
+                Toast.makeText(requireContext(), "Чтобы осуществить заказ, добавьте товары в корзину", Toast.LENGTH_LONG).show();
+                return;
+            }
             String senderName = makeOrderSenderName();
-            String body = makeOrderBody(mAdapter.getItems());
+            String body = makeOrderBody(items);
             sendEmailInternal(EMAIL_ADDRESS, senderName, EMAIL_SUBJECT, body);
         });
         return view;
