@@ -89,6 +89,8 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@id/item_del_btn"
             android:layout_alignBaseline="@id/item_quantity_label"
+            android:layout_alignParentEnd="true"
+            android:lines="1"
             android:text="@string/quantity_units_default" />
 
         <com.google.android.material.textfield.TextInputLayout
