@@ -66,7 +66,7 @@ public class ItemsRepository implements Repository {
 
         mCategories = mItemsDao.getCategories();
         mItemsData.setValue(getItems(0));
-        mGalleryPhotos = mItemsDao.getGalleryPhotos();
+//        mGalleryPhotos = mItemsDao.getGalleryPhotos();
         mSizedItems = mItemsDao.getSizes();
         mProfnastil = mItemsDao.getProfnastil();
         mSiding = mItemsDao.getSiding();
@@ -81,7 +81,7 @@ public class ItemsRepository implements Repository {
                                FirestoreLoader loader) {
         long pricelistVersion = prefs.getLong(PRICELIST_VERSION_KEY, 1);
         long categoriesVersion = prefs.getLong(CATEGORIES_VERSION_KEY, 1);
-        long galleryVersion = prefs.getLong(GALLERY_VERSION_KEY, 0); // 0 потому что галерею нужно загрузить
+//        long galleryVersion = prefs.getLong(GALLERY_VERSION_KEY, 0); // 0 потому что галерею нужно загрузить
         long pricelistActualVersion = remoteConfig.getLong(PRICELIST_VERSION_KEY);
         long categActualVersion = remoteConfig.getLong(CATEGORIES_VERSION_KEY);
         long galleryActualVersion = remoteConfig.getLong(GALLERY_VERSION_KEY);
@@ -93,10 +93,10 @@ public class ItemsRepository implements Repository {
             loader.loadCategories();
             prefs.edit().putLong(CATEGORIES_VERSION_KEY, categActualVersion).apply();
         }
-        if (galleryActualVersion > galleryVersion) {
-            loader.loadGallery();
-            prefs.edit().putLong(GALLERY_VERSION_KEY, galleryActualVersion).apply();
-        }
+//        if (galleryActualVersion > galleryVersion) {
+//            loader.loadGallery();
+//            prefs.edit().putLong(GALLERY_VERSION_KEY, galleryActualVersion).apply();
+//        }
     }
 
     public static Repository getInstance(Context context) {
