@@ -88,4 +88,16 @@ public class PricelistItem {
         this.categ = categ;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return "PricelistItem{" +
+                "article=" + article +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", unit='" + unit + '\'' +
+                ", imgResName='" + imgResName + '\'' +
+                ", categ=" + categ +
+                '}';
+    }
 }
