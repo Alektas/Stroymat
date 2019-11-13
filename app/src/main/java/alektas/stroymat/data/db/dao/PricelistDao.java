@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -126,8 +127,7 @@ public abstract class PricelistDao {
 
     @Transaction
     public void setCategories(List<Category> categories) {
-        clearCategories();
-        insertCategories(categories);
+        updateCategories(categories);
     }
 
     @Transaction
@@ -208,8 +208,8 @@ public abstract class PricelistDao {
     @Query("DELETE FROM quantities")
     public abstract void clearCart();
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public abstract void insertCategories(List<Category> categories);
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    public abstract void updateCategories(List<Category> categories);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertPricelist(List<PricelistItem> pricelist);

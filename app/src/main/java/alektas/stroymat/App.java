@@ -20,8 +20,10 @@ public class App extends MultiDexApplication {
         sAppComponent = buildComponent();
 
         FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+        int fetchInterval = 1800;
+        if (BuildConfig.DEBUG) fetchInterval = 30;
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setMinimumFetchIntervalInSeconds(3600)
+                .setMinimumFetchIntervalInSeconds(fetchInterval)
                 .build();
         remoteConfig.setConfigSettingsAsync(configSettings);
         remoteConfig.setDefaults(R.xml.remote_config_defaults);

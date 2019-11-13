@@ -82,8 +82,16 @@ public class ItemFragment extends Fragment {
     }
 
     private void loadImage(PricelistItem item, ImageView imageView) {
+        String imgUrl;
+        if (TextUtils.isEmpty(item.getImgResName()) || item.getImgResName().equals("img_placeholder")) {
+            imgUrl = mViewModel.getCategory(item.getCateg()).getCategImg();
+            if (TextUtils.isEmpty(imgUrl)) return;
+        } else {
+            imgUrl = item.getImgResName();
+        }
+
         Glide.with(requireContext())
-                .load(item.getImgResName())
+                .load(imgUrl)
                 .thumbnail(0.1f)
                 .optionalCenterCrop()
                 .optionalFitCenter()

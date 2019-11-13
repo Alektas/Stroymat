@@ -54,6 +54,10 @@ public class ItemsRepository implements Repository {
     private LiveData<List<SizedItem>> mBordury;
     private LiveData<List<SizedItem>> mPlity;
 
+    public interface LoadingListener {
+        void onSuccess();
+    }
+
     private ItemsRepository(Context context) {
         mItemsDao = AppDatabase.getInstance(context).getDao();
         FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
@@ -66,7 +70,6 @@ public class ItemsRepository implements Repository {
 
         mCategories = mItemsDao.getCategories();
         mItemsData.setValue(getItems(0));
-//        mGalleryPhotos = mItemsDao.getGalleryPhotos();
         mSizedItems = mItemsDao.getSizes();
         mProfnastil = mItemsDao.getProfnastil();
         mSiding = mItemsDao.getSiding();
@@ -74,6 +77,7 @@ public class ItemsRepository implements Repository {
         mPlity = mItemsDao.getPlity();
         mBordury = mItemsDao.getBordury();
         mCartItems = mItemsDao.getCartItems();
+//        mGalleryPhotos = mItemsDao.getGalleryPhotos();
     }
 
     private void lookForUpdate(SharedPreferences prefs,
@@ -84,14 +88,16 @@ public class ItemsRepository implements Repository {
 //        long galleryVersion = prefs.getLong(GALLERY_VERSION_KEY, 0); // 0 потому что галерею нужно загрузить
         long pricelistActualVersion = remoteConfig.getLong(PRICELIST_VERSION_KEY);
         long categActualVersion = remoteConfig.getLong(CATEGORIES_VERSION_KEY);
-        long galleryActualVersion = remoteConfig.getLong(GALLERY_VERSION_KEY);
+//        long galleryActualVersion = remoteConfig.getLong(GALLERY_VERSION_KEY);
         if (pricelistActualVersion > pricelistVersion) {
-            loader.loadPricelist();
-            prefs.edit().putLong(PRICELIST_VERSION_KEY, pricelistActualVersion).apply();
+            loader.loadPricelist(() -> {
+                prefs.edit().putLong(PRICELIST_VERSION_KEY, pricelistActualVersion).apply();
+            });
         }
         if (categActualVersion > categoriesVersion) {
-            loader.loadCategories();
-            prefs.edit().putLong(CATEGORIES_VERSION_KEY, categActualVersion).apply();
+            loader.loadCategories(() -> {
+                prefs.edit().putLong(CATEGORIES_VERSION_KEY, categActualVersion).apply();
+            });
         }
 //        if (galleryActualVersion > galleryVersion) {
 //            loader.loadGallery();
@@ -287,7 +293,7 @@ public class ItemsRepository implements Repository {
 
     @Override
     public void setPricelist(List<PricelistItem> pricelist) {
-        new setPricelistAsync(mItemsDao).execute(pricelist);
+        new setPricelistAsync(mItemsDao, mItemsData).execute(pricelist);
     }
 
     @Override
@@ -432,15 +438,29 @@ public class ItemsRepository implements Repository {
 
     private static class setPricelistAsync extends AsyncTask<List<PricelistItem>, Void, Void> {
         private PricelistDao mDao;
+        private MutableLiveData<List<PricelistItem>> mItemsData;
 
-        setPricelistAsync(PricelistDao dao) {
+        setPricelistAsync(PricelistDao dao, MutableLiveData<List<PricelistItem>> itemsData) {
             mDao = dao;
+            mItemsData = itemsData;
         }
 
         @Override
         protected Void doInBackground(List<PricelistItem>... items) {
             mDao.setPricelist(items[0]);
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            List<PricelistItem> items = new ArrayList<>();
+            try {
+                items.addAll(new getItemsAsync(mDao).execute(0).get());
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            mItemsData.setValue(items);
         }
     }
 
@@ -537,7 +557,7 @@ public class ItemsRepository implements Repository {
 
         @Override
         protected List<PricelistItem> doInBackground(Integer... integers) {
-            return integers[0] == 0 ? mDao.getItems() : mDao.getItems(integers[0]);
+            return (integers == null || integers[0] == 0) ? mDao.getItems() : mDao.getItems(integers[0]);
         }
     }
 

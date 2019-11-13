@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
                         Log.w(TAG, "getInstanceId failed", task.getException());
                         return;
                     }
-                    String token = task.getResult().getToken();
+                    String token = task.getResult() == null ? "" : task.getResult().getToken();
                     Log.d(TAG, "token=" + token);
                 });
 
