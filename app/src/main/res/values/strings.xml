@@ -103,5 +103,7 @@
     <string name="menu_logout">Очистить данные</string>
     <string name="order_sucess">Заказ успешно оформлен</string>
     <string name="clear_cart_question">Очистить корзину?</string>
+    <string name="GALLERY_VERSION_KEY">GALLERY_VERSION_KEY</string>
+    <string name="GALLERY_ENABLE_KEY">GALLERY_ENABLE_KEY</string>
 
 </resources>
