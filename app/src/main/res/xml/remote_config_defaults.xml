@@ -12,4 +12,8 @@
         <key>GALLERY_VERSION_KEY</key>
         <value>1</value>
     </entry>
+    <entry>
+        <key>GALLERY_ENABLE_KEY</key>
+        <value>0</value>
+    </entry>
 </defaultsMap>
