@@ -68,7 +68,14 @@ public class ItemFragment extends Fragment {
         EditText quantityText = itemView.findViewById(R.id.item_quantity_input);
         int q = mViewModel.getCartQuantity(item.getArticle());
         if (q != 0) quantityText.setText(String.valueOf(q));
+
         MaterialButton toCartBtn = itemView.findViewById(R.id.item_to_cart_btn);
+
+        quantityText.setOnEditorActionListener((v, actionId, event) -> {
+            toCartBtn.performClick();
+            return false;
+        });
+
         toCartBtn.setOnClickListener(v -> {
             float quantity = StringUtils.getQuantity(quantityText);
             if (TextUtils.isEmpty(quantityText.getText()) || quantity == 0) {
