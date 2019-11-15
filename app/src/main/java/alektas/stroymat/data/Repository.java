@@ -24,6 +24,10 @@ public interface Repository {
     Category getCategory(int categ);
     void setFoundItems(String query);
     void loadGallery();
+    void uploadPricelist();
+    void uploadCategories();
+    void resetServerPricelist();
+    void resetServerCategories();
 
     LiveData<List<PricelistItem>> getItems();
     LiveData<List<CartItem>> getCartItems();
@@ -57,4 +61,5 @@ public interface Repository {
     void removeCartItem(CartItem item);
     void clearCart();
     int getCartQuantity(int article);
+
 }

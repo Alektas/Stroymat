@@ -1,16 +1,15 @@
 package alektas.stroymat.ui.calculators.profnastil;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import alektas.stroymat.data.ItemsRepository;
+import javax.inject.Inject;
+
+import alektas.stroymat.App;
 import alektas.stroymat.data.Repository;
 import alektas.stroymat.data.db.entities.CartItem;
 import alektas.stroymat.data.db.entities.PricelistItem;
@@ -19,8 +18,9 @@ import alektas.stroymat.ui.calculators.Square;
 import alektas.stroymat.ui.calculators.SquareViewModelBase;
 import alektas.stroymat.ui.calculators.SquaresAdapter;
 
-public class ProfnastilViewModel extends AndroidViewModel implements SquareViewModelBase {
-    private Repository mRepository;
+public class ProfnastilViewModel extends ViewModel implements SquareViewModelBase {
+    @Inject
+    public Repository mRepository;
     private LiveData<List<ProfnastilItem>> mProfnastil;
     private MutableLiveData<List<Square>> mRoofs = new MutableLiveData<>();
     private MutableLiveData<Float> mRoofSquare = new MutableLiveData<>();
@@ -32,9 +32,8 @@ public class ProfnastilViewModel extends AndroidViewModel implements SquareViewM
     private int mOverlapWaves;
     private int mProfnastilReserve;
 
-    public ProfnastilViewModel(@NonNull Application application) {
-        super(application);
-        mRepository = ItemsRepository.getInstance(application);
+    public ProfnastilViewModel() {
+        App.getComponent().inject(this);
         mProfnastil = mRepository.getProfnastil();
     }
 

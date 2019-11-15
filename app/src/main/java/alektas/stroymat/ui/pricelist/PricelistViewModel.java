@@ -1,30 +1,29 @@
 package alektas.stroymat.ui.pricelist;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import alektas.stroymat.data.ItemsRepository;
+import javax.inject.Inject;
+
+import alektas.stroymat.App;
 import alektas.stroymat.data.Repository;
 import alektas.stroymat.data.db.entities.CartItem;
 import alektas.stroymat.data.db.entities.Category;
 import alektas.stroymat.data.db.entities.PricelistItem;
 
-public class PricelistViewModel extends AndroidViewModel {
-    private Repository mRepository;
+public class PricelistViewModel extends ViewModel {
+    @Inject
+    public Repository mRepository;
     private MutableLiveData<PricelistItem> mSelectedItem = new MutableLiveData<>();
     private MutableLiveData<Integer> mSelectedCategory = new MutableLiveData<>();
     private LiveData<List<Category>> mCategories;
     private LiveData<List<PricelistItem>> mItems;
 
-    public PricelistViewModel(@NonNull Application application) {
-        super(application);
-        mRepository = ItemsRepository.getInstance(application);
+    public PricelistViewModel() {
+        App.getComponent().inject(this);
         mCategories = mRepository.getCategories();
         mItems = mRepository.getItems(); // Установка всех товаров в списке по-умолчанию
         mSelectedCategory.setValue(0); // Отметить категорию "Все" (== 0) в меню

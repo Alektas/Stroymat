@@ -37,9 +37,10 @@ import alektas.stroymat.utils.ResourcesUtils;
 
 public class ItemsRepository implements Repository {
     private static final String TAG = "ItemsRepository";
-    private static final String CATEGORIES_VERSION_KEY = "CATEGORIES_VERSION_KEY";
-    private static final String PRICELIST_VERSION_KEY = "PRICELIST_VERSION_KEY";
-    private static final String GALLERY_VERSION_KEY = "GALLERY_VERSION_KEY";
+    private static String CATEGORIES_VERSION_KEY;
+    private static String PRICELIST_VERSION_KEY;
+    private static String GALLERY_VERSION_KEY;
+    private static String GALLERY_ENABLE_KEY;
     private static Repository INSTANCE;
     private final FirestoreLoader loader;
     private PricelistDao mItemsDao;
@@ -54,49 +55,8 @@ public class ItemsRepository implements Repository {
     private LiveData<List<SizedItem>> mBordury;
     private LiveData<List<SizedItem>> mPlity;
 
-    private ItemsRepository(Context context) {
-        mItemsDao = AppDatabase.getInstance(context).getDao();
-        FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
-        FirebaseFirestore firebaseDb = FirebaseFirestore.getInstance();
-        loader = new FirestoreLoader(firebaseDb, this);
-        SharedPreferences prefs = context.getSharedPreferences(
-                        ResourcesUtils.getString(R.string.PREFS_NAME),
-                        Context.MODE_PRIVATE);
-        lookForUpdate(prefs, remoteConfig, loader);
-
-        mCategories = mItemsDao.getCategories();
-        mItemsData.setValue(getItems(0));
-//        mGalleryPhotos = mItemsDao.getGalleryPhotos();
-        mSizedItems = mItemsDao.getSizes();
-        mProfnastil = mItemsDao.getProfnastil();
-        mSiding = mItemsDao.getSiding();
-        mBricks = mItemsDao.getStoveBricks();
-        mPlity = mItemsDao.getPlity();
-        mBordury = mItemsDao.getBordury();
-        mCartItems = mItemsDao.getCartItems();
-    }
-
-    private void lookForUpdate(SharedPreferences prefs,
-                               FirebaseRemoteConfig remoteConfig,
-                               FirestoreLoader loader) {
-        long pricelistVersion = prefs.getLong(PRICELIST_VERSION_KEY, 1);
-        long categoriesVersion = prefs.getLong(CATEGORIES_VERSION_KEY, 1);
-//        long galleryVersion = prefs.getLong(GALLERY_VERSION_KEY, 0); // 0 потому что галерею нужно загрузить
-        long pricelistActualVersion = remoteConfig.getLong(PRICELIST_VERSION_KEY);
-        long categActualVersion = remoteConfig.getLong(CATEGORIES_VERSION_KEY);
-        long galleryActualVersion = remoteConfig.getLong(GALLERY_VERSION_KEY);
-        if (pricelistActualVersion > pricelistVersion) {
-            loader.loadPricelist();
-            prefs.edit().putLong(PRICELIST_VERSION_KEY, pricelistActualVersion).apply();
-        }
-        if (categActualVersion > categoriesVersion) {
-            loader.loadCategories();
-            prefs.edit().putLong(CATEGORIES_VERSION_KEY, categActualVersion).apply();
-        }
-//        if (galleryActualVersion > galleryVersion) {
-//            loader.loadGallery();
-//            prefs.edit().putLong(GALLERY_VERSION_KEY, galleryActualVersion).apply();
-//        }
+    public interface LoadingListener {
+        void onSuccess();
     }
 
     public static Repository getInstance(Context context) {
@@ -110,9 +70,106 @@ public class ItemsRepository implements Repository {
         return INSTANCE;
     }
 
+    private ItemsRepository(Context context) {
+        CATEGORIES_VERSION_KEY = context.getString(R.string.CATEGORIES_VERSION_KEY);
+        PRICELIST_VERSION_KEY = context.getString(R.string.PRICELIST_VERSION_KEY);
+        GALLERY_VERSION_KEY = context.getString(R.string.GALLERY_VERSION_KEY);
+        GALLERY_ENABLE_KEY = context.getString(R.string.GALLERY_ENABLE_KEY);
+
+        mItemsDao = AppDatabase.getInstance(context).getDao();
+        FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseFirestore firebaseDb = FirebaseFirestore.getInstance();
+        loader = new FirestoreLoader(firebaseDb, this);
+        SharedPreferences prefs = context.getSharedPreferences(
+                ResourcesUtils.getString(R.string.PREFS_NAME),
+                Context.MODE_PRIVATE);
+        lookForUpdate(prefs, remoteConfig, loader);
+
+        mCategories = mItemsDao.getCategories();
+        mItemsData.setValue(getItems(0));
+        mSizedItems = mItemsDao.getSizes();
+        mProfnastil = mItemsDao.getProfnastil();
+        mSiding = mItemsDao.getSiding();
+        mBricks = mItemsDao.getStoveBricks();
+        mPlity = mItemsDao.getPlity();
+        mBordury = mItemsDao.getBordury();
+        mCartItems = mItemsDao.getCartItems();
+    }
+
+    private void lookForUpdate(SharedPreferences prefs,
+                               FirebaseRemoteConfig remoteConfig,
+                               FirestoreLoader loader) {
+        lookForPricelistUpdate(prefs, remoteConfig, loader);
+        lookForCategoriesUpdate(prefs, remoteConfig, loader);
+        lookForGalleryUpdate(prefs, remoteConfig, loader);
+    }
+
+    private void lookForPricelistUpdate(SharedPreferences prefs,
+                                      FirebaseRemoteConfig remoteConfig,
+                                      FirestoreLoader loader) {
+        long pricelistVersion = prefs.getLong(PRICELIST_VERSION_KEY, 1);
+        long pricelistActualVersion = remoteConfig.getLong(PRICELIST_VERSION_KEY);
+
+        if (pricelistActualVersion > pricelistVersion) {
+            loader.loadPricelist(() -> {
+                prefs.edit().putLong(PRICELIST_VERSION_KEY, pricelistActualVersion).apply();
+            });
+        }
+    }
+
+    private void lookForCategoriesUpdate(SharedPreferences prefs,
+                                      FirebaseRemoteConfig remoteConfig,
+                                      FirestoreLoader loader) {
+        long categoriesVersion = prefs.getLong(CATEGORIES_VERSION_KEY, 1);
+        long categActualVersion = remoteConfig.getLong(CATEGORIES_VERSION_KEY);
+
+        if (categActualVersion > categoriesVersion) {
+            loader.loadCategories(() -> {
+                prefs.edit().putLong(CATEGORIES_VERSION_KEY, categActualVersion).apply();
+            });
+        }
+    }
+
+    private void lookForGalleryUpdate(SharedPreferences prefs,
+                                      FirebaseRemoteConfig remoteConfig,
+                                      FirestoreLoader loader) {
+        long galleryEnable = prefs.getLong(GALLERY_ENABLE_KEY, 0); // 0 - галерея по-умолчанию выключена
+        long galleryVersion = prefs.getLong(GALLERY_VERSION_KEY, 0); // 0 - галерею первый раз нужно загрузить
+        long galleryActualVersion = remoteConfig.getLong(GALLERY_VERSION_KEY);
+
+        if (galleryEnable != 0) {
+            mGalleryPhotos = mItemsDao.getGalleryPhotos();
+
+            if (galleryActualVersion > galleryVersion) {
+                loader.loadGallery();
+                prefs.edit().putLong(GALLERY_VERSION_KEY, galleryActualVersion).apply();
+            }
+        }
+    }
+
     @Override
     public void loadGallery() {
         loader.loadGallery();
+    }
+
+    @Override
+    public void uploadCategories() {
+        loader.loadCategoriesToFirebase();
+    }
+
+    @Override
+    public void uploadPricelist() {
+        loader.loadPricelistToFirebase();
+    }
+
+    @Override
+    public void resetServerCategories() {
+        loader.resetCategories();
+    }
+
+    @Override
+    public void resetServerPricelist() {
+        loader.resetPricelist();
     }
 
     @Override
@@ -287,7 +344,7 @@ public class ItemsRepository implements Repository {
 
     @Override
     public void setPricelist(List<PricelistItem> pricelist) {
-        new setPricelistAsync(mItemsDao).execute(pricelist);
+        new setPricelistAsync(mItemsDao, mItemsData).execute(pricelist);
     }
 
     @Override
@@ -432,15 +489,29 @@ public class ItemsRepository implements Repository {
 
     private static class setPricelistAsync extends AsyncTask<List<PricelistItem>, Void, Void> {
         private PricelistDao mDao;
+        private MutableLiveData<List<PricelistItem>> mItemsData;
 
-        setPricelistAsync(PricelistDao dao) {
+        setPricelistAsync(PricelistDao dao, MutableLiveData<List<PricelistItem>> itemsData) {
             mDao = dao;
+            mItemsData = itemsData;
         }
 
         @Override
         protected Void doInBackground(List<PricelistItem>... items) {
             mDao.setPricelist(items[0]);
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            List<PricelistItem> items = new ArrayList<>();
+            try {
+                items.addAll(new getItemsAsync(mDao).execute(0).get());
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            mItemsData.setValue(items);
         }
     }
 
@@ -537,7 +608,7 @@ public class ItemsRepository implements Repository {
 
         @Override
         protected List<PricelistItem> doInBackground(Integer... integers) {
-            return integers[0] == 0 ? mDao.getItems() : mDao.getItems(integers[0]);
+            return (integers == null || integers[0] == 0) ? mDao.getItems() : mDao.getItems(integers[0]);
         }
     }
 

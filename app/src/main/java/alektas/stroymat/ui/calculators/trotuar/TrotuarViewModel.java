@@ -1,16 +1,15 @@
 package alektas.stroymat.ui.calculators.trotuar;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import alektas.stroymat.data.ItemsRepository;
+import javax.inject.Inject;
+
+import alektas.stroymat.App;
 import alektas.stroymat.data.Repository;
 import alektas.stroymat.data.db.entities.CartItem;
 import alektas.stroymat.data.db.entities.PricelistItem;
@@ -20,10 +19,11 @@ import alektas.stroymat.ui.calculators.SquareViewModelBase;
 import alektas.stroymat.ui.calculators.SquaresAdapter;
 import alektas.stroymat.utils.StringUtils;
 
-public class TrotuarViewModel extends AndroidViewModel implements SquareViewModelBase {
+public class TrotuarViewModel extends ViewModel implements SquareViewModelBase {
     public static final int CATEG_PLITY = 19;
     public static final int CATEG_BORDURY = 36;
-    private Repository mRepository;
+    @Inject
+    public Repository mRepository;
     private LiveData<List<SizedItem>> mPlity;
     private LiveData<List<SizedItem>> mBordury;
     private MutableLiveData<List<Square>> mTrotuars = new MutableLiveData<>();
@@ -36,9 +36,8 @@ public class TrotuarViewModel extends AndroidViewModel implements SquareViewMode
     private int mPlityReserve;
     private int mBorduryReserve;
 
-    public TrotuarViewModel(@NonNull Application application) {
-        super(application);
-        mRepository = ItemsRepository.getInstance(application);
+    public TrotuarViewModel() {
+        App.getComponent().inject(this);
         mPlity = mRepository.getPlity();
         mBordury = mRepository.getBordury();
     }

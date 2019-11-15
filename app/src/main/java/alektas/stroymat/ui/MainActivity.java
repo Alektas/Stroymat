@@ -1,7 +1,9 @@
 package alektas.stroymat.ui;
 
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -35,6 +37,7 @@ import alektas.stroymat.R;
 import alektas.stroymat.auth.AuthManager;
 import alektas.stroymat.ui.pricelist.PricelistFragment;
 import alektas.stroymat.ui.pricelist.PricelistViewModel;
+import alektas.stroymat.utils.ResourcesUtils;
 
 /**
  * Здравствуй, тот, кто решился поглубиться в дебри легаси-кода июля 2019 года.
@@ -78,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
                         Log.w(TAG, "getInstanceId failed", task.getException());
                         return;
                     }
-                    String token = task.getResult().getToken();
+                    String token = task.getResult() == null ? "" : task.getResult().getToken();
                     Log.d(TAG, "token=" + token);
                 });
 
@@ -95,8 +98,14 @@ public class MainActivity extends AppCompatActivity implements PricelistFragment
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         navController =
                 Navigation.findNavController(this, R.id.nav_host_fragment);
-
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_view);
+
+        SharedPreferences prefs = getSharedPreferences(
+                ResourcesUtils.getString(R.string.PREFS_NAME),
+                Context.MODE_PRIVATE);
+        long galleryEnable = prefs.getLong(getString(R.string.GALLERY_ENABLE_KEY), 0); // 0 - галерея по-умолчанию выключена
+        if (galleryEnable == 0) bottomNav.getMenu().removeItem(R.id.galleryFragment);
+
         NavigationUI.setupWithNavController(bottomNav, navController);
     }
 

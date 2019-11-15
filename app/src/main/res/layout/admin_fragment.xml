@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/paddingSmall"
+    android:paddingEnd="@dimen/paddingSmall"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="alektas.stroymat.ui.server.AdminFragment">
+    
+    <TextView
+        android:id="@+id/title_server"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_top_title"
+        android:text="@string/title_server"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_reset_pricelist"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_reset_pricelist"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/btn_height"
+        android:text="@string/reset_pricelist"
+        app:layout_constraintBottom_toTopOf="@+id/btn_upload_pricelist"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_server"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_upload_pricelist"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/btn_height"
+        android:text="@string/upload_pricelist"
+        app:layout_constraintBottom_toTopOf="@+id/btn_reset_categories"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_reset_pricelist"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_reset_categories"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/btn_height"
+        android:text="@string/reset_categories"
+        app:layout_constraintBottom_toTopOf="@id/btn_upload_categories"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_upload_pricelist"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_upload_categories"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/btn_height"
+        android:text="@string/upload_categories"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_reset_categories"
+        app:layout_constraintVertical_bias="0.3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

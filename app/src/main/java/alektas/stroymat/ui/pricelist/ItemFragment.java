@@ -68,7 +68,14 @@ public class ItemFragment extends Fragment {
         EditText quantityText = itemView.findViewById(R.id.item_quantity_input);
         int q = mViewModel.getCartQuantity(item.getArticle());
         if (q != 0) quantityText.setText(String.valueOf(q));
+
         MaterialButton toCartBtn = itemView.findViewById(R.id.item_to_cart_btn);
+
+        quantityText.setOnEditorActionListener((v, actionId, event) -> {
+            toCartBtn.performClick();
+            return false;
+        });
+
         toCartBtn.setOnClickListener(v -> {
             float quantity = StringUtils.getQuantity(quantityText);
             if (TextUtils.isEmpty(quantityText.getText()) || quantity == 0) {
@@ -82,8 +89,16 @@ public class ItemFragment extends Fragment {
     }
 
     private void loadImage(PricelistItem item, ImageView imageView) {
+        String imgUrl;
+        if (TextUtils.isEmpty(item.getImgResName()) || item.getImgResName().equals("img_placeholder")) {
+            imgUrl = mViewModel.getCategory(item.getCateg()).getCategImg();
+            if (TextUtils.isEmpty(imgUrl)) return;
+        } else {
+            imgUrl = item.getImgResName();
+        }
+
         Glide.with(requireContext())
-                .load(item.getImgResName())
+                .load(imgUrl)
                 .thumbnail(0.1f)
                 .optionalCenterCrop()
                 .optionalFitCenter()

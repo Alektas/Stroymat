@@ -21,4 +21,9 @@
         android:icon="@drawable/ic_shopping_cart_black_24dp"
         android:title="@string/title_cart" />
 
+    <item
+        android:id="@+id/adminFragment"
+        android:icon="@drawable/ic_rss_feed_black_24dp"
+        android:title="@string/title_server" />
+
 </menu>

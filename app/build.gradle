@@ -18,14 +18,14 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "alektas.stroymat"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         multiDexEnabled true
-        versionCode 8
-        versionName "0.8.0"
+        versionCode 9
+        versionName "0.8.1"
         project.ext.set("archivesBaseName", "Stroymat-" + defaultConfig.versionName)
 
         resConfigs "en", "ru"
@@ -65,6 +65,20 @@ android {
             resValue 'string', 'search_authority', 'alektas.stroymat.debug.ItemsProvider'
         }
     }
+
+    flavorDimensions "mode"
+    productFlavors {
+        user {
+            dimension "mode"
+        }
+
+        admin {
+            dimension "mode"
+            applicationIdSuffix ".admin"
+            versionNameSuffix "-admin"
+        }
+    }
+
     packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
@@ -75,7 +89,12 @@ android {
         targetCompatibility = '1.8'
     }
     buildToolsVersion = '29.0.0 rc3'
-    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+    sourceSets {
+        main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] }
+        // Override the icons in debug mode
+        userDebug.res.srcDir 'src/userDebug/res'
+        adminDebug.res.srcDir 'src/adminDebug/res'
+    }
 }
 
 dependencies {
