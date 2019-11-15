@@ -1,26 +1,25 @@
 package alektas.stroymat.ui.gallery;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import alektas.stroymat.data.ItemsRepository;
+import javax.inject.Inject;
+
+import alektas.stroymat.App;
 import alektas.stroymat.data.Repository;
 import alektas.stroymat.data.db.entities.Photo;
 
-public class GalleryViewModel extends AndroidViewModel {
-    private final Repository mRepository;
+public class GalleryViewModel extends ViewModel {
+    @Inject
+    public Repository mRepository;
     private MutableLiveData<String> mUrl = new MutableLiveData<>();
     private LiveData<List<Photo>> mPhotos;
 
-    public GalleryViewModel(@NonNull Application application) {
-        super(application);
-        mRepository = ItemsRepository.getInstance(application);
+    public GalleryViewModel() {
+        App.getComponent().inject(this);
         mPhotos = mRepository.getGalleryPhotos();
     }
 

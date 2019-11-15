@@ -59,6 +59,17 @@ public class ItemsRepository implements Repository {
         void onSuccess();
     }
 
+    public static Repository getInstance(Context context) {
+        if (INSTANCE == null) {
+            synchronized (ItemsRepository.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new ItemsRepository(context);
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
     private ItemsRepository(Context context) {
         CATEGORIES_VERSION_KEY = context.getString(R.string.CATEGORIES_VERSION_KEY);
         PRICELIST_VERSION_KEY = context.getString(R.string.PRICELIST_VERSION_KEY);
@@ -136,20 +147,29 @@ public class ItemsRepository implements Repository {
         }
     }
 
-    public static Repository getInstance(Context context) {
-        if (INSTANCE == null) {
-            synchronized (ItemsRepository.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new ItemsRepository(context);
-                }
-            }
-        }
-        return INSTANCE;
-    }
-
     @Override
     public void loadGallery() {
         loader.loadGallery();
+    }
+
+    @Override
+    public void uploadCategories() {
+        loader.loadCategoriesToFirebase();
+    }
+
+    @Override
+    public void uploadPricelist() {
+        loader.loadPricelistToFirebase();
+    }
+
+    @Override
+    public void resetServerCategories() {
+        loader.resetCategories();
+    }
+
+    @Override
+    public void resetServerPricelist() {
+        loader.resetPricelist();
     }
 
     @Override

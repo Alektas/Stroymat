@@ -1,21 +1,21 @@
 package alektas.stroymat.ui.calculators.stove;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import alektas.stroymat.data.ItemsRepository;
+import javax.inject.Inject;
+
+import alektas.stroymat.App;
 import alektas.stroymat.data.Repository;
 import alektas.stroymat.data.db.entities.CartItem;
 import alektas.stroymat.data.db.entities.PricelistItem;
 
-public class StoveViewModel extends AndroidViewModel {
-    private Repository mRepository;
+public class StoveViewModel extends ViewModel {
+    @Inject
+    public Repository mRepository;
     private LiveData<List<PricelistItem>> mBricks;
     private MutableLiveData<Float> mBaseSquare = new MutableLiveData<>();
     private MutableLiveData<PricelistItem> mSelectedBrick = new MutableLiveData<>();
@@ -34,9 +34,8 @@ public class StoveViewModel extends AndroidViewModel {
     private int mTubeRowBricks = 0;
     private int mBricksReserve;
 
-    public StoveViewModel(@NonNull Application application) {
-        super(application);
-        mRepository = ItemsRepository.getInstance(application);
+    public StoveViewModel() {
+        App.getComponent().inject(this);
         mBricks = mRepository.getStoveBricks();
     }
 

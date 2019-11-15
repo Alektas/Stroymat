@@ -105,5 +105,10 @@
     <string name="clear_cart_question">Очистить корзину?</string>
     <string name="GALLERY_VERSION_KEY">GALLERY_VERSION_KEY</string>
     <string name="GALLERY_ENABLE_KEY">GALLERY_ENABLE_KEY</string>
+    <string name="title_server">Сервер</string>
+    <string name="reset_pricelist">Удалить прайслист</string>
+    <string name="upload_pricelist">Загрузить прайслист</string>
+    <string name="reset_categories">Удалить категории</string>
+    <string name="upload_categories">Загрузить категории</string>
 
 </resources>

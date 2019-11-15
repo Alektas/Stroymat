@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/pricelistFragment"
+        android:icon="@drawable/ic_pricelist_black_24dp"
+        android:title="@string/title_pricelist" />
+
+    <item
+        android:id="@+id/calculatorsFragment"
+        android:icon="@drawable/ic_calculators_black_24dp"
+        android:title="@string/title_calculators" />
+
+    <item
+        android:id="@+id/galleryFragment"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_gallery" />
+
+    <item
+        android:id="@+id/cartFragment"
+        android:icon="@drawable/ic_shopping_cart_black_24dp"
+        android:title="@string/title_cart" />
+
+    <item
+        android:id="@+id/adminFragment"
+        android:icon="@drawable/ic_rss_feed_black_24dp"
+        android:title="@string/title_server" />
+
+</menu>

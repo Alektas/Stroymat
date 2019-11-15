@@ -230,6 +230,16 @@ public class FirestoreLoader {
         });
     }
 
+    public void resetCategories() {
+        firebase.collection("categories").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    firebase.collection("categories").document(document.getId()).delete();
+                }
+            }
+        });
+    }
+
     @VisibleForTesting
     public float floatFrom(Object object) {
         float f = 0f;
@@ -274,7 +284,7 @@ public class FirestoreLoader {
     /**
      * Перед загрузкой необходимо стереть старые категории
      */
-    private void loadCategoriesToFirebase() {
+    public void loadCategoriesToFirebase() {
         List<Category> categories = repository.getCategories().getValue();
         if (categories == null) return;
         List<Map<String, Object>> docs = new ArrayList<>();
@@ -294,7 +304,7 @@ public class FirestoreLoader {
      * Перед загрузкой необходимо стереть старый прайслист с помощью
      * {@link FirestoreLoader#resetPricelist()}
      */
-    private void loadPricelistToFirebase() {
+    public void loadPricelistToFirebase() {
         List<PricelistItem> list = repository.getItems(0);
         List<Size> sizes = repository.getSizesList();
         List<Profnastil> profnastils = repository.getProfnastilList();
