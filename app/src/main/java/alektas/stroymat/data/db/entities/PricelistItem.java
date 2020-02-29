@@ -1,6 +1,7 @@
 package alektas.stroymat.data.db.entities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -15,17 +16,19 @@ import androidx.room.PrimaryKey;
         foreignKeys = @ForeignKey(
                 entity = Category.class,
                 parentColumns = "categ",
-                childColumns = "categ"))
+                childColumns = "categ",
+                onDelete = ForeignKey.CASCADE))
 public class PricelistItem {
     @PrimaryKey
     private int article;
     @NonNull
     private String name;
+    @ColumnInfo(defaultValue = "0.0")
     private float price;
-    @NonNull
     private String unit;
     @ColumnInfo(name = "img_res")
     private String imgResName;
+    @ColumnInfo(defaultValue = "0")
     private int categ;
 
     public PricelistItem(int article, @NonNull String name, float price, @NonNull String unit,

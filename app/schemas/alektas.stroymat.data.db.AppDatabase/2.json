@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "77b7bc3431115cb61969115daee742cd",
+    "identityHash": "688131cbed9d5e6f346bb75418594f18",
     "entities": [
       {
         "tableName": "items",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`article` INTEGER NOT NULL, `name` TEXT NOT NULL, `price` REAL NOT NULL, `unit` TEXT NOT NULL, `img_res` TEXT, `categ` INTEGER NOT NULL, PRIMARY KEY(`article`), FOREIGN KEY(`categ`) REFERENCES `categories`(`categ`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`article` INTEGER NOT NULL, `name` TEXT NOT NULL, `price` REAL NOT NULL DEFAULT 0.0, `unit` TEXT, `img_res` TEXT, `categ` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`article`), FOREIGN KEY(`categ`) REFERENCES `categories`(`categ`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "article",
@@ -24,13 +24,14 @@
             "fieldPath": "price",
             "columnName": "price",
             "affinity": "REAL",
-            "notNull": true
+            "notNull": true,
+            "defaultValue": "0.0"
           },
           {
             "fieldPath": "unit",
             "columnName": "unit",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "imgResName",
@@ -42,7 +43,8 @@
             "fieldPath": "categ",
             "columnName": "categ",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": true,
+            "defaultValue": "0"
           }
         ],
         "primaryKey": {
@@ -58,7 +60,7 @@
             "columnNames": [
               "article"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_items_article` ON `${TABLE_NAME}` (`article`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_items_article` ON `${TABLE_NAME}` (`article`)"
           },
           {
             "name": "index_items_name",
@@ -66,7 +68,7 @@
             "columnNames": [
               "name"
             ],
-            "createSql": "CREATE  INDEX `index_items_name` ON `${TABLE_NAME}` (`name`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_items_name` ON `${TABLE_NAME}` (`name`)"
           },
           {
             "name": "index_items_categ",
@@ -74,13 +76,13 @@
             "columnNames": [
               "categ"
             ],
-            "createSql": "CREATE  INDEX `index_items_categ` ON `${TABLE_NAME}` (`categ`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_items_categ` ON `${TABLE_NAME}` (`categ`)"
           }
         ],
         "foreignKeys": [
           {
             "table": "categories",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "categ"
@@ -127,7 +129,7 @@
             "columnNames": [
               "categ"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_categories_categ` ON `${TABLE_NAME}` (`categ`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_categories_categ` ON `${TABLE_NAME}` (`categ`)"
           }
         ],
         "foreignKeys": []
@@ -168,14 +170,14 @@
             "columnNames": [
               "_id"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_photos__id` ON `${TABLE_NAME}` (`_id`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_photos__id` ON `${TABLE_NAME}` (`_id`)"
           }
         ],
         "foreignKeys": []
       },
       {
         "tableName": "sizes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, `length` REAL NOT NULL, `width` REAL NOT NULL, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, `length` REAL NOT NULL DEFAULT 0.0, `width` REAL NOT NULL DEFAULT 0.0, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "itemArticle",
@@ -187,13 +189,15 @@
             "fieldPath": "length",
             "columnName": "length",
             "affinity": "REAL",
-            "notNull": true
+            "notNull": true,
+            "defaultValue": "0.0"
           },
           {
             "fieldPath": "width",
             "columnName": "width",
             "affinity": "REAL",
-            "notNull": true
+            "notNull": true,
+            "defaultValue": "0.0"
           }
         ],
         "primaryKey": {
@@ -209,13 +213,13 @@
             "columnNames": [
               "item_article"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_sizes_item_article` ON `${TABLE_NAME}` (`item_article`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_sizes_item_article` ON `${TABLE_NAME}` (`item_article`)"
           }
         ],
         "foreignKeys": [
           {
             "table": "items",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "item_article"
@@ -228,7 +232,7 @@
       },
       {
         "tableName": "quantities",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, `cart_quantity` REAL NOT NULL, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, `cart_quantity` REAL NOT NULL DEFAULT 1, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "itemArticle",
@@ -240,7 +244,8 @@
             "fieldPath": "cartQuantity",
             "columnName": "cart_quantity",
             "affinity": "REAL",
-            "notNull": true
+            "notNull": true,
+            "defaultValue": "1"
           }
         ],
         "primaryKey": {
@@ -256,13 +261,13 @@
             "columnNames": [
               "item_article"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_quantities_item_article` ON `${TABLE_NAME}` (`item_article`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_quantities_item_article` ON `${TABLE_NAME}` (`item_article`)"
           }
         ],
         "foreignKeys": [
           {
             "table": "items",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "item_article"
@@ -275,7 +280,7 @@
       },
       {
         "tableName": "profnastil",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, `overlap` REAL NOT NULL, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, `overlap` REAL NOT NULL DEFAULT 0.0, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "itemArticle",
@@ -287,7 +292,8 @@
             "fieldPath": "overlap",
             "columnName": "overlap",
             "affinity": "REAL",
-            "notNull": true
+            "notNull": true,
+            "defaultValue": "0.0"
           }
         ],
         "primaryKey": {
@@ -303,13 +309,13 @@
             "columnNames": [
               "item_article"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_profnastil_item_article` ON `${TABLE_NAME}` (`item_article`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_profnastil_item_article` ON `${TABLE_NAME}` (`item_article`)"
           }
         ],
         "foreignKeys": [
           {
             "table": "items",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "item_article"
@@ -322,7 +328,7 @@
       },
       {
         "tableName": "siding",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "itemArticle",
@@ -344,13 +350,13 @@
             "columnNames": [
               "item_article"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_siding_item_article` ON `${TABLE_NAME}` (`item_article`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_siding_item_article` ON `${TABLE_NAME}` (`item_article`)"
           }
         ],
         "foreignKeys": [
           {
             "table": "items",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "item_article"
@@ -363,7 +369,7 @@
       },
       {
         "tableName": "stove_bricks",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "itemArticle",
@@ -385,13 +391,13 @@
             "columnNames": [
               "item_article"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_stove_bricks_item_article` ON `${TABLE_NAME}` (`item_article`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_stove_bricks_item_article` ON `${TABLE_NAME}` (`item_article`)"
           }
         ],
         "foreignKeys": [
           {
             "table": "items",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "item_article"
@@ -404,7 +410,7 @@
       },
       {
         "tableName": "plity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "itemArticle",
@@ -426,13 +432,13 @@
             "columnNames": [
               "item_article"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_plity_item_article` ON `${TABLE_NAME}` (`item_article`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_plity_item_article` ON `${TABLE_NAME}` (`item_article`)"
           }
         ],
         "foreignKeys": [
           {
             "table": "items",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "item_article"
@@ -445,7 +451,7 @@
       },
       {
         "tableName": "bordury",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`item_article` INTEGER NOT NULL, PRIMARY KEY(`item_article`), FOREIGN KEY(`item_article`) REFERENCES `items`(`article`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "itemArticle",
@@ -467,13 +473,13 @@
             "columnNames": [
               "item_article"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_bordury_item_article` ON `${TABLE_NAME}` (`item_article`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_bordury_item_article` ON `${TABLE_NAME}` (`item_article`)"
           }
         ],
         "foreignKeys": [
           {
             "table": "items",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "item_article"
@@ -488,7 +494,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '77b7bc3431115cb61969115daee742cd')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '688131cbed9d5e6f346bb75418594f18')"
     ]
   }
 }

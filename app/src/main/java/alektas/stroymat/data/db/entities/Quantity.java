@@ -12,13 +12,14 @@ import androidx.room.PrimaryKey;
         foreignKeys = @ForeignKey(
                 entity = PricelistItem.class,
                 parentColumns = "article",
-                childColumns = "item_article"))
+                childColumns = "item_article",
+                onDelete = ForeignKey.CASCADE))
 public class Quantity {
     @PrimaryKey
     @ColumnInfo(name = "item_article")
     private int itemArticle;
-    @ColumnInfo(name = "cart_quantity")
-    private float cartQuantity = 1;
+    @ColumnInfo(name = "cart_quantity", defaultValue = "1")
+    private float cartQuantity;
 
     public Quantity(int itemArticle, float cartQuantity) {
         this.itemArticle = itemArticle;

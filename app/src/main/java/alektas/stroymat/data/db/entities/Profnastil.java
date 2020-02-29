@@ -12,11 +12,13 @@ import androidx.room.PrimaryKey;
         foreignKeys = @ForeignKey(
                 entity = PricelistItem.class,
                 parentColumns = "article",
-                childColumns = "item_article"))
+                childColumns = "item_article",
+                onDelete = ForeignKey.CASCADE))
 public class Profnastil {
     @PrimaryKey
     @ColumnInfo(name = "item_article")
     private int itemArticle;
+    @ColumnInfo(defaultValue = "0.0")
     private float overlap;
 
     public Profnastil(int itemArticle, float overlap) {

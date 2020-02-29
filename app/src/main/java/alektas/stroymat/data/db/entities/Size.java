@@ -12,12 +12,15 @@ import androidx.room.PrimaryKey;
         foreignKeys = @ForeignKey(
                 entity = PricelistItem.class,
                 parentColumns = "article",
-                childColumns = "item_article"))
+                childColumns = "item_article",
+                onDelete = ForeignKey.CASCADE))
 public class Size {
     @PrimaryKey
     @ColumnInfo(name = "item_article")
     private int itemArticle;
+    @ColumnInfo(defaultValue = "0.0")
     private float length;
+    @ColumnInfo(defaultValue = "0.0")
     private float width;
 
     public Size(int itemArticle, float length, float width) {
