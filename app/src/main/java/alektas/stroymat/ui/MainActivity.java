@@ -39,24 +39,6 @@ import alektas.stroymat.ui.pricelist.PricelistFragment;
 import alektas.stroymat.ui.pricelist.PricelistViewModel;
 import alektas.stroymat.utils.ResourcesUtils;
 
-/**
- * Здравствуй, тот, кто решился поглубиться в дебри легаси-кода июля 2019 года.
- *
- * Прости меня.
- * Прости за отсутствие тестов.
- * Прости за отсутсвтвие документации.
- * Прости за транслит с русского.
- * Прости за спаггети-код.
- * Прости за хардкод.
- * Прости за корявое подобие архитектуры.
- * Прости и за многое другое, чего я не припомнил или о чем не ведаю.
- *
- * В оправдание лишь приведу крайне сжатые сроки,
- * минимальный шанс на получение достойной оплаты, отсутствие опыта
- * и уверенность в том, что сюда никто не заглянет.
- *
- * @author Alektas, студент-самоучка
- */
 public class MainActivity extends AppCompatActivity implements PricelistFragment.FragmentListener {
     private static final String TAG = "MainActivity";
     private PricelistViewModel mPricelistViewModel;
